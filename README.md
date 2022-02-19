@@ -31,6 +31,7 @@ USAGE
 <!-- commands -->
 * [`deepgram help [COMMAND]`](#deepgram-help-command)
 * [`deepgram projects`](#deepgram-projects)
+* [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
 
 ## `deepgram help [COMMAND]`
 
@@ -65,8 +66,43 @@ DESCRIPTION
 
 EXAMPLES
   $ deepgram projects
-  e.g. output! (./src/commands/projects/index.ts)
+  -----------------------------------------------------------------------
+  | project_id                           | name                         |
+  -----------------------------------------------------------------------
+  | 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68 | luke@lukeoliff.com's Project |
+  | 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0 | other project                |
+  -----------------------------------------------------------------------
 ```
 
 _See code: [dist/commands/projects/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/projects/index.ts)_
+
+## `deepgram projects get [PROJECT]`
+
+Retrieve a project your API key has access to manage.
+
+```
+USAGE
+  $ deepgram projects get [PROJECT]
+
+ARGUMENTS
+  PROJECT  Project ID
+
+DESCRIPTION
+  Retrieve a project your API key has access to manage.
+
+EXAMPLES
+  $ deepgram project get
+  -----------------------------------------------------------------------
+  | project_id                           | name                         |
+  -----------------------------------------------------------------------
+  | 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0 | other project                |
+  -----------------------------------------------------------------------
+
+  $ deepgram projects get 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68
+  -----------------------------------------------------------------------
+  | project_id                           | name                         |
+  -----------------------------------------------------------------------
+  | 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68 | luke@lukeoliff.com's Project |
+  -----------------------------------------------------------------------
+```
 <!-- commandsstop -->
