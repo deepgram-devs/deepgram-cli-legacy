@@ -21,6 +21,7 @@
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
     "@types/inquirer": "^8.2.0",
+    "asciify-image": "^0.1.8",
     "chalk": "^5.0.0",
     "inquirer": "^8.2.0",
     "jsontostringtable": "^1.0.2",
@@ -48,6 +49,7 @@
     "bin": "deepgram",
     "dirname": "deepgram",
     "commands": "./dist/commands",
+    "helpClass": "./dist/help",
     "plugins": [
       "@oclif/plugin-help"
     ],
