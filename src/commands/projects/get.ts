@@ -23,6 +23,7 @@ export default class GetProject extends AuthCommand {
 
   static examples = [
     `$ deepgram project get
+? Please enter a Project ID 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0
 -----------------------------------------------------------------------
 | project_id                           | name                         |
 -----------------------------------------------------------------------
