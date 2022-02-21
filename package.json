@@ -9,7 +9,7 @@
   "homepage": "https://github.com/lukeocodes/deepgram-cli",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "lukeocodes/deepgram-cli",
+  "repository": "git@github.com:lukeocodes/deepgram-cli.git",
   "files": [
     "/bin",
     "/dist",
