@@ -3,20 +3,27 @@
 ![Deepgram CLI](deepgram.png)
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/@deepgram/cli)
-[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/lukeocodes/deepgram-cli/tree/main)
-[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/@deepgram/cli)
-[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/lukeocodes/deepgram-cli/blob/main/package.json)
+[![Version](https://img.shields.io/npm/v/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
+[![CircleCI](https://circleci.com/gh/lukeocodes/deepgram-cli/tree/main.svg?style=shield)](https://circleci.com/gh/lukeocodes/deepgram-cli/tree/main)
+[![Downloads/week](https://img.shields.io/npm/dw/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
+[![License](https://img.shields.io/npm/l/@deepgram/cli.svg)](https://github.com/lukeocodes/deepgram-cli/blob/main/package.json)
 
-<!-- toc -->
-* [Deepgram CLI](#deepgram-cli)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+This is the Deepgram CLI. It is used to interact with the Deepgram API from the command line. It is built using [oclif](https://oclif.io/).
+
+For more about Deepgram see https://www.deepgram.com.
+
+To get started see https://console.deepgram.com.
+
+# Issues
+
+For problems directly related to the CLI, [add an issue on GitHub](https://github.com/lukeocodes/deepgram-cli/issues/new).
+
+For other issues, [submit a support ticket](https://developers.deepgram.com/support/).
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @deepgram/cli
 $ deepgram COMMAND
@@ -28,15 +35,17 @@ USAGE
   $ deepgram COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`deepgram help [COMMAND]`](#deepgram-help-command)
-* [`deepgram projects`](#deepgram-projects)
-* [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
-* [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
+
+- [`deepgram help [COMMAND]`](#deepgram-help-command)
+- [`deepgram projects`](#deepgram-projects)
+- [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
+- [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
 
 ## `deepgram help [COMMAND]`
 
@@ -136,4 +145,31 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/setup/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/setup/index.ts)_
+
 <!-- commandsstop -->
+
+# Developing
+
+This project can be cloned and ran locally.
+
+```sh-session
+$ yarn
+$ bin/dev
+$ bin/dev COMMAND
+running command...
+$ bin/dev (--version)
+@deepgram/cli/0.0.0 darwin-x64 node-v16.11.1
+$ bin/dev --help [COMMAND]
+USAGE
+  $ bin/dev COMMAND
+```
+
+# Contributors
+
+Would you like to contribute to this project? Check out our [contributing guide](./.github/CONTRIBUTING.md).
+
+<a href="https://github.com/lukeocodes/deepgram-cli/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lukeocodes/deepgram-cli" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
