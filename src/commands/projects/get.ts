@@ -1,8 +1,8 @@
-import AuthCommand from "../../auth";
+import AuthGuard from "../../guard";
 import inquirer from "inquirer";
 const tablize = require("jsontostringtable");
 
-export default class GetProject extends AuthCommand {
+export default class GetProject extends AuthGuard {
   static prompts = [
     {
       type: "input",

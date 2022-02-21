@@ -11,6 +11,14 @@ export default class Setup extends Command {
       type: "input",
       name: "api_key",
       message: "Please enter a Deepgram API Key",
+      require: true,
+      validate(input: string) {
+        return Promise.resolve().then(() => {
+          if (!!input.match(/([a-f0-9]{40})/g)) {
+            return true;
+          } else throw "Please provide a valid API key secret.";
+        });
+      },
     },
   ];
 
