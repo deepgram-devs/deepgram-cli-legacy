@@ -10,7 +10,7 @@ export default class Setup extends Command {
       // mask as a password
       type: "input",
       name: "api_key",
-      message: "Please enter a Deepgram API Key",
+      message: "Please enter a Deepgram API Key:",
       require: true,
       validate(input: string) {
         return Promise.resolve().then(() => {

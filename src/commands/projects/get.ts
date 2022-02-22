@@ -7,7 +7,7 @@ export default class GetProject extends AuthGuard {
     {
       type: "input",
       name: "project",
-      message: "Please enter a Project ID",
+      message: "Please enter a Project ID:",
     },
   ];
 
