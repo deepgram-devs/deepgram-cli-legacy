@@ -168,7 +168,7 @@ Run 'npm start' to get up and running.
 
             this.log("");
             this.log(chalk.greenBright("Setup complete."));
-            this.log(`Next, run 'cd ./${name}'. ${postBuild.message}`);
+            this.log(`Next, run 'cd ./${name}'. ${postBuild?.message}`);
           }
         });
       }
