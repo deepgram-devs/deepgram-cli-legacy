@@ -1,9 +1,8 @@
 import { EOL } from "os";
 import { open } from "fs/promises";
-import { PathLike, constants } from "fs";
+import { PathLike } from "fs";
 
 import AuthGuard from "../../guard";
-import chalk from "chalk";
 import inquirer from "inquirer";
 import path from "path";
 import toml from "toml";
