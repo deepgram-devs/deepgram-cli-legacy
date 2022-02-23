@@ -44,6 +44,7 @@ USAGE
 * [`deepgram projects`](#deepgram-projects)
 * [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
 * [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
+* [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
 
 ## `deepgram generate [TEMPLATE]`
 
@@ -174,6 +175,34 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/setup/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/setup/index.ts)_
+
+## `deepgram transcribe-file [FILE]`
+
+Transcribe a file.
+
+```
+USAGE
+  $ deepgram transcribe-file [FILE] [-o <value>] [--webvtt | --srt] [--raw]
+
+ARGUMENTS
+  FILE  File name or path
+
+FLAGS
+  -o, --output=<value>
+  --raw
+  --srt
+  --webvtt
+
+DESCRIPTION
+  Transcribe a file.
+
+EXAMPLES
+  $ deepgram transcribe-file test.mp3 --output=test.txt
+  File transcription saved to 'text.txt'
+  Transcription of 'test.mp3' successful.
+```
+
+_See code: [dist/commands/transcribe-file/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/transcribe-file/index.ts)_
 <!-- commandsstop -->
 
 # Writing Templates
