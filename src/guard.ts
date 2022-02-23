@@ -1,6 +1,5 @@
 import { Deepgram } from "@deepgram/sdk";
 import { Command } from "@oclif/core";
-import chalk from "chalk";
 import rc from "rc";
 
 export default abstract class AuthGuard extends Command {
