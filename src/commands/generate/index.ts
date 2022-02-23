@@ -1,6 +1,6 @@
 import { EOL } from "os";
 import { open } from "fs/promises";
-import { PathLike } from "fs";
+import { PathLike, createReadStream, createWriteStream } from "fs";
 
 import AuthGuard from "../../guard";
 import inquirer from "inquirer";
@@ -86,21 +86,29 @@ Run 'npm start' to get up and running.
           );
         }
 
-        const config = toml.parse(await file.readFile("utf-8"));
+        const {
+          build,
+          config,
+          "post-build": postBuild,
+        } = toml.parse(await file.readFile("utf-8"));
 
         if (!config) {
           this.error(`Unable to read config from 'deepgram.toml'.`);
         }
 
-        const command = config.build.command.split(" ");
+        const command = build.command.split(" ");
 
         this.log(`Running build command from './${name}/deepgram.toml'`);
-        this.log(`${EOL + INDENT}$ ${config.build.command}`);
-        const build = spawn(command.shift(), [...command, "--color=always"], {
-          cwd: buildDir,
-        });
+        this.log(`${EOL + INDENT}$ ${build.command}`);
+        const buildSpawn = spawn(
+          command.shift(),
+          [...command, ...(build.args || []), "--color=always"],
+          {
+            cwd: buildDir,
+          }
+        );
 
-        build.stdout.on("data", (data: any) => {
+        buildSpawn.stdout.on("data", (data: any) => {
           this.log(
             data
               .toString()
@@ -109,16 +117,57 @@ Run 'npm start' to get up and running.
           );
         });
 
-        build.stderr.on("data", (data: any) => {
+        buildSpawn.stderr.on("data", (data: any) => {
           this.log(`Error running build from './${name}/deepgram.toml'`);
           this.error(data);
         });
 
-        build.on("close", (code: Number) => {
+        buildSpawn.on("close", async (code: Number) => {
           if (code === 0) {
+            const samplePath: PathLike = `${buildDir}/${config.sample}`;
+            const sampleFh = await open(samplePath, "r").catch(() => null);
+
+            if (!sampleFh) {
+              this.error(`Unable to find '${config.sample}' in './${name}'`);
+            }
+
+            let sampleSrc = await sampleFh.readFile("utf-8");
+
+            if (!sampleSrc) {
+              this.error(`Unable to read '${config.sample}' in './${name}'`);
+            }
+
+            for (const key in this.appConfig) {
+              if (!this.appConfig.hasOwnProperty(key)) {
+                continue;
+              }
+              if (typeof this.appConfig[key] !== "string") {
+                continue;
+              }
+
+              sampleSrc = sampleSrc.replace(
+                new RegExp(`%${key}%`, "g"),
+                this.appConfig[key]
+              );
+            }
+
+            const configPath: PathLike = `${buildDir}/${config.output}`;
+            const configFh = await open(configPath, "w+").catch(() => null);
+
+            if (!configFh) {
+              this.error(`Unable to create '${config.output}' in './${name}'`);
+            }
+
+            try {
+              this.log(`Config file created at './${name}/${config.output}'`);
+              await configFh.writeFile(sampleSrc, "utf-8");
+            } catch (error: any) {
+              this.error(error);
+            }
+
             this.log(`Setup complete. You can now change into './${name}'`);
             this.log("");
-            this.log(config["post-build"].message);
+            this.log(postBuild.message);
           }
         });
       }
