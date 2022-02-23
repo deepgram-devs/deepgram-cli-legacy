@@ -1,8 +1,12 @@
 import AuthGuard from "../../guard";
 import inquirer from "inquirer";
+import { open } from "fs/promises";
+import { PathLike, constants } from "fs";
+import toml from "toml";
+import path from "path";
 
-// this repo is not maintained and has issues. fork/adopt
 const download = require("git-a-repo");
+const { spawn } = require("child_process");
 
 export default class Generate extends AuthGuard {
   static prompts = [
@@ -63,16 +67,46 @@ Run 'npm start' to get up and running.
       .shift();
 
     this.log(`Cloning '${template}' to './${name}'`);
-    download(template, name, (err: any) => {
+    download(template, name, async (err: any) => {
       if (err) {
         this.log(`Error occured trying to clone '${template}'.`);
         this.error(err);
       } else {
-        this.log(`Running 'npm install' from './${name}/deepgram.toml'`);
-        this.log("");
-        this.log(`Setup complete. You can now change directory to './${name}'`);
-        this.log("");
-        this.log(`Run 'npm start' to get up and running.`);
+        const buildDir: PathLike = path.resolve(`./${name}`);
+        const tomlPath: PathLike = `${buildDir}/deepgram.toml`;
+
+        const file = await open(tomlPath, "r").catch(() => null);
+
+        if (!file) {
+          this.error(
+            `The template project '${template}' has no 'deepgram.toml'`
+          );
+        }
+
+        const config = toml.parse(await file.readFile("utf-8"));
+
+        if (!config) {
+          this.error(`Unable to read config from 'deepgram.toml'.`);
+        }
+
+        const command = config.build.command.split(" ");
+        const build = spawn(command.shift(), [...command], { cwd: buildDir });
+
+        build.stdout.on("data", (data: any) => {
+          this.log(`stdout: ${data}`);
+        });
+
+        build.stderr.on("data", (data: any) => {
+          this.error(`stderr: ${data}`);
+        });
+
+        build.on("error", (err: any) => {
+          this.error(err);
+        });
+
+        build.on("close", (code: any) => {
+          this.log(`child process exited with code ${code}`);
+        });
       }
     });
   }

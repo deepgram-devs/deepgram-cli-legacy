@@ -20,17 +20,20 @@
     "@deepgram/sdk": "^1.2.1",
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
-    "@types/inquirer": "^8.2.0",
     "asciify-image": "^0.1.8",
     "chalk": "^5.0.0",
+    "concat-stream": "^2.0.0",
     "git-a-repo": "^0.0.0-development",
     "inquirer": "^8.2.0",
     "jsontostringtable": "^1.0.2",
-    "rc": "^1.2.8"
+    "rc": "^1.2.8",
+    "toml": "^3.0.0"
   },
   "devDependencies": {
     "@oclif/test": "^2",
     "@types/chai": "^4",
+    "@types/concat-stream": "^2.0.0",
+    "@types/inquirer": "^8.2.0",
     "@types/mocha": "^9.1.0",
     "@types/node": "^17.0.19",
     "@types/rc": "^1.2.0",
