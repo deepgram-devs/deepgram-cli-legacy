@@ -1,12 +1,16 @@
-import AuthGuard from "../../guard";
-import inquirer from "inquirer";
+import { EOL } from "os";
 import { open } from "fs/promises";
 import { PathLike, constants } from "fs";
-import toml from "toml";
+
+import AuthGuard from "../../guard";
+import chalk from "chalk";
+import inquirer from "inquirer";
 import path from "path";
+import toml from "toml";
 
 const download = require("git-a-repo");
 const { spawn } = require("child_process");
+const INDENT = "  ";
 
 export default class Generate extends AuthGuard {
   static prompts = [
@@ -90,22 +94,33 @@ Run 'npm start' to get up and running.
         }
 
         const command = config.build.command.split(" ");
-        const build = spawn(command.shift(), [...command], { cwd: buildDir });
+
+        this.log(`Running build command from './${name}/deepgram.toml'`);
+        this.log(`${EOL + INDENT}$ ${config.build.command}`);
+        const build = spawn(command.shift(), [...command, "--color=always"], {
+          cwd: buildDir,
+        });
 
         build.stdout.on("data", (data: any) => {
-          this.log(`stdout: ${data}`);
+          this.log(
+            data
+              .toString()
+              .split(EOL)
+              .join(EOL + INDENT)
+          );
         });
 
         build.stderr.on("data", (data: any) => {
-          this.error(`stderr: ${data}`);
+          this.log(`Error running build from './${name}/deepgram.toml'`);
+          this.error(data);
         });
 
-        build.on("error", (err: any) => {
-          this.error(err);
-        });
-
-        build.on("close", (code: any) => {
-          this.log(`child process exited with code ${code}`);
+        build.on("close", (code: Number) => {
+          if (code === 0) {
+            this.log(`Setup complete. You can now change into './${name}'`);
+            this.log("");
+            this.log(config["post-build"].message);
+          }
         });
       }
     });
