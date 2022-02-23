@@ -6,6 +6,7 @@ import AuthGuard from "../../guard";
 import inquirer from "inquirer";
 import path from "path";
 import toml from "toml";
+import chalk from "chalk";
 
 const download = require("git-a-repo");
 const { spawn } = require("child_process");
@@ -165,9 +166,9 @@ Run 'npm start' to get up and running.
               this.error(error);
             }
 
-            this.log(`Setup complete. You can now change into './${name}'`);
             this.log("");
-            this.log(postBuild.message);
+            this.log(chalk.greenBright("Setup complete."));
+            this.log(`Next, run 'cd ./${name}'. ${postBuild.message}`);
           }
         });
       }
