@@ -48,99 +48,103 @@ Transcription of 'test.mp3' successful.
     } = await this.parse(TranscribeFile);
 
     if (typeof file === "undefined") {
-      const answers = await inquirer.prompt(TranscribeFile.prompts);
+      const answers = await inquirer
+        .prompt(TranscribeFile.prompts)
+        .catch((err) => this.error(err));
       file = answers.template;
     }
 
-    try {
-      const filePath = resolve(file);
-      const mimetype = lookup(filePath);
+    const filePath = resolve(file);
 
-      if (!mimetype) {
-        this.error("not a readable file type");
-      }
+    const fh = await open(filePath, "r").catch((err) => this.error(err));
 
-      const fh = await open(filePath, "r");
+    if (!fh) {
+      this.error(`The file '${filePath}' cannot be read`);
+    }
 
-      if (!fh) {
-        this.error("file can't be read");
-      }
+    const mimetype = lookup(filePath);
 
-      const audioSource = {
-        stream: fh.createReadStream(),
-        mimetype,
-      };
+    if (!mimetype) {
+      this.error(`Cannot read mimetype from '${filePath}'`);
+    }
 
-      let outputFormat = "plain";
-      if (flags.srt) outputFormat = "srt";
-      if (flags.webvtt) outputFormat = "webvtt";
+    const audioSource = {
+      stream: fh.createReadStream(),
+      mimetype,
+    };
 
-      if (!flags.raw) {
-        this.log(`Starting transcription of '${file}'`);
-      }
+    let outputFormat = "plain";
+    if (flags.srt) outputFormat = "srt";
+    if (flags.webvtt) outputFormat = "webvtt";
 
-      const response = await this.deepgram.transcription.preRecorded(
-        audioSource,
-        {
-          version: "beta",
-          punctuate: true,
-          utterances: true,
-        }
+    if (!flags.raw) {
+      this.log(`Starting transcription of '${file}'`);
+    }
+
+    const response = await this.deepgram.transcription
+      .preRecorded(audioSource, {
+        version: "beta",
+        punctuate: true,
+        utterances: true,
+      })
+      .catch((err) => this.error(err));
+
+    if (!response.results) {
+      this.error(`Transcription of '${file}' failed.`);
+    }
+
+    if (!flags.raw) {
+      this.log(`Transcription of '${file}' successful.`);
+    }
+
+    let output;
+
+    switch (outputFormat) {
+      case "srt":
+        output = response.toSRT();
+        break;
+
+      case "webvtt":
+        output = response.toWebVTT();
+        break;
+
+      default:
+        output = response.results?.channels[0].alternatives[0].transcript;
+        break;
+    }
+
+    if (!output) {
+      this.error("An unknown formatting error has occured");
+    }
+
+    if (flags.output) {
+      const outputDir: PathLike = dirname(filePath);
+      const outputFile: PathLike = `${outputDir}/${flags.output}`;
+      const outputFh = await open(outputFile, "w+").catch((err) =>
+        this.error(err)
       );
 
+      if (!outputFh) {
+        this.error(
+          `Unable to create output file '${outputDir}/${flags.output}'`
+        );
+      }
+
+      try {
+        this.log(`File transcription saved to '${outputDir}/${flags.output}'`);
+        await outputFh
+          .writeFile(output, "utf-8")
+          .catch((err) => this.error(err));
+      } catch (err: any) {
+        this.error(err);
+      }
+    } else {
       if (!flags.raw) {
-        this.log(`Transcription of '${file}' successful.`);
-      }
-
-      let output;
-
-      switch (outputFormat) {
-        case "srt":
-          output = response.toSRT();
-          break;
-
-        case "webvtt":
-          output = response.toWebVTT();
-          break;
-
-        default:
-          output = response.results?.channels[0].alternatives[0].transcript;
-          break;
-      }
-
-      if (!output) {
-        this.error("An unknown formatting error has occured");
-      }
-
-      if (flags.output) {
-        const outputDir: PathLike = dirname(filePath);
-        const outputFile: PathLike = `${outputDir}/${flags.output}`;
-        const outputFh = await open(outputFile, "w+");
-
-        if (!outputFh) {
-          this.error(
-            `Unable to create output file '${outputDir}/${flags.output}'`
-          );
-        }
-
-        try {
-          this.log(
-            `File transcription saved to '${outputDir}/${flags.output}'`
-          );
-          await outputFh.writeFile(output, "utf-8");
-        } catch (error: any) {
-          this.error(error);
-        }
+        this.log("");
+        this.log(wrap(output, { width: 70 }));
       } else {
-        if (!flags.raw) {
-          this.log("");
-          this.log(wrap(output, { width: 70 }));
-        } else {
-          this.log(output);
-        }
+        this.log(output);
       }
-    } catch (error: any) {
-      this.error(error);
     }
   }
 }

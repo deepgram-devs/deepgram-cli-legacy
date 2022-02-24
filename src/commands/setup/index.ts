@@ -56,10 +56,17 @@ Config file created at ~/.deepgramrc
       args.api_key = apiKeyPrompt.api_key;
     }
 
-    let file = await open(filePath, "wx").catch(() => null);
+    let file = await open(filePath, "wx").catch((err) => {
+      if (err.code === "EEXIST") {
+        this.log(`Existing config file ${filePath} detected.`);
+        return;
+      }
+
+      throw err;
+    });
 
     if (!file) {
-      this.log(`Existing config file ${filePath} detected.`);
+      // this.log(`Existing config file ${filePath} detected.`);
       const overwritePrompt = await inquirer.prompt([
         {
           type: "confirm",
@@ -68,11 +75,13 @@ Config file created at ~/.deepgramrc
           default: overwrite,
         },
       ]);
+
       if (!overwritePrompt.overwrite) {
         this.error(
           `Config file ${filePath} already existed. Use cancelled overwrite.`
         );
       }
+
       this.log(`Overwriting the existing config file ${filePath}`);
       file = await open(filePath, "w").catch((err) => this.error(err));
     }
