@@ -1,6 +1,6 @@
 import { EOL } from "os";
 import { open } from "fs/promises";
-import { PathLike, createReadStream, createWriteStream } from "fs";
+import { PathLike } from "fs";
 
 import AuthGuard from "../../guard";
 import inquirer from "inquirer";
