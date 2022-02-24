@@ -4,7 +4,7 @@ import inquirer from "inquirer";
 import { open } from "fs/promises";
 import { resolve, dirname } from "path";
 import { lookup } from "mime-types";
-import { PathLike } from "fs";
+import { createReadStream, fstat, PathLike } from "fs";
 import wrap from "word-wrap";
 
 export default class TranscribeFile extends AuthGuard {
@@ -68,8 +68,19 @@ Transcription of 'test.mp3' successful.
       this.error(`Cannot read mimetype from '${filePath}'`);
     }
 
+    let stream;
+    if (typeof fh.createReadStream === "function") {
+      stream = fh.createReadStream();
+    } else {
+      stream = createReadStream(filePath);
+    }
+
+    if (!stream) {
+      this.error(`Cannot read file stream from '${filePath}'`);
+    }
+
     const audioSource = {
-      stream: fh.createReadStream(),
+      stream,
       mimetype,
     };
 
