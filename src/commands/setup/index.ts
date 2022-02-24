@@ -4,6 +4,12 @@ import { open } from "fs/promises";
 
 const homedir = require("os").homedir();
 
+const validateApiKey = (input: string) => {
+  if (/([a-f0-9]{40})/g.test(input)) {
+    return true;
+  } else throw "Please provide a valid API key secret.";
+};
+
 export default class Setup extends Command {
   static prompts = [
     {
@@ -12,13 +18,7 @@ export default class Setup extends Command {
       name: "api_key",
       message: "Please enter a Deepgram API Key:",
       require: true,
-      validate(input: string) {
-        return Promise.resolve().then(() => {
-          if (!!input.match(/([a-f0-9]{40})/g)) {
-            return true;
-          } else throw "Please provide a valid API key secret.";
-        });
-      },
+      validate: validateApiKey,
     },
   ];
 
@@ -47,13 +47,21 @@ Config file created at ~/.deepgramrc
   ];
 
   public async run(): Promise<void> {
-    const { args } = await this.parse(Setup);
+    let {
+      args: { api_key },
+    } = await this.parse(Setup);
     const filePath = `${homedir}/.deepgramrc`;
     let overwrite = false;
 
-    if (typeof args.api_key === "undefined") {
+    if (typeof api_key !== "undefined") {
+      try {
+        validateApiKey(api_key);
+      } catch (err: any) {
+        this.error(err);
+      }
+    } else {
       const apiKeyPrompt = await inquirer.prompt(Setup.prompts);
-      args.api_key = apiKeyPrompt.api_key;
+      api_key = apiKeyPrompt.api_key;
     }
 
     let file = await open(filePath, "wx").catch((err) => {
@@ -87,7 +95,7 @@ Config file created at ~/.deepgramrc
     }
 
     this.log(`Config file created at ${filePath}`);
-    const data = Buffer.from(JSON.stringify({ api_key: args.api_key }));
+    const data = Buffer.from(JSON.stringify({ api_key }));
     await file.write(data).catch((err) => this.error(err));
   }
 }
