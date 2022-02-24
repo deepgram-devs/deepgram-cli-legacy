@@ -52,29 +52,29 @@ Transcription of 'test.mp3' successful.
       file = answers.template;
     }
 
-    const filePath = resolve(file);
-    const mimetype = lookup(filePath);
-
-    if (!mimetype) {
-      this.error("not a readable file type");
-    }
-
-    const fh = await open(filePath, "r").catch(() => null);
-
-    if (!fh) {
-      this.error("file can't be read");
-    }
-
-    const audioSource = {
-      stream: fh.createReadStream(),
-      mimetype,
-    };
-
-    let outputFormat = "plain";
-    if (flags.srt) outputFormat = "srt";
-    if (flags.webvtt) outputFormat = "webvtt";
-
     try {
+      const filePath = resolve(file);
+      const mimetype = lookup(filePath);
+
+      if (!mimetype) {
+        this.error("not a readable file type");
+      }
+
+      const fh = await open(filePath, "r");
+
+      if (!fh) {
+        this.error("file can't be read");
+      }
+
+      const audioSource = {
+        stream: fh.createReadStream(),
+        mimetype,
+      };
+
+      let outputFormat = "plain";
+      if (flags.srt) outputFormat = "srt";
+      if (flags.webvtt) outputFormat = "webvtt";
+
       if (!flags.raw) {
         this.log(`Starting transcription of '${file}'`);
       }
@@ -115,7 +115,7 @@ Transcription of 'test.mp3' successful.
       if (flags.output) {
         const outputDir: PathLike = dirname(filePath);
         const outputFile: PathLike = `${outputDir}/${flags.output}`;
-        const outputFh = await open(outputFile, "w+").catch(() => null);
+        const outputFh = await open(outputFile, "w+");
 
         if (!outputFh) {
           this.error(
