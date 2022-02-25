@@ -27,6 +27,7 @@
     "inquirer": "^8.2.0",
     "jsontostringtable": "^1.0.2",
     "mime-types": "^2.1.34",
+    "naudiodon": "^2.3.6",
     "rc": "^1.2.8",
     "toml": "^3.0.0",
     "word-wrap": "^1.2.3"
