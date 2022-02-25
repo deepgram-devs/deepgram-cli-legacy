@@ -26,7 +26,6 @@ export default class TranscribeFile extends AuthGuard {
   ];
 
   static flags = {
-    // can pass either --force or -f
     output: Flags.string({ char: "o", required: false }),
     webvtt: Flags.boolean({ exclusive: ["srt"] }),
     srt: Flags.boolean({ exclusive: ["webvtt"] }),
