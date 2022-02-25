@@ -5589,6 +5589,11 @@ strip-outer@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
+supported-formats@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/supported-formats/-/supported-formats-1.0.9.tgz#0720f50225022865273625daaff607572a5acba8"
+  integrity sha512-HCQbzHPJ4oRoF1zMKx8Awso/Zrlpm7bDsIbIV3Q+jC35NyKQVXRTB3WwAuXYnCCPc7rCX+xOztlNmp7thE7JRw==
+
 supports-color@8.1.1, supports-color@^8.1.0, supports-color@^8.1.1:
   version "8.1.1"
   resolved "https://registry.npmjs.org/supports-color/-/supports-color-8.1.1.tgz"

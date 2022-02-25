@@ -6,6 +6,7 @@ import { resolve, dirname } from "path";
 import { lookup } from "mime-types";
 import { createReadStream, fstat, PathLike } from "fs";
 import wrap from "word-wrap";
+import { supported } from "supported-formats";
 
 export default class TranscribeFile extends AuthGuard {
   static prompts = [
@@ -55,6 +56,12 @@ Transcription of 'test.mp3' successful.
     }
 
     const filePath = resolve(file);
+
+    try {
+      supported(filePath);
+    } catch (err: any) {
+      this.error(err);
+    }
 
     const fh = await open(filePath, "r").catch((err) => this.error(err));
 
