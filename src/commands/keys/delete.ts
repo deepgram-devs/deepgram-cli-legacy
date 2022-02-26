@@ -41,7 +41,7 @@ export default class DeleteKey extends AuthGuard {
     },
   ];
 
-  static description = "Retrieve all keys for a given project";
+  static description = "Delete an API key from a project";
 
   static examples = [
     `$ deepgram keys
