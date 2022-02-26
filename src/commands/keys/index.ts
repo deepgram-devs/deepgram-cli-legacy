@@ -1,24 +1,8 @@
 import AuthGuard from "../../guard";
 import inquirer from "inquirer";
 
-const tablize = require("jsontostringtable");
-
 const uuidPattern =
   /\b[a-f0-9]{8}\b-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-\b[a-f0-9]{12}\b/;
-
-export declare type Key = {
-  member: {
-    member_id: string;
-    email: string;
-  };
-  api_key: {
-    api_key_id: string;
-    key?: string;
-    comment: string;
-    created: string;
-    scopes: Array<string>;
-  };
-};
 
 const validateUuid = (input: string) => {
   if (uuidPattern.test(input)) {
@@ -34,6 +18,8 @@ export default class Keys extends AuthGuard {
       type: "input",
       name: "project",
       message: "Please enter a Project ID:",
+      require: true,
+      validate: validateUuid,
     },
   ];
 
