@@ -1,23 +1,16 @@
 import { Command, Flags } from "@oclif/core";
 import inquirer from "inquirer";
 import { open } from "fs/promises";
+import { validateApiKey } from "../../validator/apiKey";
 
 const homedir = require("os").homedir();
-
-const validateApiKey = (input: string) => {
-  if (/([a-f0-9]{40})/g.test(input)) {
-    return true;
-  } else throw "Please provide a valid API key secret.";
-};
 
 export default class Setup extends Command {
   static prompts = [
     {
-      // mask as a password
-      type: "input",
+      type: "password",
       name: "api_key",
       message: "Please enter a Deepgram API Key:",
-      require: true,
       validate: validateApiKey,
     },
   ];
@@ -47,22 +40,10 @@ Config file created at ~/.deepgramrc
   ];
 
   public async run(): Promise<void> {
-    let {
-      args: { api_key },
-    } = await this.parse(Setup);
-    const filePath = `${homedir}/.deepgramrc`;
-    let overwrite = false;
+    let { args } = await this.parse(Setup);
+    args = await inquirer.prompt(Setup.prompts, args);
 
-    if (typeof api_key !== "undefined") {
-      try {
-        validateApiKey(api_key);
-      } catch (err: any) {
-        this.error(err);
-      }
-    } else {
-      const apiKeyPrompt = await inquirer.prompt(Setup.prompts);
-      api_key = apiKeyPrompt.api_key;
-    }
+    const filePath = `${homedir}/.deepgramrc`;
 
     let file = await open(filePath, "wx").catch((err) => {
       if (err.code === "EEXIST") {
@@ -73,8 +54,9 @@ Config file created at ~/.deepgramrc
       throw err;
     });
 
+    let overwrite = false;
+
     if (!file) {
-      // this.log(`Existing config file ${filePath} detected.`);
       const overwritePrompt = await inquirer.prompt([
         {
           type: "confirm",
@@ -95,7 +77,7 @@ Config file created at ~/.deepgramrc
     }
 
     this.log(`Config file created at ${filePath}`);
-    const data = Buffer.from(JSON.stringify({ api_key }));
+    const data = Buffer.from(JSON.stringify({ api_key: args.api_key }));
     await file.write(data).catch((err) => this.error(err));
   }
 }
