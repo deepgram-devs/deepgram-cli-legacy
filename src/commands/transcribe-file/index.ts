@@ -2,18 +2,22 @@ import { Flags } from "@oclif/core";
 import AuthGuard from "../../guard";
 import inquirer from "inquirer";
 import { open } from "fs/promises";
-import { resolve, dirname } from "path";
+import { resolve, dirname, normalize } from "path";
 import { lookup } from "mime-types";
-import { createReadStream, fstat, PathLike } from "fs";
+import { createReadStream, PathLike } from "fs";
 import wrap from "word-wrap";
 import { supported } from "supported-formats";
+import { validatePathLike } from "../../validator/validatePathLike";
+
+const homedir = require("os").homedir();
 
 export default class TranscribeFile extends AuthGuard {
   static prompts = [
     {
       type: "input",
       name: "file",
-      message: "Enter a file name or path transcribe:",
+      message: "Enter a file name or path to transcribe:",
+      validate: validatePathLike,
     },
   ];
 
@@ -42,19 +46,11 @@ Transcription of 'test.mp3' successful.
   ];
 
   public async run(): Promise<void> {
-    let {
-      args: { file },
-      flags,
-    } = await this.parse(TranscribeFile);
+    let { args, flags } = await this.parse(TranscribeFile);
+    args = await inquirer.prompt(TranscribeFile.prompts, args);
+    args.file = args.file.replace(/^~\//, `${homedir}/`);
 
-    if (typeof file === "undefined") {
-      const answers = await inquirer
-        .prompt(TranscribeFile.prompts)
-        .catch((err) => this.error(err));
-      file = answers.template;
-    }
-
-    const filePath = resolve(file);
+    const filePath = resolve(args.file);
 
     try {
       supported(filePath);
@@ -95,7 +91,7 @@ Transcription of 'test.mp3' successful.
     if (flags.webvtt) outputFormat = "webvtt";
 
     if (!flags.raw) {
-      this.log(`Starting transcription of '${file}'`);
+      this.log(`Starting transcription of '${args.file}'`);
     }
 
     const response = await this.deepgram.transcription
@@ -107,11 +103,11 @@ Transcription of 'test.mp3' successful.
       .catch((err: any) => this.error(err));
 
     if (!response.results) {
-      this.error(`Transcription of '${file}' failed.`);
+      this.error(`Transcription of '${args.file}' failed.`);
     }
 
     if (!flags.raw) {
-      this.log(`Transcription of '${file}' successful.`);
+      this.log(`Transcription of '${args.file}' successful.`);
     }
 
     let output;
