@@ -7,6 +7,7 @@ import inquirer from "inquirer";
 import path from "path";
 import toml from "toml";
 import chalk from "chalk";
+import { validateTemplateName } from "../../validator/templateName";
 
 const download = require("git-a-repo");
 const { spawn } = require("child_process");
@@ -18,6 +19,7 @@ export default class Generate extends AuthGuard {
       type: "input",
       name: "template",
       message: "Enter a template name or a template repo URL:",
+      validate: validateTemplateName,
     },
   ];
 
@@ -53,27 +55,21 @@ Run 'npm start' to get up and running.
   ];
 
   public async run(): Promise<void> {
-    let {
-      args: { template },
-    } = await this.parse(Generate);
-
-    if (typeof template === "undefined") {
-      const answers = await inquirer.prompt(Generate.prompts);
-      template = answers.template;
-    }
+    let { args } = await this.parse(Generate);
+    args = await inquirer.prompt(Generate.prompts, args);
 
     // extract the folder name from the repo or url provided
-    const name = template
+    const name = args.template
       .replace(/\/$/, "")
       .split("/")
       .pop()
       .split(".")
       .shift();
 
-    this.log(`Cloning '${template}' to './${name}'`);
-    download(template, name, async (err: any) => {
+    this.log(`Cloning '${args.template}' to './${name}'`);
+    download(args.template, name, async (err: any) => {
       if (err) {
-        this.log(`Error occured trying to clone '${template}'.`);
+        this.log(`Error occured trying to clone '${args.template}'.`);
         this.error(err);
       } else {
         const buildDir: PathLike = path.resolve(`./${name}`);
@@ -83,7 +79,7 @@ Run 'npm start' to get up and running.
 
         if (!file) {
           this.error(
-            `The template project '${template}' has no 'deepgram.toml'`
+            `The template project '${args.template}' has no 'deepgram.toml'`
           );
         }
 
