@@ -43,6 +43,9 @@ USAGE
 <!-- commands -->
 * [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
 * [`deepgram help [COMMAND]`](#deepgram-help-command)
+* [`deepgram keys [PROJECT]`](#deepgram-keys-project)
+* [`deepgram keys create [PROJECT]`](#deepgram-keys-create-project)
+* [`deepgram keys delete [PROJECT] [API_KEY_ID]`](#deepgram-keys-delete-project-api_key_id)
 * [`deepgram projects`](#deepgram-projects)
 * [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
 * [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
@@ -98,6 +101,54 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.11/src/commands/help.ts)_
+
+## `deepgram keys [PROJECT]`
+
+Retrieve all API keys for a given project
+
+```
+USAGE
+  $ deepgram keys [PROJECT]
+
+ARGUMENTS
+  PROJECT  Project ID
+
+DESCRIPTION
+  Retrieve all API keys for a given project
+```
+
+_See code: [dist/commands/keys/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/keys/index.ts)_
+
+## `deepgram keys create [PROJECT]`
+
+Create an API key for a project
+
+```
+USAGE
+  $ deepgram keys create [PROJECT]
+
+ARGUMENTS
+  PROJECT  Project ID
+
+DESCRIPTION
+  Create an API key for a project
+```
+
+## `deepgram keys delete [PROJECT] [API_KEY_ID]`
+
+Delete an API key from a project
+
+```
+USAGE
+  $ deepgram keys delete [PROJECT] [API_KEY_ID]
+
+ARGUMENTS
+  PROJECT     Project ID
+  API_KEY_ID  API key ID
+
+DESCRIPTION
+  Delete an API key from a project
+```
 
 ## `deepgram projects`
 
