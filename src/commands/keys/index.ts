@@ -18,7 +18,6 @@ export default class Keys extends AuthGuard {
       type: "input",
       name: "project",
       message: "Please enter a Project ID:",
-      require: true,
       validate: validateUuid,
     },
   ];
@@ -31,35 +30,15 @@ export default class Keys extends AuthGuard {
     },
   ];
 
-  static description = "Retrieve all keys for a given project";
+  static description = "Retrieve all API keys for a given project";
 
-  static examples = [
-    `$ deepgram keys
-? Please enter a Project ID 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0
-...
-`,
-    `$ deepgram keys 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68
-...
-`,
-  ];
+  static examples = [];
 
   public async run(): Promise<void> {
-    let {
-      args: { project },
-    } = await this.parse(Keys);
+    let { args } = await this.parse(Keys);
+    args = await inquirer.prompt(Keys.prompts, args);
 
-    if (typeof project !== "undefined") {
-      try {
-        validateUuid(project);
-      } catch (err: any) {
-        this.error(err);
-      }
-    } else {
-      const answers = await inquirer.prompt(Keys.prompts);
-      project = answers.project;
-    }
-
-    const { api_keys } = await this.deepgram.keys.list(project);
+    const { api_keys } = await this.deepgram.keys.list(args.project);
 
     console.log(api_keys);
   }
