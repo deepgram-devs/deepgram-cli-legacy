@@ -1,25 +1,9 @@
 import AuthGuard from "../../guard";
 import inquirer from "inquirer";
+import { validateProjectID } from "../../validator/projectId";
+import { validateApiKeyName } from "../../validator/apiKeyName";
+
 const tablize = require("jsontostringtable");
-
-const uuidPattern =
-  /\b[a-f0-9]{8}\b-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-\b[a-f0-9]{12}\b/;
-
-const validateUuid = (input: string) => {
-  if (uuidPattern.test(input)) {
-    return true;
-  }
-
-  throw Error("Please provide a valid ID.");
-};
-
-const validateApiKeyName = (input: string) => {
-  if (input !== "") {
-    return true;
-  }
-
-  throw Error("Please provide a name for the API key.");
-};
 
 export default class CreateKey extends AuthGuard {
   static prompts = [
@@ -27,7 +11,7 @@ export default class CreateKey extends AuthGuard {
       type: "input",
       name: "project",
       message: "Please enter a Project ID:",
-      validate: validateUuid,
+      validate: validateProjectID,
     },
     {
       type: "list",
