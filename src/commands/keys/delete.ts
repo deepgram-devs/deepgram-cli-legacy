@@ -43,15 +43,7 @@ export default class DeleteKey extends AuthGuard {
 
   static description = "Delete an API key from a project";
 
-  static examples = [
-    `$ deepgram keys
-? Please enter a Project ID 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0
-...
-`,
-    `$ deepgram keys 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68
-...
-`,
-  ];
+  static examples = [];
 
   public async run(): Promise<void> {
     let { args } = await this.parse(DeleteKey);
