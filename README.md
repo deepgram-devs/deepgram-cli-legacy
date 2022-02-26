@@ -8,6 +8,8 @@
 [![Downloads/week](https://img.shields.io/npm/dw/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
 [![License](https://img.shields.io/npm/l/@deepgram/cli.svg)](https://github.com/lukeocodes/deepgram-cli/blob/main/package.json)
 
+## This project is in active development and commands are likely to change without warning or deprecation.
+
 This is the Deepgram CLI. It is used to interact with the Deepgram API from the command line. It is built using [oclif](https://oclif.io/).
 
 For more about Deepgram see https://www.deepgram.com.
@@ -23,6 +25,7 @@ For other issues, [submit a support ticket](https://developers.deepgram.com/supp
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @deepgram/cli
 $ deepgram COMMAND
@@ -34,17 +37,19 @@ USAGE
   $ deepgram COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
-* [`deepgram help [COMMAND]`](#deepgram-help-command)
-* [`deepgram projects`](#deepgram-projects)
-* [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
-* [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
-* [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
+
+- [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
+- [`deepgram help [COMMAND]`](#deepgram-help-command)
+- [`deepgram projects`](#deepgram-projects)
+- [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
+- [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
+- [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
 
 ## `deepgram generate [TEMPLATE]`
 
@@ -203,6 +208,7 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/transcribe-file/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/transcribe-file/index.ts)_
+
 <!-- commandsstop -->
 
 # Writing Templates
