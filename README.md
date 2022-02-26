@@ -25,7 +25,6 @@ For other issues, [submit a support ticket](https://developers.deepgram.com/supp
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @deepgram/cli
 $ deepgram COMMAND
@@ -37,19 +36,17 @@ USAGE
   $ deepgram COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
-- [`deepgram help [COMMAND]`](#deepgram-help-command)
-- [`deepgram projects`](#deepgram-projects)
-- [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
-- [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
-- [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
+* [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
+* [`deepgram help [COMMAND]`](#deepgram-help-command)
+* [`deepgram projects`](#deepgram-projects)
+* [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
+* [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
+* [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
 
 ## `deepgram generate [TEMPLATE]`
 
@@ -208,7 +205,6 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/transcribe-file/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/transcribe-file/index.ts)_
-
 <!-- commandsstop -->
 
 # Writing Templates
