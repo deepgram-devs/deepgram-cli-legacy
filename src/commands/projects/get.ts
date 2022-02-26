@@ -1,6 +1,9 @@
 import AuthGuard from "../../guard";
 import inquirer from "inquirer";
+import { validateProjectID } from "../../validator/projectId";
 const tablize = require("jsontostringtable");
+
+validateProjectID;
 
 export default class GetProject extends AuthGuard {
   static prompts = [
@@ -8,6 +11,7 @@ export default class GetProject extends AuthGuard {
       type: "input",
       name: "project",
       message: "Please enter a Project ID:",
+      validate: validateProjectID,
     },
   ];
 
@@ -40,21 +44,13 @@ export default class GetProject extends AuthGuard {
   ];
 
   async run(): Promise<void> {
-    const { args } = await this.parse(GetProject);
+    let { args } = await this.parse(GetProject);
+    args = await inquirer.prompt(GetProject.prompts, args);
 
-    Promise.resolve()
-      .then(() => {
-        if (typeof args.project === "undefined") {
-          return inquirer.prompt(GetProject.prompts).then((answers) => {
-            args.project = answers.project;
-          });
-        }
-      })
-      .then(() => {
-        return this.deepgram.projects.get(args.project);
-      })
-      .then((project) => {
-        this.log(tablize([project]));
-      });
+    const project = await this.deepgram.projects
+      .get(args.project)
+      .catch((err) => this.error(err));
+
+    this.log(tablize([project]));
   }
 }

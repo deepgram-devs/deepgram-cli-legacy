@@ -17,7 +17,10 @@ export default class ListProjects extends AuthGuard {
   ];
 
   async run(): Promise<void> {
-    const { projects } = await this.deepgram.projects.list();
+    const { projects } = await this.deepgram.projects
+      .list()
+      .catch((err) => this.error(err));
+
     this.log(tablize(projects));
   }
 }
