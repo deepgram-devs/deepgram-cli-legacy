@@ -104,7 +104,7 @@ Transcription of 'test.mp3' successful.
         punctuate: true,
         utterances: true,
       })
-      .catch((err) => this.error(err));
+      .catch((err: any) => this.error(err));
 
     if (!response.results) {
       this.error(`Transcription of '${file}' failed.`);
