@@ -41,6 +41,7 @@ USAGE
 # Commands
 
 <!-- commands -->
+* [`deepgram fields [PROJECT]`](#deepgram-fields-project)
 * [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
 * [`deepgram help [COMMAND]`](#deepgram-help-command)
 * [`deepgram keys [PROJECT]`](#deepgram-keys-project)
@@ -48,8 +49,28 @@ USAGE
 * [`deepgram keys delete [PROJECT] [API_KEY_ID]`](#deepgram-keys-delete-project-api_key_id)
 * [`deepgram projects`](#deepgram-projects)
 * [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
+* [`deepgram requests [PROJECT]`](#deepgram-requests-project)
+* [`deepgram requests get [PROJECT] [REQUEST]`](#deepgram-requests-get-project-request)
 * [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
 * [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
+* [`deepgram usage [PROJECT]`](#deepgram-usage-project)
+
+## `deepgram fields [PROJECT]`
+
+List features used by the provided project
+
+```
+USAGE
+  $ deepgram fields [PROJECT]
+
+ARGUMENTS
+  PROJECT  Project ID
+
+DESCRIPTION
+  List features used by the provided project
+```
+
+_See code: [dist/commands/fields/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/fields/index.ts)_
 
 ## `deepgram generate [TEMPLATE]`
 
@@ -204,6 +225,45 @@ EXAMPLES
   -----------------------------------------------------------------------
 ```
 
+## `deepgram requests [PROJECT]`
+
+Retrieves transcription requests for a project
+
+```
+USAGE
+  $ deepgram requests [PROJECT] [--page <value>] [--raw | --json] [-l <value>]
+
+ARGUMENTS
+  PROJECT  Project ID
+
+FLAGS
+  -l, --limit=<value>  [default: 10]
+  --json
+  --page=<value>
+  --raw
+
+DESCRIPTION
+  Retrieves transcription requests for a project
+```
+
+_See code: [dist/commands/requests/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/requests/index.ts)_
+
+## `deepgram requests get [PROJECT] [REQUEST]`
+
+Retrieves a specific transcription request for a project
+
+```
+USAGE
+  $ deepgram requests get [PROJECT] [REQUEST]
+
+ARGUMENTS
+  PROJECT  Project ID
+  REQUEST  Request ID
+
+DESCRIPTION
+  Retrieves a specific transcription request for a project
+```
+
 ## `deepgram setup [API_KEY]`
 
 Writes a config file for the API key to a default location (can be overridden).
@@ -256,6 +316,23 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/transcribe-file/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/transcribe-file/index.ts)_
+
+## `deepgram usage [PROJECT]`
+
+Retrieves aggregated usage data for a project
+
+```
+USAGE
+  $ deepgram usage [PROJECT]
+
+ARGUMENTS
+  PROJECT  Project ID
+
+DESCRIPTION
+  Retrieves aggregated usage data for a project
+```
+
+_See code: [dist/commands/usage/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/usage/index.ts)_
 <!-- commandsstop -->
 
 # Writing Templates
