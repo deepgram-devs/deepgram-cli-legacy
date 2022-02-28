@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
-import AuthGuard from "../../guard";
+import AuthGuard from "../../../guard";
 import inquirer from "inquirer";
-import { validateProjectID } from "../../validator/projectId";
+import { validateProjectID } from "../../../validator/projectId";
 import { EOL } from "os";
 import { UsageRequestList } from "@deepgram/sdk/dist/types";
 

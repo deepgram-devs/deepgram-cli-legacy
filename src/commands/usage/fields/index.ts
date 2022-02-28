@@ -1,6 +1,6 @@
-import AuthGuard from "../../guard";
+import AuthGuard from "../../../guard";
 import inquirer from "inquirer";
-import { validateProjectID } from "../../validator/projectId";
+import { validateProjectID } from "../../../validator/projectId";
 
 export default class Fields extends AuthGuard {
   static prompts = [
