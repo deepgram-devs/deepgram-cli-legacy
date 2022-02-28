@@ -2,7 +2,7 @@ import AuthGuard from "../../guard";
 import inquirer from "inquirer";
 import { validateProjectID } from "../../validator/projectId";
 
-export default class Usage extends AuthGuard {
+export default class Fields extends AuthGuard {
   static prompts = [
     {
       type: "input",
@@ -20,15 +20,15 @@ export default class Usage extends AuthGuard {
     },
   ];
 
-  static description = "Retrieves aggregated usage data for a project";
+  static description = "List features used by the provided project";
 
   static examples = [];
 
   public async run(): Promise<void> {
-    let { args } = await this.parse(Usage);
-    args = await inquirer.prompt(Usage.prompts, args);
+    let { args } = await this.parse(Fields);
+    args = await inquirer.prompt(Fields.prompts, args);
 
-    const output = this.deepgram.usage.getUsage(args.project);
+    const output = this.deepgram.usage.getFields(args.project);
 
     this.log(JSON.stringify(output));
   }
