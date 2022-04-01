@@ -236,10 +236,10 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
-"@deepgram/sdk@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@deepgram/sdk/-/sdk-1.2.2.tgz#6de682ce79e38fe32ab050f032837d8529381d3e"
-  integrity sha512-Vj20jCc56AKTk9Bo6Wt43J/u9tlaza7vv61XaBOsmn0Xj6tZUsbib7wSLlxtR1WaptTajHaR3uidtNXmhjaoiQ==
+"@deepgram/sdk@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@deepgram/sdk/-/sdk-1.3.0.tgz#d721c74deba7c484d659a358e0c013d37493d2e0"
+  integrity sha512-Qx78Fv6WVQaFhQ9576fT1EPK6MNOLFYuVmrFACZEeak604rOv9nTGtWutQQxGr3qgLpMt+9zpyPjBpON5KEqBA==
   dependencies:
     ws "^7.5.5"
 
