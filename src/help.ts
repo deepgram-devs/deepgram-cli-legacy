@@ -8,7 +8,7 @@ export default class CliHelp extends Help {
   }
 
   header() {
-    return ["", logo, "          The Deepgram CLI"].join("\n\n");
+    return ["", logo, "           The Deepgram CLI"].join("\n\n");
   }
 
   version() {
