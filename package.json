@@ -49,7 +49,7 @@
     "oclif": "^2",
     "shx": "^0.3.4",
     "supported-formats": "^1.0.9",
-    "ts-node": "^10.5.0",
+    "ts-node": "^10.7.0",
     "tslib": "^2.3.1",
     "typescript": "^4.5.5"
   },
