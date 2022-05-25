@@ -1,11 +1,9 @@
-import AuthGuard from "../../guard";
+import SecureCommand from "../../secure";
 import inquirer from "inquirer";
 import { validateProjectID } from "../../validator/projectId";
 const tablize = require("jsontostringtable");
 
-validateProjectID;
-
-export default class GetProject extends AuthGuard {
+export default class GetProject extends SecureCommand {
   static prompts = [
     {
       type: "input",

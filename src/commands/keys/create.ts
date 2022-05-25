@@ -1,11 +1,11 @@
-import AuthGuard from "../../guard";
+import SecureCommand from "../../secure";
 import inquirer from "inquirer";
 import { validateProjectID } from "../../validator/projectId";
 import { validateApiKeyName } from "../../validator/apiKeyName";
 
 const tablize = require("jsontostringtable");
 
-export default class CreateKey extends AuthGuard {
+export default class CreateKey extends SecureCommand {
   static prompts = [
     {
       type: "input",

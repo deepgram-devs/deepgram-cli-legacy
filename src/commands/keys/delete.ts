@@ -1,9 +1,9 @@
-import AuthGuard from "../../guard";
+import SecureCommand from "../../secure";
 import inquirer from "inquirer";
 import { validateProjectID } from "../../validator/projectId";
 import { validateApiKeyID } from "../../validator/apiKeyId";
 
-export default class DeleteKey extends AuthGuard {
+export default class DeleteKey extends SecureCommand {
   static prompts = [
     {
       type: "input",

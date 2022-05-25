@@ -1,7 +1,7 @@
-import AuthGuard from "../../guard";
+import SecureCommand from "../../secure";
 const tablize = require("jsontostringtable");
 
-export default class ListProjects extends AuthGuard {
+export default class ListProjects extends SecureCommand {
   static description =
     "Retrieve all projects your API key has access to manage.";
 

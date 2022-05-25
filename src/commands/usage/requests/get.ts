@@ -1,9 +1,9 @@
-import AuthGuard from "../../../guard";
+import SecureCommand from "../../../secure";
 import inquirer from "inquirer";
 import { validateProjectID } from "../../../validator/projectId";
 import { validateRequestID } from "../../../validator/requestId";
 
-export default class GetRequest extends AuthGuard {
+export default class GetRequest extends SecureCommand {
   static prompts = [
     {
       type: "input",

@@ -2,7 +2,7 @@ import { Deepgram } from "@deepgram/sdk";
 import { Command } from "@oclif/core";
 import rc from "rc";
 
-export default abstract class AuthGuard extends Command {
+export default abstract class SecureCommand extends Command {
   deepgram: Deepgram;
   appConfig: {
     [key: string]: string;

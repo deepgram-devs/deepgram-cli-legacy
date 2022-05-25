@@ -2,7 +2,7 @@ import { EOL } from "os";
 import { open } from "fs/promises";
 import { PathLike } from "fs";
 
-import AuthGuard from "../../guard";
+import SecureCommand from "../../secure";
 import inquirer from "inquirer";
 import path from "path";
 import toml from "toml";
@@ -13,7 +13,7 @@ const download = require("git-a-repo");
 const { spawn } = require("child_process");
 const INDENT = "  ";
 
-export default class Generate extends AuthGuard {
+export default class Generate extends SecureCommand {
   static prompts = [
     {
       type: "input",

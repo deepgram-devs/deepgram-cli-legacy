@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import AuthGuard from "../../guard";
+import SecureCommand from "../../secure";
 import inquirer from "inquirer";
 import { open } from "fs/promises";
 import { resolve, dirname, normalize } from "path";
@@ -11,7 +11,7 @@ import { validatePathLike } from "../../validator/validatePathLike";
 
 const homedir = require("os").homedir();
 
-export default class TranscribeFile extends AuthGuard {
+export default class TranscribeFile extends SecureCommand {
   static prompts = [
     {
       type: "input",

@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import AuthGuard from "../../../guard";
+import SecureCommand from "../../../secure";
 import inquirer from "inquirer";
 import { validateProjectID } from "../../../validator/projectId";
 import { EOL } from "os";
@@ -7,7 +7,7 @@ import { UsageRequestList } from "@deepgram/sdk/dist/types";
 
 const tablize = require("jsontostringtable");
 
-export default class Requests extends AuthGuard {
+export default class Requests extends SecureCommand {
   static prompts = [
     {
       type: "input",
