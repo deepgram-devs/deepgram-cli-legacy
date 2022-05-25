@@ -29,12 +29,12 @@ export default class Setup extends Command {
     {
       name: "project",
       required: false,
-      description: "Project ID",
+      description: "Deepgram Project",
     },
   ];
 
   static description =
-    "Writes a config file for the API key to a default location (can be overridden).";
+    "Writes the API key and Deepgram Project to a config file (can be overridden).";
 
   static examples = [
     `$ bin/dev setup
@@ -76,7 +76,7 @@ Config file created at ~/.deepgramrc`,
           {
             type: "list",
             name: "project",
-            message: "Please select a Project:",
+            message: "Please select a Deepgram Project:",
             validate: validateProjectID,
             choices,
           },
@@ -89,7 +89,9 @@ Config file created at ~/.deepgramrc`,
 
     let file = await open(filePath, "wx").catch((err) => {
       if (err.code === "EEXIST") {
-        this.log(`Existing config file ${filePath} detected.`);
+        this.log(
+          `${chalk.red(">>")} Existing config file ${filePath} detected.`
+        );
         return;
       }
 

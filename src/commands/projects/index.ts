@@ -1,5 +1,6 @@
-import SecureCommand from "../../secure";
 const tablize = require("jsontostringtable");
+
+import SecureCommand from "../../secure";
 
 export default class ListProjects extends SecureCommand {
   static description =
