@@ -1,16 +1,9 @@
 import SecureCommand from "../../secure";
 import inquirer from "inquirer";
-import { validateProjectID } from "../../validator/projectId";
 import { validateApiKeyID } from "../../validator/apiKeyId";
 
 export default class DeleteKey extends SecureCommand {
   static prompts = [
-    {
-      type: "input",
-      name: "project",
-      message: "Please enter a Project ID:",
-      validate: validateProjectID,
-    },
     {
       type: "input",
       name: "api_key_id",
@@ -32,16 +25,23 @@ export default class DeleteKey extends SecureCommand {
     },
   ];
 
-  static description = "Delete an API key from a project";
+  static description =
+    "Delete an API key from a Deepgram Project. By default, it uses the Deepgram Project in config.";
 
   static examples = [];
 
   public async run(): Promise<void> {
+    let { project } = this.appConfig;
     let { args } = await this.parse(DeleteKey);
+
+    if (args.project) {
+      project = args.project;
+    }
+
     args = await inquirer.prompt(DeleteKey.prompts, args);
 
     await this.deepgram.keys
-      .delete(args.project, args.api_key_id)
+      .delete(project, args.api_key_id)
       .catch((err) => this.error(err));
 
     this.log("Deepgram API key successfully deleted.");

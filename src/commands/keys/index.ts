@@ -3,15 +3,6 @@ import inquirer from "inquirer";
 import { validateProjectID } from "../../validator/projectId";
 
 export default class Keys extends SecureCommand {
-  static prompts = [
-    {
-      type: "input",
-      name: "project",
-      message: "Please enter a Project ID:",
-      validate: validateProjectID,
-    },
-  ];
-
   static args = [
     {
       name: "project",
@@ -20,15 +11,20 @@ export default class Keys extends SecureCommand {
     },
   ];
 
-  static description = "Retrieve all API keys for a given project";
+  static description =
+    "Retrieve all API keys for a given Deepgram Project. By default, it uses the Deepgram Project in config.";
 
   static examples = [];
 
   public async run(): Promise<void> {
+    let { project } = this.appConfig;
     let { args } = await this.parse(Keys);
-    args = await inquirer.prompt(Keys.prompts, args);
 
-    const { api_keys } = await this.deepgram.keys.list(args.project);
+    if (args.project) {
+      project = args.project;
+    }
+
+    const { api_keys } = await this.deepgram.keys.list(project);
 
     console.log(api_keys);
   }
