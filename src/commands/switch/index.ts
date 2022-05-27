@@ -39,8 +39,7 @@ export default class ListProjects extends SecureCommand {
       },
     ]);
 
-    const filePath = `${homedir}/.deepgramrc`;
-
+    const { config: filePath } = this.appConfig;
     const existingFile = await readFile(filePath, "utf-8");
     const config = JSON.parse(existingFile);
 
