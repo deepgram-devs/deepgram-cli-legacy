@@ -1,18 +1,7 @@
 import SecureCommand from "../../secure";
-import inquirer from "inquirer";
-import { validateProjectID } from "../../validator/projectId";
 const tablize = require("jsontostringtable");
 
 export default class GetProject extends SecureCommand {
-  static prompts = [
-    {
-      type: "input",
-      name: "project",
-      message: "Please enter a Project ID:",
-      validate: validateProjectID,
-    },
-  ];
-
   static args = [
     {
       name: "project",
@@ -21,11 +10,11 @@ export default class GetProject extends SecureCommand {
     },
   ];
 
-  static description = "Retrieve a project your API key has access to manage.";
+  static description =
+    "Retrieve a Deepgram Project. By default, it uses the Deepgram Project in config.";
 
   static examples = [
-    `$ deepgram project get
-? Please enter a Project ID 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0
+    `$ deepgram projects get
 -----------------------------------------------------------------------
 | project_id                           | name                         |
 -----------------------------------------------------------------------
@@ -42,13 +31,17 @@ export default class GetProject extends SecureCommand {
   ];
 
   async run(): Promise<void> {
+    let { project } = this.appConfig;
     let { args } = await this.parse(GetProject);
-    args = await inquirer.prompt(GetProject.prompts, args);
 
-    const project = await this.deepgram.projects
-      .get(args.project)
+    if (args.project) {
+      project = args.project;
+    }
+
+    const result = await this.deepgram.projects
+      .get(project)
       .catch((err) => this.error(err));
 
-    this.log(tablize([project]));
+    this.log(tablize([result]));
   }
 }

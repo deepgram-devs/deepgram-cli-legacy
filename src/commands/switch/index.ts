@@ -1,11 +1,9 @@
 import { open, readFile } from "fs/promises";
 import chalk from "chalk";
 import inquirer from "inquirer";
-
-import { validateProjectID } from "../../validator/projectId";
 import SecureCommand from "../../secure";
 
-const homedir = require("os").homedir();
+import { validateProjectID } from "../../validator/projectId";
 
 export default class ListProjects extends SecureCommand {
   static args = [

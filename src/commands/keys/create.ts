@@ -1,18 +1,12 @@
 import SecureCommand from "../../secure";
 import inquirer from "inquirer";
-import { validateProjectID } from "../../validator/projectId";
+
 import { validateApiKeyName } from "../../validator/apiKeyName";
 
 const tablize = require("jsontostringtable");
 
 export default class CreateKey extends SecureCommand {
   static prompts = [
-    {
-      type: "input",
-      name: "project",
-      message: "Please enter a Project ID:",
-      validate: validateProjectID,
-    },
     {
       type: "list",
       name: "permission",
@@ -55,16 +49,23 @@ access to manage team members and API keys.`,
     },
   ];
 
-  static description = "Create an API key for a project";
+  static description =
+    "Create an API key for a Deepgram Project. By default, it uses the Deepgram Project in config.";
 
   static examples = [];
 
   public async run(): Promise<void> {
+    let { project } = this.appConfig;
     let { args } = await this.parse(CreateKey);
+
+    if (args.project) {
+      project = args.project;
+    }
+
     args = await inquirer.prompt(CreateKey.prompts, args);
 
     const key = await this.deepgram.keys
-      .create(args.project, args.comment, [args.permission])
+      .create(project, args.comment, [args.permission])
       .catch((err) => this.error(err));
 
     this.log(tablize([key]));
