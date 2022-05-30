@@ -8,15 +8,6 @@ import { UsageRequestList } from "@deepgram/sdk/dist/types";
 const tablize = require("jsontostringtable");
 
 export default class Requests extends SecureCommand {
-  static prompts = [
-    {
-      type: "input",
-      name: "project",
-      message: "Please enter a Project ID:",
-      validate: validateProjectID,
-    },
-  ];
-
   static args = [
     {
       name: "project",
@@ -37,8 +28,12 @@ export default class Requests extends SecureCommand {
   static examples = [];
 
   public async run(): Promise<void> {
+    let { project } = this.appConfig;
     let { args, flags } = await this.parse(Requests);
-    args = await inquirer.prompt(Requests.prompts, args);
+
+    if (args.project) {
+      project = args.project;
+    }
 
     let lastOutput: string = "";
     const lastOutputLength = (): number => {
@@ -48,7 +43,7 @@ export default class Requests extends SecureCommand {
     const rawResultsPage = async (
       page: number = 0
     ): Promise<UsageRequestList> => {
-      return await this.deepgram.usage.listRequests(args.project, {
+      return await this.deepgram.usage.listRequests(project, {
         page,
         limit: flags.limit,
       });
@@ -58,7 +53,7 @@ export default class Requests extends SecureCommand {
       page: number
     ): Promise<{ current: number; length?: number }> => {
       const { requests, page: current } =
-        await this.deepgram.usage.listRequests(args.project, {
+        await this.deepgram.usage.listRequests(project, {
           page,
           limit: flags.limit,
         });

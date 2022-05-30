@@ -7,12 +7,6 @@ export default class GetRequest extends SecureCommand {
   static prompts = [
     {
       type: "input",
-      name: "project",
-      message: "Please enter a Project ID:",
-      validate: validateProjectID,
-    },
-    {
-      type: "input",
       name: "request",
       message: "Please enter a Request ID:",
       validate: validateRequestID,
@@ -21,14 +15,14 @@ export default class GetRequest extends SecureCommand {
 
   static args = [
     {
-      name: "project",
-      required: false,
-      description: "Project ID",
-    },
-    {
       name: "request",
       required: false,
       description: "Request ID",
+    },
+    {
+      name: "project",
+      required: false,
+      description: "Project ID",
     },
   ];
 
@@ -38,10 +32,15 @@ export default class GetRequest extends SecureCommand {
   static examples = [];
 
   public async run(): Promise<void> {
+    let { project } = this.appConfig;
     let { args } = await this.parse(GetRequest);
     args = await inquirer.prompt(GetRequest.prompts, args);
 
-    const output = this.deepgram.usage.getRequest(args.project, args.request);
+    if (args.project) {
+      project = args.project;
+    }
+
+    const output = this.deepgram.usage.getRequest(project, args.request);
 
     this.log(JSON.stringify(output));
   }
