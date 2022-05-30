@@ -1,8 +1,9 @@
 import { Deepgram } from "@deepgram/sdk";
-import { Command } from "@oclif/core";
 import rc from "rc";
 
-export default abstract class SecureCommand extends Command {
+import BaseCommand from "./base";
+
+export default abstract class SecureCommand extends BaseCommand {
   deepgram: Deepgram;
   appConfig: {
     [key: string]: string;
