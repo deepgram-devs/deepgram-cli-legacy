@@ -45,7 +45,7 @@ USAGE
 * [`deepgram help [COMMAND]`](#deepgram-help-command)
 * [`deepgram keys [PROJECT]`](#deepgram-keys-project)
 * [`deepgram keys create [PROJECT]`](#deepgram-keys-create-project)
-* [`deepgram keys delete [PROJECT] [API_KEY_ID]`](#deepgram-keys-delete-project-api_key_id)
+* [`deepgram keys delete [API_KEY_ID] [PROJECT]`](#deepgram-keys-delete-api_key_id-project)
 * [`deepgram projects`](#deepgram-projects)
 * [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
 * [`deepgram setup [API_KEY] [PROJECT]`](#deepgram-setup-api_key-project)
@@ -139,17 +139,17 @@ DESCRIPTION
   Create an API key for a Deepgram Project.
 ```
 
-## `deepgram keys delete [PROJECT] [API_KEY_ID]`
+## `deepgram keys delete [API_KEY_ID] [PROJECT]`
 
 Delete an API key from a Deepgram Project.
 
 ```
 USAGE
-  $ deepgram keys delete [PROJECT] [API_KEY_ID]
+  $ deepgram keys delete [API_KEY_ID] [PROJECT]
 
 ARGUMENTS
-  PROJECT     Project ID
   API_KEY_ID  API key ID
+  PROJECT     Project ID
 
 DESCRIPTION
   Delete an API key from a Deepgram Project.
