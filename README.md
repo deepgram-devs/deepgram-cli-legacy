@@ -48,12 +48,13 @@ USAGE
 * [`deepgram keys delete [PROJECT] [API_KEY_ID]`](#deepgram-keys-delete-project-api_key_id)
 * [`deepgram projects`](#deepgram-projects)
 * [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
-* [`deepgram setup [API_KEY]`](#deepgram-setup-api_key)
+* [`deepgram setup [API_KEY] [PROJECT]`](#deepgram-setup-api_key-project)
+* [`deepgram switch [PROJECT]`](#deepgram-switch-project)
 * [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
 * [`deepgram usage [PROJECT]`](#deepgram-usage-project)
 * [`deepgram usage fields [PROJECT]`](#deepgram-usage-fields-project)
 * [`deepgram usage requests [PROJECT]`](#deepgram-usage-requests-project)
-* [`deepgram usage requests get [PROJECT] [REQUEST]`](#deepgram-usage-requests-get-project-request)
+* [`deepgram usage requests get [REQUEST] [PROJECT]`](#deepgram-usage-requests-get-request-project)
 
 ## `deepgram generate [TEMPLATE]`
 
@@ -108,7 +109,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.1
 
 ## `deepgram keys [PROJECT]`
 
-Retrieve all API keys for a given project
+Retrieve all API keys for a given Deepgram Project.
 
 ```
 USAGE
@@ -118,14 +119,14 @@ ARGUMENTS
   PROJECT  Project ID
 
 DESCRIPTION
-  Retrieve all API keys for a given project
+  Retrieve all API keys for a given Deepgram Project.
 ```
 
 _See code: [dist/commands/keys/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/keys/index.ts)_
 
 ## `deepgram keys create [PROJECT]`
 
-Create an API key for a project
+Create an API key for a Deepgram Project.
 
 ```
 USAGE
@@ -135,12 +136,12 @@ ARGUMENTS
   PROJECT  Project ID
 
 DESCRIPTION
-  Create an API key for a project
+  Create an API key for a Deepgram Project.
 ```
 
 ## `deepgram keys delete [PROJECT] [API_KEY_ID]`
 
-Delete an API key from a project
+Delete an API key from a Deepgram Project.
 
 ```
 USAGE
@@ -151,19 +152,19 @@ ARGUMENTS
   API_KEY_ID  API key ID
 
 DESCRIPTION
-  Delete an API key from a project
+  Delete an API key from a Deepgram Project.
 ```
 
 ## `deepgram projects`
 
-Retrieve all projects your API key has access to manage.
+Retrieve all Deepgram Projects your API key has access to.
 
 ```
 USAGE
   $ deepgram projects
 
 DESCRIPTION
-  Retrieve all projects your API key has access to manage.
+  Retrieve all Deepgram Projects your API key has access to.
 
 EXAMPLES
   $ deepgram projects
@@ -171,7 +172,6 @@ EXAMPLES
   | project_id                           | name                         |
   -----------------------------------------------------------------------
   | 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68 | luke@lukeoliff.com's Project |
-  | 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0 | other project                |
   -----------------------------------------------------------------------
 ```
 
@@ -179,7 +179,7 @@ _See code: [dist/commands/projects/index.ts](https://github.com/lukeocodes/deepg
 
 ## `deepgram projects get [PROJECT]`
 
-Retrieve a project your API key has access to manage.
+Retrieve a Deepgram Project.
 
 ```
 USAGE
@@ -189,11 +189,10 @@ ARGUMENTS
   PROJECT  Project ID
 
 DESCRIPTION
-  Retrieve a project your API key has access to manage.
+  Retrieve a Deepgram Project.
 
 EXAMPLES
-  $ deepgram project get
-  ? Please enter a Project ID 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0
+  $ deepgram projects get
   -----------------------------------------------------------------------
   | project_id                           | name                         |
   -----------------------------------------------------------------------
@@ -208,30 +207,61 @@ EXAMPLES
   -----------------------------------------------------------------------
 ```
 
-## `deepgram setup [API_KEY]`
+## `deepgram setup [API_KEY] [PROJECT]`
 
-Writes a config file for the API key to a default location (can be overridden).
+Writes the API key and Deepgram Project to a config file (can be overridden).
 
 ```
 USAGE
-  $ deepgram setup [API_KEY]
+  $ deepgram setup [API_KEY] [PROJECT]
 
 ARGUMENTS
   API_KEY  Deepgram API Key.
+  PROJECT  Deepgram Project
 
 DESCRIPTION
-  Writes a config file for the API key to a default location (can be overridden).
+  Writes the API key and Deepgram Project to a config file (can be overridden).
 
 EXAMPLES
-  $ deepgram setup
-  ? Please enter a Deepgram API Key ****************************************
+  $ bin/dev setup
+  ? Please enter a Deepgram API Key: [hidden]
+  ? Please select a Project: luke@lukeoliff.com's Project
   Config file created at ~/.deepgramrc
 
-  $ deepgram setup b63ac66256616e991af56dfa2fbdc078225e63a5
+  $ bin/dev setup 
+  ? Please enter a Deepgram API Key: [hidden]
+  ? Please select a Project: luke@lukeoliff.com's Project
+  Existing config file  ~/.deepgramrc detected.
+  ? Overwrite it existing config file? Yes
+  Overwriting the existing config file  ~/.deepgramrc
+  Config file created at  ~/.deepgramrc
+
+  $ bin/dev setup b79a9edd77d3938760cfa17c7a049fbfeeea775b
+  ? Please select a Project: luke@lukeoliff.com's Project
+  Config file created at ~/.deepgramrc
+
+  $ bin/dev setup b79a9edd77d3938760cfa17c7a049fbfeeea775b b0605341-7d79-bbc7-4a4a-c3f9165852f0
   Config file created at ~/.deepgramrc
 ```
 
 _See code: [dist/commands/setup/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/setup/index.ts)_
+
+## `deepgram switch [PROJECT]`
+
+Switch Deepgram project and update the config file.
+
+```
+USAGE
+  $ deepgram switch [PROJECT]
+
+ARGUMENTS
+  PROJECT  Deepgram Project
+
+DESCRIPTION
+  Switch Deepgram project and update the config file.
+```
+
+_See code: [dist/commands/switch/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/switch/index.ts)_
 
 ## `deepgram transcribe-file [FILE]`
 
@@ -263,7 +293,7 @@ _See code: [dist/commands/transcribe-file/index.ts](https://github.com/lukeocode
 
 ## `deepgram usage [PROJECT]`
 
-Retrieves aggregated usage data for a project
+Retrieves aggregated usage data for a Deepgram Project. By default, it uses the Deepgram Project in config.
 
 ```
 USAGE
@@ -273,7 +303,7 @@ ARGUMENTS
   PROJECT  Project ID
 
 DESCRIPTION
-  Retrieves aggregated usage data for a project
+  Retrieves aggregated usage data for a Deepgram Project. By default, it uses the Deepgram Project in config.
 ```
 
 _See code: [dist/commands/usage/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/usage/index.ts)_
@@ -314,17 +344,17 @@ DESCRIPTION
   Retrieves transcription requests for a project
 ```
 
-## `deepgram usage requests get [PROJECT] [REQUEST]`
+## `deepgram usage requests get [REQUEST] [PROJECT]`
 
 Retrieves a specific transcription request for a project
 
 ```
 USAGE
-  $ deepgram usage requests get [PROJECT] [REQUEST]
+  $ deepgram usage requests get [REQUEST] [PROJECT]
 
 ARGUMENTS
-  PROJECT  Project ID
   REQUEST  Request ID
+  PROJECT  Project ID
 
 DESCRIPTION
   Retrieves a specific transcription request for a project

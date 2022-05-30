@@ -15,14 +15,14 @@ export default class DeleteKey extends SecureCommand {
 
   static args = [
     {
-      name: "project",
-      required: false,
-      description: "Project ID",
-    },
-    {
       name: "api_key_id",
       required: false,
       description: "API key ID",
+    },
+    {
+      name: "project",
+      required: false,
+      description: "Project ID",
     },
   ];
 
