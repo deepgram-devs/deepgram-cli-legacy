@@ -1,7 +1,7 @@
-import SecureCommand from "../../../secure";
 import inquirer from "inquirer";
-import { validateProjectID } from "../../../validator/projectId";
+
 import { validateRequestID } from "../../../validator/requestId";
+import SecureCommand from "../../../secure";
 
 export default class GetRequest extends SecureCommand {
   static prompts = [

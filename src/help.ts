@@ -1,5 +1,4 @@
 import { Help } from "@oclif/core";
-// import asciify from "asciify-image";
 import { logo } from "./logo";
 
 export default class CliHelp extends Help {

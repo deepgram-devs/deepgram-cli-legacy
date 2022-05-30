@@ -1,9 +1,9 @@
-import { Flags } from "@oclif/core";
-import SecureCommand from "../../../secure";
-import inquirer from "inquirer";
-import { validateProjectID } from "../../../validator/projectId";
 import { EOL } from "os";
+import { Flags } from "@oclif/core";
 import { UsageRequestList } from "@deepgram/sdk/dist/types";
+import inquirer from "inquirer";
+
+import SecureCommand from "../../../secure";
 
 const tablize = require("jsontostringtable");
 

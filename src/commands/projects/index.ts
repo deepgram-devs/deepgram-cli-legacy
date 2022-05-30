@@ -1,10 +1,10 @@
-const tablize = require("jsontostringtable");
-
 import SecureCommand from "../../secure";
+
+const tablize = require("jsontostringtable");
 
 export default class ListProjects extends SecureCommand {
   static description =
-    "Retrieve all projects your API key has access to manage.";
+    "Retrieve all Deepgram Projects your API key has access to.";
 
   static examples = [
     `$ deepgram projects

@@ -1,13 +1,14 @@
-import { Flags } from "@oclif/core";
-import SecureCommand from "../../secure";
-import inquirer from "inquirer";
-import { open } from "fs/promises";
-import { resolve, dirname, normalize } from "path";
-import { lookup } from "mime-types";
 import { createReadStream, PathLike } from "fs";
-import wrap from "word-wrap";
+import { Flags } from "@oclif/core";
+import { lookup } from "mime-types";
+import { open } from "fs/promises";
+import { resolve, dirname } from "path";
 import { supported } from "supported-formats";
+import inquirer from "inquirer";
+import wrap from "word-wrap";
+
 import { validatePathLike } from "../../validator/validatePathLike";
+import SecureCommand from "../../secure";
 
 const homedir = require("os").homedir();
 

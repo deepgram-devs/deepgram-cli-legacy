@@ -1,6 +1,7 @@
-import SecureCommand from "../../secure";
 import inquirer from "inquirer";
+
 import { validateApiKeyID } from "../../validator/apiKeyId";
+import SecureCommand from "../../secure";
 
 export default class DeleteKey extends SecureCommand {
   static prompts = [
@@ -25,8 +26,7 @@ export default class DeleteKey extends SecureCommand {
     },
   ];
 
-  static description =
-    "Delete an API key from a Deepgram Project. By default, it uses the Deepgram Project in config.";
+  static description = "Delete an API key from a Deepgram Project.";
 
   static examples = [];
 

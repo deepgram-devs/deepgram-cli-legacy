@@ -1,7 +1,7 @@
-import SecureCommand from "../../secure";
 import inquirer from "inquirer";
 
 import { validateApiKeyName } from "../../validator/apiKeyName";
+import SecureCommand from "../../secure";
 
 const tablize = require("jsontostringtable");
 
@@ -49,8 +49,7 @@ access to manage team members and API keys.`,
     },
   ];
 
-  static description =
-    "Create an API key for a Deepgram Project. By default, it uses the Deepgram Project in config.";
+  static description = "Create an API key for a Deepgram Project.";
 
   static examples = [];
 

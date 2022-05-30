@@ -1,9 +1,9 @@
 import { open, readFile } from "fs/promises";
 import chalk from "chalk";
 import inquirer from "inquirer";
-import SecureCommand from "../../secure";
 
 import { validateProjectID } from "../../validator/projectId";
+import SecureCommand from "../../secure";
 
 export default class ListProjects extends SecureCommand {
   static args = [

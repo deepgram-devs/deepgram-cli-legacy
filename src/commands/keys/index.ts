@@ -9,8 +9,7 @@ export default class Keys extends SecureCommand {
     },
   ];
 
-  static description =
-    "Retrieve all API keys for a given Deepgram Project. By default, it uses the Deepgram Project in config.";
+  static description = "Retrieve all API keys for a given Deepgram Project.";
 
   static examples = [];
 

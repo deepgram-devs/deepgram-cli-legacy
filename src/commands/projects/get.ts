@@ -1,4 +1,5 @@
 import SecureCommand from "../../secure";
+
 const tablize = require("jsontostringtable");
 
 export default class GetProject extends SecureCommand {
@@ -10,8 +11,7 @@ export default class GetProject extends SecureCommand {
     },
   ];
 
-  static description =
-    "Retrieve a Deepgram Project. By default, it uses the Deepgram Project in config.";
+  static description = "Retrieve a Deepgram Project.";
 
   static examples = [
     `$ deepgram projects get
