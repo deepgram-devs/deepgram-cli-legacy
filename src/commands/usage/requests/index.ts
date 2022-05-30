@@ -23,9 +23,8 @@ export default class Requests extends SecureCommand {
     limit: Flags.integer({ char: "l", required: false, default: 10 }),
   };
 
-  static description = "Retrieves transcription requests for a project";
-
-  static examples = [];
+  static description =
+    "Retrieves transcription requests for a Deepgram Project.";
 
   public async run(): Promise<void> {
     let { project } = this.appConfig;

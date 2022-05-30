@@ -36,25 +36,6 @@ export default class Setup extends Command {
   static description =
     "Writes the API key and Deepgram Project to a config file (can be overridden).";
 
-  static examples = [
-    `$ bin/dev setup
-? Please enter a Deepgram API Key: [hidden]
-? Please select a Project: luke@lukeoliff.com's Project
-Config file created at ~/.deepgramrc`,
-    `$ bin/dev setup 
-? Please enter a Deepgram API Key: [hidden]
-? Please select a Project: luke@lukeoliff.com's Project
-Existing config file  ~/.deepgramrc detected.
-? Overwrite it existing config file? Yes
-Overwriting the existing config file  ~/.deepgramrc
-Config file created at  ~/.deepgramrc`,
-    `$ bin/dev setup b79a9edd77d3938760cfa17c7a049fbfeeea775b
-? Please select a Project: luke@lukeoliff.com's Project
-Config file created at ~/.deepgramrc`,
-    `$ bin/dev setup b79a9edd77d3938760cfa17c7a049fbfeeea775b b0605341-7d79-bbc7-4a4a-c3f9165852f0
-Config file created at ~/.deepgramrc`,
-  ];
-
   public async run(): Promise<void> {
     let { args } = await this.parse(Setup);
     args = await inquirer.prompt(Setup.prompts, args);

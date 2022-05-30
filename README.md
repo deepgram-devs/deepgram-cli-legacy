@@ -69,20 +69,6 @@ ARGUMENTS
 
 DESCRIPTION
   Generate a new project from our Deepgram templates directory. See https://github.com/deepgram-templates
-
-EXAMPLES
-  $ deepgram generate deepgram-templates/video-chat
-  ? Enter a template name or a template repo URL: deepgram-templates/video-chat
-  Cloning 'deepgram-templates/video-chat' to './video-chat'
-  Running 'npm install' from './video-chat/deepgram.toml'
-  Setup complete. You can now change into './video-chat'.
-  Run 'npm start' to get up and running.
-
-  $ deepgram generate
-  Cloning 'deepgram-templates/video-chat' to './video-chat'
-  Running 'npm install' from './video-chat/deepgram.toml'
-  Setup complete. You can now change into './video-chat'.
-  Run 'npm start' to get up and running.
 ```
 
 _See code: [dist/commands/generate/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/generate/index.ts)_
@@ -165,14 +151,6 @@ USAGE
 
 DESCRIPTION
   Retrieve all Deepgram Projects your API key has access to.
-
-EXAMPLES
-  $ deepgram projects
-  -----------------------------------------------------------------------
-  | project_id                           | name                         |
-  -----------------------------------------------------------------------
-  | 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68 | luke@lukeoliff.com's Project |
-  -----------------------------------------------------------------------
 ```
 
 _See code: [dist/commands/projects/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/projects/index.ts)_
@@ -190,21 +168,6 @@ ARGUMENTS
 
 DESCRIPTION
   Retrieve a Deepgram Project.
-
-EXAMPLES
-  $ deepgram projects get
-  -----------------------------------------------------------------------
-  | project_id                           | name                         |
-  -----------------------------------------------------------------------
-  | 24c4c8c2-bfb7-48fa-a1b5-709e7dq452d0 | other project                |
-  -----------------------------------------------------------------------
-
-  $ deepgram projects get 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68
-  -----------------------------------------------------------------------
-  | project_id                           | name                         |
-  -----------------------------------------------------------------------
-  | 7a0e1c0f-4b5a-5449-97d3-d36b7ec11c68 | luke@lukeoliff.com's Project |
-  -----------------------------------------------------------------------
 ```
 
 ## `deepgram setup [API_KEY] [PROJECT]`
@@ -221,34 +184,13 @@ ARGUMENTS
 
 DESCRIPTION
   Writes the API key and Deepgram Project to a config file (can be overridden).
-
-EXAMPLES
-  $ bin/dev setup
-  ? Please enter a Deepgram API Key: [hidden]
-  ? Please select a Project: luke@lukeoliff.com's Project
-  Config file created at ~/.deepgramrc
-
-  $ bin/dev setup 
-  ? Please enter a Deepgram API Key: [hidden]
-  ? Please select a Project: luke@lukeoliff.com's Project
-  Existing config file  ~/.deepgramrc detected.
-  ? Overwrite it existing config file? Yes
-  Overwriting the existing config file  ~/.deepgramrc
-  Config file created at  ~/.deepgramrc
-
-  $ bin/dev setup b79a9edd77d3938760cfa17c7a049fbfeeea775b
-  ? Please select a Project: luke@lukeoliff.com's Project
-  Config file created at ~/.deepgramrc
-
-  $ bin/dev setup b79a9edd77d3938760cfa17c7a049fbfeeea775b b0605341-7d79-bbc7-4a4a-c3f9165852f0
-  Config file created at ~/.deepgramrc
 ```
 
 _See code: [dist/commands/setup/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/setup/index.ts)_
 
 ## `deepgram switch [PROJECT]`
 
-Switch Deepgram project and update the config file.
+Switch Deepgram Project and update the config file.
 
 ```
 USAGE
@@ -258,7 +200,7 @@ ARGUMENTS
   PROJECT  Deepgram Project
 
 DESCRIPTION
-  Switch Deepgram project and update the config file.
+  Switch Deepgram Project and update the config file.
 ```
 
 _See code: [dist/commands/switch/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/switch/index.ts)_
@@ -282,18 +224,13 @@ FLAGS
 
 DESCRIPTION
   Transcribe a file.
-
-EXAMPLES
-  $ deepgram transcribe-file test.mp3 --output=test.txt
-  File transcription saved to 'text.txt'
-  Transcription of 'test.mp3' successful.
 ```
 
 _See code: [dist/commands/transcribe-file/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/transcribe-file/index.ts)_
 
 ## `deepgram usage [PROJECT]`
 
-Retrieves aggregated usage data for a Deepgram Project. By default, it uses the Deepgram Project in config.
+Retrieves aggregated usage data for a Deepgram Project.
 
 ```
 USAGE
@@ -303,14 +240,14 @@ ARGUMENTS
   PROJECT  Project ID
 
 DESCRIPTION
-  Retrieves aggregated usage data for a Deepgram Project. By default, it uses the Deepgram Project in config.
+  Retrieves aggregated usage data for a Deepgram Project.
 ```
 
 _See code: [dist/commands/usage/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/usage/index.ts)_
 
 ## `deepgram usage fields [PROJECT]`
 
-List features used by the provided project
+List features used by a Deepgram Project.
 
 ```
 USAGE
@@ -320,12 +257,12 @@ ARGUMENTS
   PROJECT  Project ID
 
 DESCRIPTION
-  List features used by the provided project
+  List features used by a Deepgram Project.
 ```
 
 ## `deepgram usage requests [PROJECT]`
 
-Retrieves transcription requests for a project
+Retrieves transcription requests for a Deepgram Project.
 
 ```
 USAGE
@@ -341,12 +278,12 @@ FLAGS
   --raw
 
 DESCRIPTION
-  Retrieves transcription requests for a project
+  Retrieves transcription requests for a Deepgram Project.
 ```
 
 ## `deepgram usage requests get [REQUEST] [PROJECT]`
 
-Retrieves a specific transcription request for a project
+Retrieves a specific transcription request for a Deepgram Project.
 
 ```
 USAGE
@@ -357,7 +294,7 @@ ARGUMENTS
   PROJECT  Project ID
 
 DESCRIPTION
-  Retrieves a specific transcription request for a project
+  Retrieves a specific transcription request for a Deepgram Project.
 ```
 <!-- commandsstop -->
 

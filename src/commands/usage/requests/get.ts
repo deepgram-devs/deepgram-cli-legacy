@@ -27,9 +27,7 @@ export default class GetRequest extends SecureCommand {
   ];
 
   static description =
-    "Retrieves a specific transcription request for a project";
-
-  static examples = [];
+    "Retrieves a specific transcription request for a Deepgram Project.";
 
   public async run(): Promise<void> {
     let { project } = this.appConfig;

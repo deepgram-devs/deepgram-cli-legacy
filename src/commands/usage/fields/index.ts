@@ -9,9 +9,7 @@ export default class Fields extends SecureCommand {
     },
   ];
 
-  static description = "List features used by the provided project";
-
-  static examples = [];
+  static description = "List features used by a Deepgram Project.";
 
   public async run(): Promise<void> {
     let { project } = this.appConfig;

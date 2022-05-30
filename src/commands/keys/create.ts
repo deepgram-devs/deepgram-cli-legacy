@@ -51,8 +51,6 @@ access to manage team members and API keys.`,
 
   static description = "Create an API key for a Deepgram Project.";
 
-  static examples = [];
-
   public async run(): Promise<void> {
     let { project } = this.appConfig;
     let { args } = await this.parse(CreateKey);

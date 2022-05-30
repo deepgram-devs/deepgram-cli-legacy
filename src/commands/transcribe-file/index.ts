@@ -39,13 +39,6 @@ export default class TranscribeFile extends SecureCommand {
 
   static description = "Transcribe a file.";
 
-  static examples = [
-    `$ deepgram transcribe-file test.mp3 --output=test.txt
-File transcription saved to 'text.txt'
-Transcription of 'test.mp3' successful.
-`,
-  ];
-
   public async run(): Promise<void> {
     let { args, flags } = await this.parse(TranscribeFile);
     args = await inquirer.prompt(TranscribeFile.prompts, args);

@@ -28,8 +28,6 @@ export default class DeleteKey extends SecureCommand {
 
   static description = "Delete an API key from a Deepgram Project.";
 
-  static examples = [];
-
   public async run(): Promise<void> {
     let { project } = this.appConfig;
     let { args } = await this.parse(DeleteKey);

@@ -11,8 +11,6 @@ export default class Keys extends SecureCommand {
 
   static description = "Retrieve all API keys for a given Deepgram Project.";
 
-  static examples = [];
-
   public async run(): Promise<void> {
     let { project } = this.appConfig;
     let { args } = await this.parse(Keys);

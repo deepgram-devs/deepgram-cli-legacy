@@ -14,7 +14,7 @@ export default class ListProjects extends SecureCommand {
     },
   ];
 
-  static description = "Switch Deepgram project and update the config file.";
+  static description = "Switch Deepgram Project and update the config file.";
 
   async run(): Promise<void> {
     const { projects } = await this.deepgram.projects

@@ -34,26 +34,6 @@ export default class Generate extends SecureCommand {
   static description =
     "Generate a new project from our Deepgram templates directory. See https://github.com/deepgram-templates";
 
-  static examples = [
-    `$ deepgram generate deepgram-templates/video-chat
-? Enter a template name or a template repo URL: deepgram-templates/video-chat
-Cloning 'deepgram-templates/video-chat' to './video-chat'
-Running 'npm install' from './video-chat/deepgram.toml'
-
-Setup complete. You can now change into './video-chat'.
-
-Run 'npm start' to get up and running.
-`,
-    `$ deepgram generate
-Cloning 'deepgram-templates/video-chat' to './video-chat'
-Running 'npm install' from './video-chat/deepgram.toml'
-
-Setup complete. You can now change into './video-chat'.
-
-Run 'npm start' to get up and running.
-`,
-  ];
-
   public async run(): Promise<void> {
     let { args } = await this.parse(Generate);
     args = await inquirer.prompt(Generate.prompts, args);

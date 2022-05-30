@@ -10,9 +10,7 @@ export default class Usage extends SecureCommand {
   ];
 
   static description =
-    "Retrieves aggregated usage data for a Deepgram Project. By default, it uses the Deepgram Project in config.";
-
-  static examples = [];
+    "Retrieves aggregated usage data for a Deepgram Project.";
 
   public async run(): Promise<void> {
     let { project } = this.appConfig;
