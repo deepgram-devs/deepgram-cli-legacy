@@ -1,5 +1,5 @@
 import { Help } from "@oclif/core";
-import { logo } from "./logo";
+import chalk from "chalk";
 
 export default class CliHelp extends Help {
   formatRoot() {
@@ -7,7 +7,7 @@ export default class CliHelp extends Help {
   }
 
   header() {
-    return ["", logo, "           The Deepgram CLI"].join("\n\n");
+    return `The ${chalk.red("Deepgram")} CLI`;
   }
 
   version() {
