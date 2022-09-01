@@ -1386,10 +1386,10 @@ asap@^2.0.0:
   resolved "https://registry.npmjs.org/asap/-/asap-2.0.6.tgz"
   integrity sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
 
-asciify-image@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.npmjs.org/asciify-image/-/asciify-image-0.1.8.tgz"
-  integrity sha512-K1GHaQtSR4Ep2d9iEMmItzhpFJrKMBWWOCPpXGKxYQ3vtvP6o+XhgMex0HqzmG+fTs6wN3mXY2C7U+TnV1paBw==
+asciify-image@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/asciify-image/-/asciify-image-0.1.9.tgz#9a1956f9acde4fcbf0114c0082eae0b101efdab1"
+  integrity sha512-HXO2WiFg10owiDa81MElWDVblWJ3oRqeqhyHNS5t15sHtYlI+AozyvQFikWZrWGKtiki0fscYviaa3H0kLyRsg==
   dependencies:
     couleurs "^5.0.0"
     jimp "^0.16.1"
