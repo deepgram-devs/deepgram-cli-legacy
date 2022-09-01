@@ -236,11 +236,13 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
-"@deepgram/sdk@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@deepgram/sdk/-/sdk-1.2.2.tgz#6de682ce79e38fe32ab050f032837d8529381d3e"
-  integrity sha512-Vj20jCc56AKTk9Bo6Wt43J/u9tlaza7vv61XaBOsmn0Xj6tZUsbib7wSLlxtR1WaptTajHaR3uidtNXmhjaoiQ==
+"@deepgram/sdk@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@deepgram/sdk/-/sdk-1.5.0.tgz#eda402e8a6b75854717fec2082dc2a4ea83db476"
+  integrity sha512-kQstZctaOLkdUBUofqJyAnGzCdwtb/aAL/a/KjApJrV0nZ7i8Bc/CpKbbu320q+Ln2ZYTKGYbbnwehWSNjWOCg==
   dependencies:
+    bufferutil "^4.0.6"
+    utf-8-validate "^5.0.9"
     ws "^7.5.5"
 
 "@eslint/eslintrc@^0.4.3":
@@ -1613,6 +1615,13 @@ buffer@^5.2.0, buffer@^5.2.1, buffer@^5.5.0:
   dependencies:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
+
+bufferutil@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/bufferutil/-/bufferutil-4.0.6.tgz#ebd6c67c7922a0e902f053e5d8be5ec850e48433"
+  integrity sha512-jduaYOYtnio4aIAyc6UbvPCVcgq7nYpVnucyxr6eCYg/Woad9Hf/oxxBRDnGGjPfjUm6j5O/uBWhIu4iLebFaw==
+  dependencies:
+    node-gyp-build "^4.3.0"
 
 builtin-modules@^3.0.0:
   version "3.2.0"
@@ -4298,6 +4307,11 @@ node-fetch@^2.6.7:
   dependencies:
     whatwg-url "^5.0.0"
 
+node-gyp-build@^4.3.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.5.0.tgz#7a64eefa0b21112f89f58379da128ac177f20e40"
+  integrity sha512-2iGbaQBV+ITgCz76ZEjmhUKAKVf7xfY1sRl4UiKQspfZMH2h06SyhNsnSVy50cwkFQDGLyif6m/6uFXHkOZ6rg==
+
 node-gyp@^8.2.0:
   version "8.4.1"
   resolved "https://registry.npmjs.org/node-gyp/-/node-gyp-8.4.1.tgz"
@@ -6012,6 +6026,13 @@ url@0.10.3:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+utf-8-validate@^5.0.9:
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/utf-8-validate/-/utf-8-validate-5.0.9.tgz#ba16a822fbeedff1a58918f2a6a6b36387493ea3"
+  integrity sha512-Yek7dAy0v3Kl0orwMlvi7TPtiCNrdfHNd7Gcc/pLq4BLXqfAmd0J7OWMizUQnTTJsyjKn02mU7anqwfmUP4J8Q==
+  dependencies:
+    node-gyp-build "^4.3.0"
 
 utif@^2.0.1:
   version "2.0.1"
