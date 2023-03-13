@@ -8,25 +8,51 @@
 [![Downloads/week](https://img.shields.io/npm/dw/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
 [![License](https://img.shields.io/npm/l/@deepgram/cli.svg)](https://github.com/lukeocodes/deepgram-cli/blob/main/package.json)
 
-## This project is in active development and commands are likely to change without warning or deprecation.
+> This project is currently ALPHA and is in active development. Commands are likely to change without warning or deprecation.
 
-This is the Deepgram CLI. It is used to interact with the Deepgram API from the command line. It is built using [oclif](https://oclif.io/).
 
-For more about Deepgram see https://www.deepgram.com.
+This is the Deepgram CLI. It is used to interact with the [Deepgram API](https://developers.deepgram.com/api-reference/) from the command line. It is built using [oclif](https://oclif.io/).
 
-To get started see https://console.deepgram.com.
+* For more about Deepgram see https://www.deepgram.com.
+* To get started using Deepgram [sign up](https://console.deepgram.com/signup) for a free account and get 12,000 minutes free!
 
 # Issues
 
-For problems directly related to the CLI, [add an issue on GitHub](https://github.com/lukeocodes/deepgram-cli/issues/new).
+* For problems directly related to the CLI, [add an issue on GitHub](https://github.com/lukeocodes/deepgram-cli/issues/new).
+* For other questions using the Deepgram, post a question in our [Community Forum](https://github.com/orgs/deepgram/discussions/categories/q-a).
 
-For other issues, [submit a support ticket](https://developers.deepgram.com/support/).
+# Installation & Usage
 
-# Usage
+1. Clone this repository.
+
+
+```shell
+$ git clone git@github.com:deepgram-devs/deepgram-cli.git
+```
+
+1. Switch to the CLI directory.
+```shell
+$ cd deepgram-cli
+```
+
+1. Run Yarn install to install all dependencies.
+```shell
+$ yarn install
+```
+
+1. Access the /bin directory.
+
+```shell
+$ cd bin
+```
+
+Run `dev`.
+```shell
+$ node dev
+```
 
 <!-- usage -->
 ```sh-session
-$ npm install -g @deepgram/cli
 $ deepgram COMMAND
 running command...
 $ deepgram (--version)
@@ -41,20 +67,27 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
-* [`deepgram help [COMMAND]`](#deepgram-help-command)
-* [`deepgram keys [PROJECT]`](#deepgram-keys-project)
-* [`deepgram keys create [PROJECT]`](#deepgram-keys-create-project)
-* [`deepgram keys delete [API_KEY_ID] [PROJECT]`](#deepgram-keys-delete-api_key_id-project)
-* [`deepgram projects`](#deepgram-projects)
-* [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
-* [`deepgram setup [API_KEY] [PROJECT]`](#deepgram-setup-api_key-project)
-* [`deepgram switch [PROJECT]`](#deepgram-switch-project)
-* [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
-* [`deepgram usage [PROJECT]`](#deepgram-usage-project)
-* [`deepgram usage fields [PROJECT]`](#deepgram-usage-fields-project)
-* [`deepgram usage requests [PROJECT]`](#deepgram-usage-requests-project)
-* [`deepgram usage requests get [REQUEST] [PROJECT]`](#deepgram-usage-requests-get-request-project)
+* [Deepgram CLI](#deepgram-cli)
+* [Issues](#issues)
+* [Installation \& Usage](#installation--usage)
+* [Commands](#commands)
+  * [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
+  * [`deepgram help [COMMAND]`](#deepgram-help-command)
+  * [`deepgram keys [PROJECT]`](#deepgram-keys-project)
+  * [`deepgram keys create [PROJECT]`](#deepgram-keys-create-project)
+  * [`deepgram keys delete [API_KEY_ID] [PROJECT]`](#deepgram-keys-delete-api_key_id-project)
+  * [`deepgram projects`](#deepgram-projects)
+  * [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
+  * [`deepgram setup [API_KEY] [PROJECT]`](#deepgram-setup-api_key-project)
+  * [`deepgram switch [PROJECT]`](#deepgram-switch-project)
+  * [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
+  * [`deepgram usage [PROJECT]`](#deepgram-usage-project)
+  * [`deepgram usage fields [PROJECT]`](#deepgram-usage-fields-project)
+  * [`deepgram usage requests [PROJECT]`](#deepgram-usage-requests-project)
+  * [`deepgram usage requests get [REQUEST] [PROJECT]`](#deepgram-usage-requests-get-request-project)
+* [Writing Templates](#writing-templates)
+* [Developing](#developing)
+* [Contributors](#contributors)
 
 ## `deepgram generate [TEMPLATE]`
 
