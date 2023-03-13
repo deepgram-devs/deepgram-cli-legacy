@@ -46,9 +46,9 @@ $ yarn install
 $ cd bin
 ```
 
-Run `dev`.
+Run the CLI.
 ```shell
-$ node dev
+$ ./dev {command}
 ```
 
 <!-- usage -->
