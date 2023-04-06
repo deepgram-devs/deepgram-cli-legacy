@@ -12,6 +12,14 @@ import SecureCommand from "../../secure";
 
 const homedir = require("os").homedir();
 
+// work-around for improperly declared response class
+import { PrerecordedTranscriptionResponse as PrerecordedTranscriptionBase } from "@deepgram/sdk/dist/types";
+
+class PrerecordedTranscriptionResponse extends PrerecordedTranscriptionBase {
+  err_code?: string;
+  err_msg?: string;
+}
+
 export default class TranscribeFile extends SecureCommand {
   static prompts = [
     {
@@ -88,15 +96,21 @@ export default class TranscribeFile extends SecureCommand {
       this.log(`Starting transcription of '${args.file}'`);
     }
 
-    const response = await this.deepgram.transcription
-      .preRecorded(audioSource, {
-        version: "beta",
-        punctuate: true,
-        utterances: true,
-      })
-      .catch((err: any) => this.error(err));
+    const response: PrerecordedTranscriptionResponse =
+      await this.deepgram.transcription
+        .preRecorded(audioSource, {
+          version: "latest",
+          punctuate: true,
+        })
+        .catch((err: any) => this.error(err));
 
     if (!response.results) {
+      if (response.err_msg) {
+        this.error(
+          `Transcription of '${args.file}' failed: ${response.err_msg}`
+        );
+      }
+
       this.error(`Transcription of '${args.file}' failed.`);
     }
 
