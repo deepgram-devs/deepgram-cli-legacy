@@ -22,9 +22,11 @@ export default class Setup extends BaseCommand<typeof Setup> {
   ];
 
   static flags = {
-    name: Flags.string({
-      char: "n",
-      summary: "Name to print.",
+    key: Flags.string({
+      char: "k",
+      description:
+        "An API key provided by Deepgram. Get one now: https://dpgr.am/cli",
+      summary: "Deepgram API Key",
       required: false,
       prompt: true,
     }),

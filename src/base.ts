@@ -1,5 +1,6 @@
-import { Command, ux, Config } from "@oclif/core";
+import { Command, Config } from "@oclif/core";
 import { FlagInput, CompletableFlag } from "@oclif/core/lib/interfaces/parser";
+import { input } from "@inquirer/prompts";
 import tty from "tty";
 
 type PromptableFlag<T> = CompletableFlag<T> & {
@@ -15,6 +16,10 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
   constructor(argv: string[], config: Config) {
     super(argv, config);
 
+    /**
+     * if a user has turned off interactivity, or this command is run without a
+     * TTY, make promptable flags required flags
+     **/
     if (
       !tty.isatty(process.stdin.fd) ||
       process.env.DEEPGRAM_CLI_NON_INTERACTIVE === "1" ||
@@ -47,11 +52,11 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
       process.env.DEEPGRAM_CLI_NON_INTERACTIVE !== "1" &&
       process.env.CI !== "1"
     ) {
-      this.promptFlags();
+      await this.promptFlags();
     }
   }
 
-  protected promptFlags() {
+  protected async promptFlags() {
     const flagArray = Object.entries(this.flags);
 
     const filtered = flagArray.filter(
@@ -60,9 +65,19 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
       }
     );
 
-    const promptFlags = Object.fromEntries(filtered);
+    const promptPromises = filtered.map(
+      async ([key, flag]: [string, PromptableFlag<T>]) => {
+        const value = await input({
+          message: `Please enter a ${flag.summary}:`,
+        });
+        return [key, value];
+      }
+    );
 
-    // console.log(promptFlags);
+    const promptPromisesFinished = await Promise.all(promptPromises);
+    const promptFlags = Object.fromEntries(promptPromisesFinished);
+
+    this.parsedFlags = { ...this.parsedFlags, ...promptFlags };
   }
 
   // protected async catch(err: Error & { exitCode?: number }): Promise<any> {
@@ -77,6 +92,6 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
   // }
 
   public async run(): Promise<void> {
-    // console.log(this.parsedFlags);
+    console.log(this.parsedFlags);
   }
 }
