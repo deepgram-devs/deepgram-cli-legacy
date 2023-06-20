@@ -1,13 +1,31 @@
-import { Command, Config } from "@oclif/core";
+import { Command, Config, Flags } from "@oclif/core";
 import { FlagInput, CompletableFlag } from "@oclif/core/lib/interfaces/parser";
 import { input } from "@inquirer/prompts";
 import tty from "tty";
+import wordwrap from "wordwrap";
+
+export enum LogLevel {
+  debug = 3,
+  info = 2,
+  warn = 1,
+  error = 0,
+}
 
 type PromptableFlag<T> = CompletableFlag<T> & {
   prompt?: boolean;
 };
 
 export abstract class BaseCommand<T extends typeof Command> extends Command {
+  static baseFlags = {
+    "log-level": Flags.custom<LogLevel>({
+      summary: "Specify level for logging.",
+      default: LogLevel.warn,
+      options: Object.keys(LogLevel),
+      helpGroup: "GLOBAL",
+      parse: async (input: string) => LogLevel[input as keyof typeof LogLevel],
+    })(),
+  };
+
   protected parsedFlags: {
     [flag: string]: any;
   };
@@ -80,18 +98,30 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
     this.parsedFlags = { ...this.parsedFlags, ...promptFlags };
   }
 
-  // protected async catch(err: Error & { exitCode?: number }): Promise<any> {
-  //   // add any custom logic to handle errors from the command
-  //   // or simply return the parent class error handling
-  //   return super.catch(err);
-  // }
+  private wrapLine(string: string, indent = 0) {
+    const limit = 80;
+    const start = indent;
+    const end = limit - start;
+    const wrap = wordwrap(start, end);
 
-  // protected async finally(_: Error | undefined): Promise<any> {
-  //   // called after run and catch regardless of whether or not the command errored
-  //   return super.finally(_);
-  // }
+    return wrap(string);
+  }
 
-  public async run(): Promise<void> {
-    console.log(this.parsedFlags);
+  public title(string: string, logLevel = LogLevel.warn) {
+    if (this.parsedFlags["log-level"] >= logLevel) {
+      this.log(this.wrapLine(string));
+    }
+  }
+
+  public subtitle(string: string, logLevel = LogLevel.warn) {
+    if (this.parsedFlags["log-level"] >= logLevel) {
+      this.log(this.wrapLine(string, 2));
+    }
+  }
+
+  public output(string: string, logLevel = LogLevel.warn, indent = 2) {
+    if (this.parsedFlags["log-level"] >= logLevel) {
+      this.log(this.wrapLine(string, indent));
+    }
   }
 }
