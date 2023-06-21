@@ -1,8 +1,6 @@
 import { Flags } from "@oclif/core";
 import SecureCommand from "../../secure";
-// import { LogLevel } from "../../base";
 import { createReadStream } from "fs";
-import { PrerecordedTranscriptionResponse } from "@deepgram/sdk/dist/types";
 import { LogLevel } from "../../base";
 
 /* Used in dynamic mappings from features to flags */
@@ -32,6 +30,7 @@ const availableFeatures: {
   {
     name: "replace",
     type: "string",
+    multiple: true,
   },
   {
     name: "language",
@@ -293,15 +292,10 @@ export default class Transcribe extends SecureCommand {
       })
     );
 
-    const response: {
-      results?: {
-        summary?: { short: string };
-      };
-    } & PrerecordedTranscriptionResponse =
-      await this.deepgram.transcription.preRecorded(
-        source,
-        Object.assign({}, { tag: ["cli"] }, features)
-      );
+    const response = await this.deepgram.transcription.preRecorded(
+      source,
+      Object.assign({}, { tag: ["cli"] }, features)
+    );
 
     const { vtt, srt, json, "no-transcript": noTranscript } = this.parsedFlags;
 
