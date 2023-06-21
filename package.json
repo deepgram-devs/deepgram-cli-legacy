@@ -17,14 +17,13 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@deepgram/sdk": "file:../node-sdk",
+    "@deepgram/sdk": "^2.2.0",
     "@inquirer/prompts": "^2.1.1",
     "@oclif/core": "^2.8.6",
     "@oclif/plugin-autocomplete": "^2.3.0",
     "@oclif/plugin-help": "^5.2.9",
     "@oclif/plugin-not-found": "^2.3.25",
     "@oclif/test": "^2.3.22",
-    "@types/inquirer": "^9.0.3",
     "@types/mocha": "^10.0.1",
     "@types/node": "^20.3.1",
     "@types/rc": "^1.2.1",
@@ -76,5 +75,8 @@
   "keywords": [
     "oclif"
   ],
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@types/mute-stream": "^0.0.1"
+  }
 }
