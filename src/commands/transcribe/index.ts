@@ -342,7 +342,7 @@ export default class Transcribe extends SecureCommand {
       this.output("");
       let topics: { confidence: number; topic: string }[] = [];
 
-      alternative?.topics?.forEach((segment) => {
+      alternative?.topics?.forEach((segment: { topics: any[]; }) => {
         segment.topics.forEach((topic) => {
           topics.push(topic);
         });
@@ -380,7 +380,7 @@ export default class Transcribe extends SecureCommand {
         }
 
         const entitiesByLabel: EntityGroup = entities.reduce(
-          (group: EntityGroup, entity) => {
+          (group: EntityGroup, entity:any) => {
             const { label }: { label: string } = entity;
             group[label] = group[label] ?? [];
             group[label].push(entity);
@@ -428,7 +428,7 @@ export default class Transcribe extends SecureCommand {
       this.output("");
 
       if (paragraphs) {
-        paragraphs.paragraphs.map((section) => {
+        paragraphs.paragraphs.map((section: { sentences: any[]; }) => {
           let paragraph = "";
           section.sentences.map((sentence) => {
             paragraph += ` ${sentence.text}`;
@@ -449,7 +449,7 @@ export default class Transcribe extends SecureCommand {
       this.output("");
 
       if (utterances) {
-        utterances.map((utterance) => {
+        utterances.map((utterance: { transcript: string; }) => {
           this.output(utterance.transcript, LogLevel.error);
           this.output("");
         });
@@ -468,7 +468,7 @@ export default class Transcribe extends SecureCommand {
     const paragraphs = alternative?.paragraphs;
 
     if (paragraphs) {
-      paragraphs.paragraphs.map((section) => {
+      paragraphs.paragraphs.map((section: { sentences: any[]; }) => {
         let paragraph = "";
         section.sentences.map((sentence) => {
           paragraph += ` ${sentence.text}`;

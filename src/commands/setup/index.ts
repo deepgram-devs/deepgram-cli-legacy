@@ -37,7 +37,7 @@ export default class Setup extends BaseCommand<typeof Setup> {
     if (!("project" in this.parsedFlags)) {
       const { projects } = await dg.projects
         .list()
-        .catch((err) => this.error(err));
+        .catch((err: string | Error) => this.error(err));
 
       this.parsedFlags["project"] = await select({
         message: "Please enter a Deepgram Project ID:",
