@@ -8,18 +8,16 @@
 [![Downloads/week](https://img.shields.io/npm/dw/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
 [![License](https://img.shields.io/npm/l/@deepgram/cli.svg)](https://github.com/lukeocodes/deepgram-cli/blob/main/package.json)
 
+ Official CLI for [Deepgram](https://www.deepgram.com/). Start building with our powerful transcription & speech understanding API.
+
 > This project is currently ALPHA and is in active development. Commands are likely to change without warning or deprecation.
+## Getting an API Key
 
+🔑 To access the Deepgram API you will need a [free Deepgram API Key](https://console.deepgram.com/signup?jump=keys).
 
-This is the Deepgram CLI. It is used to interact with the [Deepgram API](https://developers.deepgram.com/api-reference/) from the command line. It is built using [oclif](https://oclif.io/).
+## Documentation
 
-* For more about Deepgram see https://www.deepgram.com.
-* To get started using Deepgram [sign up](https://console.deepgram.com/signup) for a free account and get 12,000 minutes free!
-
-# Issues
-
-* For problems directly related to the CLI, [add an issue on GitHub](https://github.com/lukeocodes/deepgram-cli/issues/new).
-* For other questions using the Deepgram, post a question in our [Community Forum](https://github.com/orgs/deepgram/discussions/categories/q-a).
+ The Deepgram CLI can be used to interact with the [Deepgram API](https://developers.deepgram.com/api-reference/) from the command line. It is built using [oclif](https://oclif.io/).
 
 # Installation & Usage
 
@@ -68,7 +66,8 @@ USAGE
 
 <!-- commands -->
 * [Deepgram CLI](#deepgram-cli)
-* [Issues](#issues)
+  * [Getting an API Key](#getting-an-api-key)
+  * [Documentation](#documentation)
 * [Installation \& Usage](#installation--usage)
 * [Commands](#commands)
   * [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
@@ -87,7 +86,8 @@ USAGE
   * [`deepgram usage requests get [REQUEST] [PROJECT]`](#deepgram-usage-requests-get-request-project)
 * [Writing Templates](#writing-templates)
 * [Developing](#developing)
-* [Contributors](#contributors)
+* [Contributing](#contributing)
+  * [Getting Help](#getting-help)
 
 ## `deepgram generate [TEMPLATE]`
 
@@ -390,7 +390,7 @@ USAGE
   $ bin/dev COMMAND
 ```
 
-# Contributors
+# Contributing
 
 Would you like to contribute to this project? Check out our [contributing guide](./.github/CONTRIBUTING.md).
 
@@ -399,3 +399,15 @@ Would you like to contribute to this project? Check out our [contributing guide]
 </a>
 
 Made with [contrib.rocks](https://contrib.rocks).
+
+## Getting Help
+
+We love to hear from you so if you have questions, comments or find a bug in the
+project, let us know! You can either:
+
+- [Open an issue in this repository](https://github.com/deepgram-devs/deepgram-cli/issues/new)
+- [Join the Deepgram Github Discussions Community](https://github.com/orgs/deepgram/discussions)
+- [Join the Deepgram Discord Community](https://discord.gg/xWRaCDBtW4)
+
+
+[license]: LICENSE.txt
