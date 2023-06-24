@@ -7,54 +7,63 @@ import { open } from "fs/promises";
 
 export default class Setup extends BaseCommand<typeof Setup> {
   static description =
-    "Setup the CLI using a Deepgram API Key. Read more: https://dpgr.am/cli";
+    "Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli";
 
   static flags = {
     key: Flags.string({
       char: "k",
       env: "DEEPGRAM_API_KEY",
       description:
-        "An API key provided by Deepgram. Get one now: https://dpgr.am/cli",
-      summary: "Deepgram API Key",
+        "An API key provided by Deepgram. Get one now: https://dpgr.am/api-key",
+      summary: "Deepgram API key",
       required: false,
       prompt: true,
+      inquirer: "password",
     }),
-    project: Flags.string({
-      char: "p",
-      env: "DEEPGRAM_PROJECT_ID",
-      description: "A Deepgram Project ID, found on your dashboard.",
-      summary: "Deepgram Project ID",
+    scopes: Flags.string({
+      char: "s",
+      env: "DEEPGRAM_API_SCOPES",
+      description:
+        "Comma separated string of Deepgram API scopes. Read more: https://dpgr.am/scopes",
+      summary: "Deepgram auth scopes",
+      required: false,
+    }),
+    ttl: Flags.integer({
+      char: "t",
+      env: "DEEPGRAM_API_TTL",
+      description:
+        "How many seconds you should remain logged in with the Deepgram CLI. Default: 86400",
+      default: 86400,
+      summary: "Seconds to remain logged in",
       required: false,
     }),
   };
 
   public async run(): Promise<void> {
-    const dg = new Deepgram(this.parsedFlags.key);
+    let { key: auth, scopes, ttl } = this.parsedFlags;
+    const dg = new Deepgram(auth);
 
-    /**
-     * prompt for a project if one wasn't supplied
-     */
-    if (!("project" in this.parsedFlags)) {
-      const { projects } = await dg.projects
-        .list()
-        .catch((err) => this.error(err));
+    const {
+      projects: [project],
+    } = await dg.projects.list().catch((err) => this.error(err));
 
-      this.parsedFlags["project"] = await select({
-        message: "Please enter a Deepgram Project ID:",
-        choices: projects.map((project) => ({
-          name: project.name || project.project_id,
-          value: project.project_id,
-          description: `Deepgram Project ID ${project.project_id}`,
-        })),
-      });
+    if (!scopes) {
+      scopes = ["member"];
     }
 
-    /**
-     * validate the project used is available to this key
-     */
-    await dg.projects
-      .get(this.parsedFlags.project)
-      .catch((err) => this.error(err));
+    if (typeof scopes === "string") {
+      scopes = this.parsedFlags["scopes"].split(",");
+    }
+
+    const { key } = await dg.keys.create(
+      project.project_id,
+      "Deepgram CLI",
+      scopes,
+      {
+        timeToLive: ttl,
+        tags: ["cli"],
+      }
+    );
 
     const filePath = `${homedir()}/.deepgramrc`;
     let file;
@@ -89,7 +98,15 @@ export default class Setup extends BaseCommand<typeof Setup> {
       file = await open(filePath, "w").catch((err) => this.error(err));
     }
 
-    const data = Buffer.from(JSON.stringify(this.parsedFlags));
+    const now = Math.floor(Date.now() / 1000);
+    const configBody = {
+      key,
+      project: project.project_id,
+      scopes,
+      expires: now + ttl,
+    };
+
+    const data = Buffer.from(JSON.stringify(configBody));
     await file.write(data).catch((err) => this.error(err));
     this.log(`Config file created at '${filePath}'`);
   }

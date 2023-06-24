@@ -1,5 +1,8 @@
 import { Command, Config, Flags } from "@oclif/core";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import password from "@inquirer/password";
 import { input } from "@inquirer/prompts";
+/* eslint-enable @typescript-eslint/no-unused-vars */
 import tty from "tty";
 import wordwrap from "wordwrap";
 
@@ -17,6 +20,18 @@ export enum LogLevel {
 
 type PromptableFlag<T> = CompletableFlag<T> & {
   prompt?: boolean;
+  inquirer?: string;
+};
+
+const promptMap = (type: string, message: string) => {
+  switch (type) {
+    case "password": {
+      return password({ message });
+    }
+    default: {
+      return input({ message });
+    }
+  }
 };
 
 export abstract class BaseCommand<T extends typeof Command> extends Command {
@@ -89,9 +104,8 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
 
     const promptPromises = filtered.map(
       async ([key, flag]: [string, PromptableFlag<T>]) => {
-        const value = await input({
-          message: `Please enter a ${flag.summary}:`,
-        });
+        const type: string = flag.inquirer ?? "input";
+        const value = await promptMap(type, `Please enter a ${flag.summary}:`);
         return [key, value];
       }
     );
