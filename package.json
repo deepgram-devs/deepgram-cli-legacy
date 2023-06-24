@@ -16,15 +16,48 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
+  "oclif": {
+    "bin": "deepgram",
+    "dirname": "deepgram",
+    "commands": "./dist/commands",
+    "helpClass": "./dist/help",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found"
+    ],
+    "topicSeparator": " ",
+    "hooks": {
+      "init": "./src/hooks/init/log",
+      "command_not_found": "./src/hooks/command_not_found/log"
+    }
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "npm run lint",
+    "prepack": "npm run build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "readme": "oclif readme && git add README.md",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "bugs": "https://github.com/lukeocodes/deepgram-cli/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@deepgram/sdk": "^2.2.0",
     "@inquirer/prompts": "^2.1.1",
     "@oclif/core": "^2.8.6",
-    "@oclif/plugin-autocomplete": "^2.3.0",
     "@oclif/plugin-help": "^5.2.9",
     "@oclif/plugin-not-found": "^2.3.25",
     "@oclif/test": "^2.3.22",
     "@types/mocha": "^10.0.1",
+    "@types/mute-stream": "^0.0.1",
     "@types/node": "^20.3.1",
     "@types/rc": "^1.2.1",
     "@types/wordwrap": "^1.0.1",
@@ -42,41 +75,5 @@
     "typescript": "^5.1.3",
     "wordwrap": "^1.0.0"
   },
-  "oclif": {
-    "bin": "deepgram",
-    "dirname": "deepgram",
-    "commands": "./dist/commands",
-    "helpClass": "./dist/help",
-    "plugins": [
-      "@oclif/plugin-help",
-      "@oclif/plugin-autocomplete",
-      "@oclif/plugin-not-found"
-    ],
-    "topicSeparator": " ",
-    "hooks": {
-      "init": "./src/hooks/init/log",
-      "command_not_found": "./src/hooks/command_not_found/log"
-    }
-  },
-  "scripts": {
-    "build": "shx rm -rf dist && tsc -b",
-    "lint": "eslint . --ext .ts --config .eslintrc",
-    "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
-    "prepack": "yarn build && oclif manifest && oclif readme",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
-    "readme": "oclif readme && git add README.md",
-    "version": "oclif readme && git add README.md"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "bugs": "https://github.com/lukeocodes/deepgram-cli/issues",
-  "keywords": [
-    "oclif"
-  ],
-  "types": "dist/index.d.ts",
-  "devDependencies": {
-    "@types/mute-stream": "^0.0.1"
-  }
+  "devDependencies": {}
 }

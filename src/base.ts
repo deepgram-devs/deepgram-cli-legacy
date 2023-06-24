@@ -1,8 +1,12 @@
 import { Command, Config, Flags } from "@oclif/core";
-import { FlagInput, CompletableFlag } from "@oclif/core/lib/interfaces/parser";
 import { input } from "@inquirer/prompts";
 import tty from "tty";
 import wordwrap from "wordwrap";
+
+import type {
+  FlagInput,
+  CompletableFlag,
+} from "@oclif/core/lib/interfaces/parser";
 
 export enum LogLevel {
   debug = 3,
