@@ -8,7 +8,9 @@
     "strict": true,
     "target": "es2019",
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "strictPropertyInitialization": false
   },
+  "exclude": ["node_modules"],
   "include": ["src/**/*"]
 }

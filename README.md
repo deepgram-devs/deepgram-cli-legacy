@@ -20,45 +20,16 @@ This is the Deepgram CLI. It is used to interact with [Deepgram](https://develop
 - For problems directly related to the CLI, [add an issue on GitHub](https://github.com/lukeocodes/deepgram-cli/issues/new).
 - For other questions using the Deepgram, post a question in our [Community Forum](https://github.com/orgs/deepgram/discussions/categories/q-a).
 
-# Installation & Usage
-
-1. Clone this repository.
-
-```shell
-$ git clone git@github.com:deepgram-devs/deepgram-cli.git
-```
-
-1. Switch to the CLI directory.
-
-```shell
-$ cd deepgram-cli
-```
-
-1. Run Yarn install to install all dependencies.
-
-```shell
-$ yarn install
-```
-
-1. Access the /bin directory.
-
-```shell
-$ cd bin
-```
-
-Run the CLI.
-
-```shell
-$ ./dev {command}
-```
+# Usage
 
 <!-- usage -->
 
 ```sh-session
+$ npm install -g @deepgram/cli
 $ deepgram COMMAND
 running command...
 $ deepgram (--version)
-@deepgram/cli/0.0.0 darwin-x64 node-v16.11.1
+@deepgram/cli/0.1.0 darwin-x64 node-v16.13.0
 $ deepgram --help [COMMAND]
 USAGE
   $ deepgram COMMAND
@@ -73,53 +44,24 @@ USAGE
 
 - [Deepgram CLI](#deepgram-cli)
 - [Issues](#issues)
-- [Installation \& Usage](#installation--usage)
+- [Usage](#usage)
 - [Commands](#commands)
-  - [`deepgram generate [TEMPLATE]`](#deepgram-generate-template)
-  - [`deepgram help [COMMAND]`](#deepgram-help-command)
-  - [`deepgram keys [PROJECT]`](#deepgram-keys-project)
-  - [`deepgram keys create [PROJECT]`](#deepgram-keys-create-project)
-  - [`deepgram keys delete [API_KEY_ID] [PROJECT]`](#deepgram-keys-delete-api_key_id-project)
-  - [`deepgram projects`](#deepgram-projects)
-  - [`deepgram projects get [PROJECT]`](#deepgram-projects-get-project)
-  - [`deepgram setup [API_KEY] [PROJECT]`](#deepgram-setup-api_key-project)
-  - [`deepgram switch [PROJECT]`](#deepgram-switch-project)
-  - [`deepgram transcribe-file [FILE]`](#deepgram-transcribe-file-file)
-  - [`deepgram usage [PROJECT]`](#deepgram-usage-project)
-  - [`deepgram usage fields [PROJECT]`](#deepgram-usage-fields-project)
-  - [`deepgram usage requests [PROJECT]`](#deepgram-usage-requests-project)
-  - [`deepgram usage requests get [REQUEST] [PROJECT]`](#deepgram-usage-requests-get-request-project)
-- [Writing Templates](#writing-templates)
+  - [`deepgram help [COMMANDS]`](#deepgram-help-commands)
+  - [`deepgram setup`](#deepgram-setup)
+  - [`deepgram transcribe`](#deepgram-transcribe)
 - [Developing](#developing)
 - [Contributors](#contributors)
 
-## `deepgram generate [TEMPLATE]`
-
-Generate a new project from our Deepgram templates directory. See https://github.com/deepgram-templates
-
-```
-USAGE
-  $ deepgram generate [TEMPLATE]
-
-ARGUMENTS
-  TEMPLATE  Template name or repo URL
-
-DESCRIPTION
-  Generate a new project from our Deepgram templates directory. See https://github.com/deepgram-templates
-```
-
-_See code: [dist/commands/generate/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/generate/index.ts)_
-
-## `deepgram help [COMMAND]`
+## `deepgram help [COMMANDS]`
 
 Display help for deepgram.
 
 ```
 USAGE
-  $ deepgram help [COMMAND] [-n]
+  $ deepgram help [COMMANDS] [-n]
 
 ARGUMENTS
-  COMMAND  Command to show help for.
+  COMMANDS  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -128,268 +70,176 @@ DESCRIPTION
   Display help for deepgram.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.11/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
 
-## `deepgram keys [PROJECT]`
+## `deepgram setup`
 
-Retrieve all API keys for a given Deepgram Project.
-
-```
-USAGE
-  $ deepgram keys [PROJECT]
-
-ARGUMENTS
-  PROJECT  Project ID
-
-DESCRIPTION
-  Retrieve all API keys for a given Deepgram Project.
-```
-
-_See code: [dist/commands/keys/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/keys/index.ts)_
-
-## `deepgram keys create [PROJECT]`
-
-Create an API key for a Deepgram Project.
+Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli
 
 ```
 USAGE
-  $ deepgram keys create [PROJECT]
-
-ARGUMENTS
-  PROJECT  Project ID
-
-DESCRIPTION
-  Create an API key for a Deepgram Project.
-```
-
-## `deepgram keys delete [API_KEY_ID] [PROJECT]`
-
-Delete an API key from a Deepgram Project.
-
-```
-USAGE
-  $ deepgram keys delete [API_KEY_ID] [PROJECT]
-
-ARGUMENTS
-  API_KEY_ID  API key ID
-  PROJECT     Project ID
-
-DESCRIPTION
-  Delete an API key from a Deepgram Project.
-```
-
-## `deepgram projects`
-
-Retrieve all Deepgram Projects your API key has access to.
-
-```
-USAGE
-  $ deepgram projects
-
-DESCRIPTION
-  Retrieve all Deepgram Projects your API key has access to.
-```
-
-_See code: [dist/commands/projects/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/projects/index.ts)_
-
-## `deepgram projects get [PROJECT]`
-
-Retrieve a Deepgram Project.
-
-```
-USAGE
-  $ deepgram projects get [PROJECT]
-
-ARGUMENTS
-  PROJECT  Project ID
-
-DESCRIPTION
-  Retrieve a Deepgram Project.
-```
-
-## `deepgram setup [API_KEY] [PROJECT]`
-
-Writes the API key and Deepgram Project to a config file (can be overridden).
-
-```
-USAGE
-  $ deepgram setup [API_KEY] [PROJECT]
-
-ARGUMENTS
-  API_KEY  Deepgram API Key.
-  PROJECT  Deepgram Project
-
-DESCRIPTION
-  Writes the API key and Deepgram Project to a config file (can be overridden).
-```
-
-_See code: [dist/commands/setup/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/setup/index.ts)_
-
-## `deepgram switch [PROJECT]`
-
-Switch Deepgram Project and update the config file.
-
-```
-USAGE
-  $ deepgram switch [PROJECT]
-
-ARGUMENTS
-  PROJECT  Deepgram Project
-
-DESCRIPTION
-  Switch Deepgram Project and update the config file.
-```
-
-_See code: [dist/commands/switch/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/switch/index.ts)_
-
-## `deepgram transcribe-file [FILE]`
-
-Transcribe a file.
-
-```
-USAGE
-  $ deepgram transcribe-file [FILE] [-o <value>] [--webvtt | --srt] [--raw]
-
-ARGUMENTS
-  FILE  File name or path
+  $ deepgram setup [--log-level 0|1|2|3|debug|info|warn|error] [-k <value>] [-s <value>] [-t <value>]
 
 FLAGS
-  -o, --output=<value>
-  --raw
-  --srt
-  --webvtt
+  -k, --key=<value>     Deepgram API key
+  -s, --scopes=<value>  Deepgram auth scopes
+  -t, --ttl=<value>     [default: 86400] Seconds to remain logged in
+
+GLOBAL FLAGS
+  --log-level=<option>  [default: 1] Specify level for logging.
+                        <options: 0|1|2|3|debug|info|warn|error>
 
 DESCRIPTION
-  Transcribe a file.
+  Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli
+
+FLAG DESCRIPTIONS
+  -k, --key=<value>  Deepgram API key
+
+    An API key provided by Deepgram. Get one now: https://dpgr.am/api-key
+
+  -s, --scopes=<value>  Deepgram auth scopes
+
+    Comma separated string of Deepgram API scopes. Read more: https://dpgr.am/scopes
+
+  -t, --ttl=<value>  Seconds to remain logged in
+
+    How many seconds you should remain logged in with the Deepgram CLI. Default: 86400
 ```
 
-_See code: [dist/commands/transcribe-file/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/transcribe-file/index.ts)_
+_See code: [dist/commands/setup/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.1.0/dist/commands/setup/index.js)_
 
-## `deepgram usage [PROJECT]`
+## `deepgram transcribe`
 
-Retrieves aggregated usage data for a Deepgram Project.
+Transcribe audio/video straight from the command line.
 
 ```
 USAGE
-  $ deepgram usage [PROJECT]
-
-ARGUMENTS
-  PROJECT  Project ID
-
-DESCRIPTION
-  Retrieves aggregated usage data for a Deepgram Project.
-```
-
-_See code: [dist/commands/usage/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.0.0/dist/commands/usage/index.ts)_
-
-## `deepgram usage fields [PROJECT]`
-
-List features used by a Deepgram Project.
-
-```
-USAGE
-  $ deepgram usage fields [PROJECT]
-
-ARGUMENTS
-  PROJECT  Project ID
-
-DESCRIPTION
-  List features used by a Deepgram Project.
-```
-
-## `deepgram usage requests [PROJECT]`
-
-Retrieves transcription requests for a Deepgram Project.
-
-```
-USAGE
-  $ deepgram usage requests [PROJECT] [--page <value>] [--raw | --json] [-l <value>]
-
-ARGUMENTS
-  PROJECT  Project ID
+  $ deepgram transcribe [--log-level 0|1|2|3|debug|info|warn|error] [--data-url <value> | --mimetype <value>]
+    [--data-binary <value> ] [--json | [--vtt --utterances] | [--srt ]] [--no-transcript | --paragraphs |  |
+    --smart_format] [--model <value>] [--version <value>] [--tier <value>] [--replace <value>] [--language <value>]
+    [--punctuate] [--profanity_filter] [--redact <value>] [--diarize] [--diarize_version <value>] [--multichannel]
+    [--alternatives <value>] [--numbers] [--numerals] [--numbers_spaces] [--search <value>] [--callback <value>]
+    [--keywords <value>] [--keyword_boost <value>] [--utt_split <value>] [--detect_language] [--detect_entities]
+    [--summarize] [--translate <value>] [--detect_topics] [--sentiment] [--analyze_sentiment] [--sentiment_threshold
+    <value>] [--dates] [--date_format <value>] [--times] [--dictation] [--measurements] [--tag <value>] [--ner]
 
 FLAGS
-  -l, --limit=<value>  [default: 10]
-  --json
-  --page=<value>
-  --raw
+  --alternatives=<value>         Deepgram feature: alternatives
+  --analyze_sentiment            Deepgram feature: analyze_sentiment
+  --callback=<value>             Deepgram feature: callback
+  --data-binary=<value>          filepath
+  --data-url=<value>             url
+  --date_format=<value>          Deepgram feature: date_format
+  --dates                        Deepgram feature: dates
+  --detect_entities              Deepgram feature: detect_entities
+  --detect_language              Deepgram feature: detect_language
+  --detect_topics                Deepgram feature: detect_topics
+  --diarize                      Deepgram feature: diarize
+  --diarize_version=<value>      Deepgram feature: diarize_version
+  --dictation                    Deepgram feature: dictation
+  --json                         json
+  --keyword_boost=<value>        Deepgram feature: keyword_boost
+  --keywords=<value>...          Deepgram feature: keywords
+  --language=<value>             Deepgram feature: language
+  --measurements                 Deepgram feature: measurements
+  --mimetype=<value>             mimetype
+  --model=<value>                Deepgram feature: model
+  --multichannel                 Deepgram feature: multichannel
+  --ner                          Deepgram feature: ner
+  --no-transcript                No transcript
+  --numbers                      Deepgram feature: numbers
+  --numbers_spaces               Deepgram feature: numbers_spaces
+  --numerals                     Deepgram feature: numerals
+  --paragraphs                   Deepgram feature: paragraphs
+  --profanity_filter             Deepgram feature: profanity_filter
+  --punctuate                    Deepgram feature: punctuate
+  --redact=<value>...            Deepgram feature: redact
+  --replace=<value>...           Deepgram feature: replace
+  --search=<value>...            Deepgram feature: search
+  --sentiment                    Deepgram feature: sentiment
+  --sentiment_threshold=<value>  Deepgram feature: sentiment_threshold
+  --smart_format                 Deepgram feature: smart_format
+  --srt                          srt
+  --summarize                    Deepgram feature: summarize
+  --tag=<value>...               Deepgram feature: tag
+  --tier=<value>                 Deepgram feature: tier
+  --times                        Deepgram feature: times
+  --translate=<value>...         Deepgram feature: translate
+  --utt_split=<value>            Deepgram feature: utt_split
+  --utterances                   Deepgram feature: utterances
+  --version=<value>              Deepgram feature: version
+  --vtt                          vtt
+
+GLOBAL FLAGS
+  --log-level=<option>  [default: 1] Specify level for logging.
+                        <options: 0|1|2|3|debug|info|warn|error>
 
 DESCRIPTION
-  Retrieves transcription requests for a Deepgram Project.
+  Transcribe audio/video straight from the command line.
+
+FLAG DESCRIPTIONS
+  --data-binary=<value>  filepath
+
+    filepath
+
+  --data-url=<value>  url
+
+    url
+
+  --json  json
+
+    json
+
+  --mimetype=<value>  mimetype
+
+    mimetype
+
+  --no-transcript  No transcript
+
+    Don't output a transcript
+
+  --srt  srt
+
+    srt
+
+  --vtt  vtt
+
+    vtt
 ```
 
-## `deepgram usage requests get [REQUEST] [PROJECT]`
-
-Retrieves a specific transcription request for a Deepgram Project.
-
-```
-USAGE
-  $ deepgram usage requests get [REQUEST] [PROJECT]
-
-ARGUMENTS
-  REQUEST  Request ID
-  PROJECT  Project ID
-
-DESCRIPTION
-  Retrieves a specific transcription request for a Deepgram Project.
-```
+_See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.1.0/dist/commands/transcribe/index.js)_
 
 <!-- commandsstop -->
 
-# Writing Templates
-
-The Deepgram CLI can **_generate_** from any public repository, with a small amount of configuration in a `deepgram.toml`.
-
-```toml
-# command properties
-[build]
-  command = "your build command" # required
-  args = ["--arg=one", "--arg=two"]
-
-# config properties
-[config]
-  sample = "sample-config-file" # required
-  output = "config-file" # required
-
-# post-build properties
-[post-build]
-  message = "final message to output to instruct users to start your app"
-```
-
-Check out this [`deepgram.toml`](https://github.com/deepgram-templates/video-chat/blob/main/deepgram.toml) from our video-chat template.
-
-```toml
-[build]
-  command = "npm install"
-
-[config]
-  sample = ".env-sample"
-  output = ".env"
-
-[post-build]
-  message = "Run `npm start` to get up and running."
-```
-
-Config is generated by replacing template-strings in the [sample config](https://github.com/deepgram-templates/video-chat/blob/main/.env-sample), whether it's an **_API Key_** or a **_Project ID_**
-
-In this sample, we'll replace `%api_key%` with the API configured when you set up the CLI.
-
-```env
-port=3000
-deepgram_api_key=%api_key%
-```
-
 # Developing
 
-This project can be cloned and ran locally.
+1. Clone this repository.
 
 ```sh-session
-$ yarn
-$ bin/dev
+$ git clone git@github.com:deepgram-devs/deepgram-cli.git
+```
+
+1. Switch to the CLI directory.
+
+```sh-session
+$ cd deepgram-cli
+```
+
+1. Install all dependencies.
+
+```sh-session
+$ npm i
+```
+
+Run the CLI.
+
+```sh-session
 $ bin/dev COMMAND
 running command...
+
 $ bin/dev (--version)
 @deepgram/cli/0.0.0 darwin-x64 node-v16.11.1
+
 $ bin/dev --help [COMMAND]
 USAGE
   $ bin/dev COMMAND
