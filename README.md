@@ -23,34 +23,25 @@ This is the Deepgram CLI. It is used to interact with [Deepgram](https://develop
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @deepgram/cli
 $ deepgram COMMAND
 running command...
 $ deepgram (--version)
-@deepgram/cli/0.1.0 darwin-x64 node-v16.13.0
+@deepgram/cli/0.2.0 darwin-x64 node-v16.13.0
 $ deepgram --help [COMMAND]
 USAGE
   $ deepgram COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [Deepgram CLI](#deepgram-cli)
-- [Issues](#issues)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-  - [`deepgram setup`](#deepgram-setup)
-  - [`deepgram transcribe`](#deepgram-transcribe)
-- [Developing](#developing)
-- [Contributors](#contributors)
+* [`deepgram help [COMMANDS]`](#deepgram-help-commands)
+* [`deepgram setup`](#deepgram-setup)
+* [`deepgram transcribe`](#deepgram-transcribe)
 
 ## `deepgram help [COMMANDS]`
 
@@ -106,7 +97,7 @@ FLAG DESCRIPTIONS
     How many seconds you should remain logged in with the Deepgram CLI. Default: 86400
 ```
 
-_See code: [dist/commands/setup/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.1.0/dist/commands/setup/index.js)_
+_See code: [dist/commands/setup/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.2.0/dist/commands/setup/index.js)_
 
 ## `deepgram transcribe`
 
@@ -207,8 +198,7 @@ FLAG DESCRIPTIONS
     vtt
 ```
 
-_See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.1.0/dist/commands/transcribe/index.js)_
-
+_See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.2.0/dist/commands/transcribe/index.js)_
 <!-- commandsstop -->
 
 # Developing
