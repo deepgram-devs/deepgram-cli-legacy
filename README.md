@@ -52,15 +52,9 @@ USAGE
 
 <!-- commands -->
 
-- [Deepgram CLI](#deepgram-cli)
-- [Issues](#issues)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-  - [`deepgram setup`](#deepgram-setup)
-  - [`deepgram transcribe`](#deepgram-transcribe)
-- [Developing](#developing)
-- [Contributors](#contributors)
+- [`deepgram help [COMMANDS]`](#deepgram-help-commands)
+- [`deepgram setup`](#deepgram-setup)
+- [`deepgram transcribe`](#deepgram-transcribe)
 
 ## `deepgram help [COMMANDS]`
 
