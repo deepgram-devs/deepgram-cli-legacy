@@ -15,7 +15,8 @@ This is the Deepgram CLI. It is used to interact with [Deepgram](https://develop
 - For more about Deepgram see https://www.deepgram.com.
 - To get started using Deepgram [sign up](https://dpgr.am/api-key) for a free account and get 12,000 minutes free!
 
-- [Deepgram CLI](#deepgram-cli)
+# Table of Contents
+
 - [Issues](#issues)
 - [Usage](#usage)
 - [Commands](#commands)
