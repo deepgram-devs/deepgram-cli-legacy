@@ -1,108 +1,113 @@
-import { Command } from "@oclif/core";
+import { Flags } from "@oclif/core";
+import { BaseCommand } from "../../base";
 import { Deepgram } from "@deepgram/sdk";
+import { select, confirm } from "@inquirer/prompts";
+import { homedir } from "os";
 import { open } from "fs/promises";
-import chalk from "chalk";
-import inquirer from "inquirer";
 
-import { validateApiKey } from "../../validator/apiKey";
-import { validateProjectID } from "../../validator/projectId";
-
-const homedir = require("os").homedir();
-
-export default class Setup extends Command {
-  static prompts = [
-    {
-      type: "password",
-      name: "api_key",
-      message: "Please enter a Deepgram API Key:",
-      validate: validateApiKey,
-    },
-  ];
-
-  static args = [
-    {
-      name: "api_key",
-      env: "deepgram_api_key",
-      required: false,
-      description: "Deepgram API Key.",
-    },
-    {
-      name: "project",
-      required: false,
-      description: "Deepgram Project",
-    },
-  ];
-
+export default class Setup extends BaseCommand<typeof Setup> {
   static description =
-    "Writes the API key and Deepgram Project to a config file (can be overridden).";
+    "Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli";
+
+  static flags = {
+    key: Flags.string({
+      char: "k",
+      env: "DEEPGRAM_API_KEY",
+      description:
+        "An API key provided by Deepgram. Get one now: https://dpgr.am/api-key",
+      summary: "Deepgram API key",
+      required: false,
+      prompt: true,
+      inquirer: "password",
+    }),
+    scopes: Flags.string({
+      char: "s",
+      env: "DEEPGRAM_API_SCOPES",
+      description:
+        "Comma separated string of Deepgram API scopes. Read more: https://dpgr.am/scopes",
+      summary: "Deepgram auth scopes",
+      required: false,
+    }),
+    ttl: Flags.integer({
+      char: "t",
+      env: "DEEPGRAM_API_TTL",
+      description:
+        "How many seconds you should remain logged in with the Deepgram CLI. Default: 86400",
+      default: 86400,
+      summary: "Seconds to remain logged in",
+      required: false,
+    }),
+  };
 
   public async run(): Promise<void> {
-    let { args } = await this.parse(Setup);
-    args = await inquirer.prompt(Setup.prompts, args);
+    let { key: auth, scopes, ttl } = this.parsedFlags;
+    const dg = new Deepgram(auth);
 
-    if (args.api_key && !args.project) {
-      const dg = new Deepgram(args.api_key);
-      const { projects } = await dg.projects
-        .list()
-        .catch((err) => this.error(err));
+    const {
+      projects: [project],
+    } = await dg.projects.list().catch((err) => this.error(err));
 
-      const choices = projects.map((project) => ({
-        name: project.name,
-        short: project.name,
-        value: project.project_id,
-      }));
-
-      args = await inquirer.prompt(
-        [
-          {
-            type: "list",
-            name: "project",
-            message: "Please select a Deepgram Project:",
-            validate: validateProjectID,
-            choices,
-          },
-        ],
-        args
-      );
+    if (!scopes) {
+      scopes = ["member"];
     }
 
-    const filePath = `${homedir}/.deepgramrc`;
+    if (typeof scopes === "string") {
+      scopes = this.parsedFlags["scopes"].split(",");
+    }
 
-    let file = await open(filePath, "wx").catch((err) => {
+    const { key } = await dg.keys.create(
+      project.project_id,
+      "Deepgram CLI",
+      scopes,
+      {
+        timeToLive: ttl,
+        tags: ["cli"],
+      }
+    );
+
+    const filePath = `${homedir()}/.deepgramrc`;
+    let file;
+
+    /**
+     * Open a file handler if one doesn't exist.
+     */
+    file = await open(filePath, "wx").catch((err) => {
       if (err.code === "EEXIST") {
-        this.log(
-          `${chalk.red(">>")} Existing config file ${filePath} detected.`
-        );
-        return;
+        this.log(`Existing config file '${filePath}' detected.`);
+        return; // Return without killing the process.
       }
 
-      throw err;
+      this.error(err);
     });
 
+    /**
+     * If one does exist, prompt the user to overwrite it.
+     */
     if (!file) {
-      const overwritePrompt = await inquirer.prompt([
-        {
-          type: "confirm",
-          name: "overwrite",
-          message: `Overwrite it existing config file?`,
-          default: false,
-        },
-      ]);
+      const overwritePrompt = await confirm({
+        message: `Overwrite it existing config file?`,
+      });
 
-      if (!overwritePrompt.overwrite) {
+      if (!overwritePrompt) {
         this.error(
-          `Config file ${chalk.cyan(
-            filePath
-          )} already existed. Use cancelled overwrite.`
+          `Config file '${filePath}' already existed. Use cancelled overwrite.`
         );
       }
 
-      this.log(`Overwriting the existing config file ${chalk.cyan(filePath)}`);
+      this.log(`Overwriting the existing config file '${filePath}'`);
       file = await open(filePath, "w").catch((err) => this.error(err));
     }
 
-    this.log(`Config file created at ${chalk.cyan(filePath)}`);
-    const data = Buffer.from(JSON.stringify(args));
+    const now = Math.floor(Date.now() / 1000);
+    const configBody = {
+      key,
+      project: project.project_id,
+      scopes,
+      expires: now + ttl,
+    };
+
+    const data = Buffer.from(JSON.stringify(configBody));
     await file.write(data).catch((err) => this.error(err));
+    this.log(`Config file created at '${filePath}'`);
   }
 }
