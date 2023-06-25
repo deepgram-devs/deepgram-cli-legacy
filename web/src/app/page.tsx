@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider } from "next-themes";
 import Brand from "./Brand";
 import Section from "./layout/Section";
@@ -15,9 +15,12 @@ import LightModeToggle from "./LightModeToggle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faPepperHot } from "@fortawesome/free-solid-svg-icons";
+import Module from "module";
 
 async function getData() {
-  return await import("../../oclif.manifest.json");
+  const res = await import("../../oclif.manifest.json");
+
+  return res;
 }
 
 const features: {
@@ -138,13 +141,20 @@ const features: {
   ],
 };
 
-export default async function Home() {
+export default function Home() {
   const [title, setTitle] = useState("");
-  const data = await getData();
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    getData().then((result) => {
+      setData({ ...result.default });
+    });
+  }, []);
 
   return (
     <ThemeProvider attribute="class">
       <main className="flex min-h-screen w-full flex-col gradient dark:gradient-dark">
+        {/* {JSON.stringify(getData())} */}
         <Header>
           <Brand />
           <div className="flex justify-end gap-x-4 items-center">
@@ -195,6 +205,9 @@ export default async function Home() {
           </Margin>
         </Section>
         <Section>
+          <Margin>{JSON.stringify(data)}</Margin>
+        </Section>
+        <Section>
           <Margin className="flex-col p-6 gap-6">
             {Object.keys(features).map((feature: string) => (
               <div key={feature}>
@@ -222,6 +235,48 @@ export default async function Home() {
                 </div>
               </div>
             ))}
+          </Margin>
+        </Section>
+        <Section>
+          <Margin className="flex-col p-6">
+            <div className="max-w-screen-lg w-full mx-auto">
+              <h3 className="text-xl text-gray-400">
+                Opensource contributions are welcome!
+              </h3>
+              <h2 className="text-2xl block h-[1.5em] min-h-[1.5em] my-2">
+                Developer mode{" "}
+                <small className="text-sm">
+                  <code>@deepgram/cli{data ? `@${data.version}` : null}</code>
+                </small>
+              </h2>
+              <TerminalWindow>
+                <CommandLine>
+                  git clone https://github.com/deepgram-devs/deepgram-cli.git
+                </CommandLine>
+                <br />
+                Cloning into 'deepgram-cli'...
+                <br />
+                <CommandLine>cd ./deepgram-cli</CommandLine>
+                <br />
+                <CommandLine>npm i</CommandLine>
+                <br />
+                added 989 packages, and audited 991 packages in 10s
+                <br />
+                <CommandLine>bin/dev</CommandLine>
+                <br />
+                The Deepgram CLI
+                <br />
+                VERSION
+                <br />
+                {"  "}
+                @deepgram/cli
+                {data ? `/${data.version}` : null}
+                <br />
+                USAGE
+                <br />
+                {"  "}$ bin/dev [COMMAND]
+              </TerminalWindow>
+            </div>
           </Margin>
         </Section>
       </main>
