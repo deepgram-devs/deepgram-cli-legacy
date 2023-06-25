@@ -145,20 +145,31 @@ export default function Home() {
           <Brand />
           <div className="flex justify-end gap-x-4 items-center">
             <a
+              href="https://deepgram.com?utm_source=cli&utm_campaign=cli&utm_medium=cli"
+              target="_blank"
+              className="text-black dark:text-white mr-4 font-semibold"
+            >
+              deepgram.com
+            </a>
+            <a
               className="button button--secondary"
-              href="https://deepgram.com/contact-us?utm_source=cli&utm_campaign=cli&utm_medium=cli"
+              href="https://github.com/deepgram-devs/deepgram-cli?utm_source=cli&utm_campaign=cli&utm_medium=cli"
               target="_blank"
             >
-              <FontAwesomeIcon icon={faGithub} className="mr-2" />
-              See the code
+              <span>
+                <FontAwesomeIcon icon={faGithub} className="mr-2" />
+                See the code
+              </span>
             </a>
             <a
               className="button"
               href="https://dpgr.am/api-key"
               target="_blank"
             >
-              <FontAwesomeIcon icon={faPepperHot} className="mr-2" />
-              Free API Key
+              <span>
+                <FontAwesomeIcon icon={faPepperHot} className="mr-2" />
+                Free API Key
+              </span>
             </a>
             <LightModeToggle />
           </div>

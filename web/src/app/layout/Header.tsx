@@ -38,7 +38,7 @@ const Header = ({ className = "", children }: Props) => {
   return (
     <>
       <nav
-        className={`z-20 fixed inset-x-0 bg-gradient-to-b glass-blur border-b border-black/90 ${className} ${classMap(
+        className={`z-20 fixed inset-x-0 bg-gradient-to-b glass-blur border-b border-white/90 dark:border-black/90 ${className} ${classMap(
           scrollTop
         )}`}
       >
