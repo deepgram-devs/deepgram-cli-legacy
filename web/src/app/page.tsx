@@ -254,7 +254,7 @@ export default function Home() {
                   git clone https://github.com/deepgram-devs/deepgram-cli.git
                 </CommandLine>
                 <br />
-                Cloning into 'deepgram-cli'...
+                Cloning into &apos;deepgram-cli&apos;...
                 <br />
                 <CommandLine>cd ./deepgram-cli</CommandLine>
                 <br />
