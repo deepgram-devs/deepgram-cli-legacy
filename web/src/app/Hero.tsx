@@ -41,7 +41,7 @@ const Hero = () => {
           <div className="mx-auto max-w-2xl pt-24 pb-20 sm:pt-40 lg:pt-44">
             <div className="text-center">
               <h1 className="text-4xl font-bold tracking-tight dark:text-white sm:text-6xl">
-                You can now use Deepgram from the command line.
+                Use Deepgram from the command line.
               </h1>
               <p className="mt-6 text-lg leading-8 dark:text-gray-300 text-gray-700">
                 The{" "}

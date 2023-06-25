@@ -3,7 +3,6 @@ import CommandLine from "./CommandLine";
 import Typewriter from "typewriter-effect";
 
 type Props = {
-  className?: string;
   children?: React.ReactNode;
   setTitle: Dispatch<SetStateAction<string>>;
 };
@@ -87,7 +86,7 @@ have today
   },
 ];
 
-const Examples = ({ className = "", children, setTitle }: Props) => {
+const Examples = ({ children, setTitle }: Props) => {
   const [output, setOutput] = useState("");
 
   return (

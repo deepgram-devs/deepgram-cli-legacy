@@ -1,5 +1,3 @@
-"use client";
-
 import DeepgramLogo from "./DeepgramLogo";
 
 const Brand = () => {

@@ -136,7 +136,6 @@ const features: {
 
 export default function Home() {
   const [title, setTitle] = useState("");
-  const [command, setCommand] = useState("...");
 
   return (
     <ThemeProvider attribute="class">
