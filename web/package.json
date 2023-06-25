@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run manifest && next dev",
+    "premanifest": "cd ../ && npm i",
+    "manifest": "cd ../ && oclif manifest",
+    "postmanifest": "cp ../oclif.manifest.json ./oclif.manifest.json",
+    "build": "npm run manifest && next build",
     "start": "next start",
     "lint": "next lint"
   },

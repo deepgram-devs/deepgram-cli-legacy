@@ -16,6 +16,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faPepperHot } from "@fortawesome/free-solid-svg-icons";
 
+async function getData() {
+  return await import("../../oclif.manifest.json");
+}
+
 const features: {
   [x: string]: { name: string; type: string; multiple?: boolean }[];
 } = {
@@ -134,8 +138,9 @@ const features: {
   ],
 };
 
-export default function Home() {
+export default async function Home() {
   const [title, setTitle] = useState("");
+  const data = await getData();
 
   return (
     <ThemeProvider attribute="class">
