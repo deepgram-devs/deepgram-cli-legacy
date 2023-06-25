@@ -117,60 +117,47 @@ Transcribe audio/video straight from the command line.
 ```
 USAGE
   $ deepgram transcribe [--log-level 0|1|2|3|debug|info|warn|error] [--data-url <value> | --mimetype <value>]
-    [--data-binary <value> ] [--json | [--vtt --utterances] | [--srt ]] [--no-transcript | --paragraphs |  |
-    --smart_format] [--model <value>] [--version <value>] [--tier <value>] [--replace <value>] [--language <value>]
-    [--punctuate] [--profanity_filter] [--redact <value>] [--diarize] [--diarize_version <value>] [--multichannel]
-    [--alternatives <value>] [--numbers] [--numerals] [--numbers_spaces] [--search <value>] [--callback <value>]
-    [--keywords <value>] [--keyword_boost <value>] [--utt_split <value>] [--detect_language] [--detect_entities]
-    [--summarize] [--translate <value>] [--detect_topics] [--sentiment] [--analyze_sentiment] [--sentiment_threshold
-    <value>] [--dates] [--date_format <value>] [--times] [--dictation] [--measurements] [--tag <value>] [--ner]
+    [--data-binary <value> ] [--no-transcript | --paragraphs |  | --smart_format | [--json | [--vtt --utterances] |
+    [--srt ]]] [--model <value>] [--version <value>] [--tier <value>] [--replace <value>] [--language <value>]
+    [--punctuate] [--profanity_filter] [--redact <value>] [--diarize] [--multichannel] [--search <value>] [--callback
+    <value>] [--keywords <value>] [--keyword_boost] [--utt_split <value>] [--detect_language] [--detect_entities]
+    [--summarize] [--detect_topics] [--tag <value>]
 
-FLAGS
-  --alternatives=<value>         Deepgram feature: alternatives
-  --analyze_sentiment            Deepgram feature: analyze_sentiment
-  --callback=<value>             Deepgram feature: callback
-  --data-binary=<value>          filepath
-  --data-url=<value>             url
-  --date_format=<value>          Deepgram feature: date_format
-  --dates                        Deepgram feature: dates
-  --detect_entities              Deepgram feature: detect_entities
-  --detect_language              Deepgram feature: detect_language
-  --detect_topics                Deepgram feature: detect_topics
-  --diarize                      Deepgram feature: diarize
-  --diarize_version=<value>      Deepgram feature: diarize_version
-  --dictation                    Deepgram feature: dictation
-  --json                         json
-  --keyword_boost=<value>        Deepgram feature: keyword_boost
-  --keywords=<value>...          Deepgram feature: keywords
-  --language=<value>             Deepgram feature: language
-  --measurements                 Deepgram feature: measurements
-  --mimetype=<value>             mimetype
-  --model=<value>                Deepgram feature: model
-  --multichannel                 Deepgram feature: multichannel
-  --ner                          Deepgram feature: ner
-  --no-transcript                No transcript
-  --numbers                      Deepgram feature: numbers
-  --numbers_spaces               Deepgram feature: numbers_spaces
-  --numerals                     Deepgram feature: numerals
-  --paragraphs                   Deepgram feature: paragraphs
-  --profanity_filter             Deepgram feature: profanity_filter
-  --punctuate                    Deepgram feature: punctuate
-  --redact=<value>...            Deepgram feature: redact
-  --replace=<value>...           Deepgram feature: replace
-  --search=<value>...            Deepgram feature: search
-  --sentiment                    Deepgram feature: sentiment
-  --sentiment_threshold=<value>  Deepgram feature: sentiment_threshold
-  --smart_format                 Deepgram feature: smart_format
-  --srt                          srt
-  --summarize                    Deepgram feature: summarize
-  --tag=<value>...               Deepgram feature: tag
-  --tier=<value>                 Deepgram feature: tier
-  --times                        Deepgram feature: times
-  --translate=<value>...         Deepgram feature: translate
-  --utt_split=<value>            Deepgram feature: utt_split
-  --utterances                   Deepgram feature: utterances
-  --version=<value>              Deepgram feature: version
-  --vtt                          vtt
+DEEPGRAM FEATURES FLAGS
+  --callback=<value>     Read more: https://dpgr.am/callback
+  --detect_entities      Read more: https://dpgr.am/detect_entities
+  --detect_language      Read more: https://dpgr.am/detect_language
+  --detect_topics        Read more: https://dpgr.am/detect_topics
+  --diarize              Read more: https://dpgr.am/diarize
+  --keyword_boost        Read more: https://dpgr.am/keyword_boost
+  --keywords=<value>...  Read more: https://dpgr.am/keywords
+  --language=<value>     Read more: https://dpgr.am/language
+  --model=<value>        Read more: https://dpgr.am/model
+  --multichannel         Read more: https://dpgr.am/multichannel
+  --paragraphs           Read more: https://dpgr.am/paragraphs
+  --profanity_filter     Read more: https://dpgr.am/profanity_filter
+  --punctuate            Read more: https://dpgr.am/punctuate
+  --redact=<value>...    Read more: https://dpgr.am/redact
+  --replace=<value>...   Read more: https://dpgr.am/replace
+  --search=<value>...    Read more: https://dpgr.am/search
+  --smart_format         Read more: https://dpgr.am/smart_format
+  --summarize            Read more: https://dpgr.am/summarize
+  --tag=<value>...       Read more: https://dpgr.am/tag
+  --tier=<value>         Read more: https://dpgr.am/tier
+  --utt_split=<value>    Read more: https://dpgr.am/utt_split
+  --utterances           Read more: https://dpgr.am/utterances
+  --version=<value>      Read more: https://dpgr.am/version
+
+MEDIA SOURCE FLAGS
+  --data-binary=<value>  Filepath of local audio or video file. e.g. @~/Projects/nasa.mp4
+  --data-url=<value>     URL of an audio or video file. e.g. https://dpgr.am/spacewalk.wav
+  --mimetype=<value>     Mimetype of local audio or video file.
+
+FORMATTING FLAGS
+  --json           Output JSON format of the response. This comes verbatim from the API.
+  --no-transcript  Output no transcript so you can output understanding features alone.
+  --srt            Output SRT formatted captions. This requires utterances.
+  --vtt            Output WebVTT formatted captions. This requires utterances.
 
 GLOBAL FLAGS
   --log-level=<option>  [default: 1] Specify level for logging.
@@ -178,35 +165,6 @@ GLOBAL FLAGS
 
 DESCRIPTION
   Transcribe audio/video straight from the command line.
-
-FLAG DESCRIPTIONS
-  --data-binary=<value>  filepath
-
-    filepath
-
-  --data-url=<value>  url
-
-    url
-
-  --json  json
-
-    json
-
-  --mimetype=<value>  mimetype
-
-    mimetype
-
-  --no-transcript  No transcript
-
-    Don't output a transcript
-
-  --srt  srt
-
-    srt
-
-  --vtt  vtt
-
-    vtt
 ```
 
 _See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.2.0/dist/commands/transcribe/index.js)_
