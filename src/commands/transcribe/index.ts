@@ -54,27 +54,7 @@ const availableFeatures: {
     type: "boolean",
   },
   {
-    name: "diarize_version",
-    type: "string",
-  },
-  {
     name: "multichannel",
-    type: "boolean",
-  },
-  {
-    name: "alternatives",
-    type: "integer",
-  },
-  {
-    name: "numbers",
-    type: "boolean",
-  },
-  {
-    name: "numerals",
-    type: "boolean",
-  },
-  {
-    name: "numbers_spaces",
     type: "boolean",
   },
   {
@@ -93,7 +73,8 @@ const availableFeatures: {
   },
   {
     name: "keyword_boost",
-    type: "string",
+    type: "boolean",
+    parse: async (input) => (input ? "legacy" : false),
   },
   {
     name: "utterances",
@@ -121,44 +102,7 @@ const availableFeatures: {
     parse: async (input) => (input ? "v2" : false),
   },
   {
-    name: "translate",
-    type: "string",
-    multiple: true,
-  },
-  {
     name: "detect_topics",
-    type: "boolean",
-  },
-  {
-    name: "sentiment",
-    type: "boolean",
-  },
-  {
-    name: "analyze_sentiment",
-    type: "boolean",
-  },
-  {
-    name: "sentiment_threshold",
-    type: "integer",
-  },
-  {
-    name: "dates",
-    type: "boolean",
-  },
-  {
-    name: "date_format",
-    type: "string",
-  },
-  {
-    name: "times",
-    type: "boolean",
-  },
-  {
-    name: "dictation",
-    type: "boolean",
-  },
-  {
-    name: "measurements",
     type: "boolean",
   },
   {
@@ -170,10 +114,6 @@ const availableFeatures: {
     type: "string",
     multiple: true,
   },
-  {
-    name: "ner",
-    type: "boolean",
-  },
 ];
 
 export default class Transcribe extends SecureCommand {
@@ -181,27 +121,28 @@ export default class Transcribe extends SecureCommand {
 
   static flags = {
     "data-url": Flags.string({
-      description: "url",
-      summary: "url",
+      summary:
+        "URL of an audio or video file. e.g. https://dpgr.am/spacewalk.wav",
       exactlyOne: ["data-url", "data-binary"],
       exclusive: ["mimetype"],
       required: false,
+      helpGroup: "MEDIA SOURCE",
     }),
     "data-binary": Flags.string({
-      description: "filepath",
-      summary: "filepath",
+      summary:
+        "Filepath of local audio or video file. e.g. @~/Projects/nasa.mp4",
       exactlyOne: ["data-url", "data-binary"],
       dependsOn: ["mimetype"],
       required: false,
+      helpGroup: "MEDIA SOURCE",
     }),
     mimetype: Flags.string({
-      description: "mimetype",
-      summary: "mimetype",
+      summary: "Mimetype of local audio or video file.",
       required: false,
+      helpGroup: "MEDIA SOURCE",
     }),
     vtt: Flags.boolean({
-      description: "vtt",
-      summary: "vtt",
+      summary: "Output WebVTT formatted captions. This requires utterances.",
       required: false,
       exclusive: [
         "json",
@@ -213,10 +154,10 @@ export default class Transcribe extends SecureCommand {
         "detect_topics",
       ],
       dependsOn: ["utterances"],
+      helpGroup: "FORMATTING",
     }),
     srt: Flags.boolean({
-      description: "srt",
-      summary: "srt",
+      summary: "Output SRT formatted captions. This requires utterances.",
       required: false,
       exclusive: [
         "json",
@@ -228,17 +169,20 @@ export default class Transcribe extends SecureCommand {
         "detect_topics",
       ],
       dependsOn: ["utterances"],
+      helpGroup: "FORMATTING",
     }),
     json: Flags.boolean({
-      description: "json",
-      summary: "json",
+      summary:
+        "Output JSON format of the response. This comes verbatim from the API.",
       required: false,
       exclusive: ["vtt", "srt"],
+      helpGroup: "FORMATTING",
     }),
     "no-transcript": Flags.boolean({
-      description: "Don't output a transcript",
-      summary: "No transcript",
-      exclusive: ["paragraphs", "utterances", "smart_format"],
+      summary:
+        "Output no transcript so you can output understanding features alone.",
+      exclusive: ["paragraphs", "utterances", "smart_format", "json"],
+      helpGroup: "FORMATTING",
     }),
     ...Object.fromEntries(
       availableFeatures.map((feature) => {
@@ -247,11 +191,12 @@ export default class Transcribe extends SecureCommand {
         return [
           [feature.name],
           eval(type)({
+            summary: `Read more: https://dpgr.am/${feature.name}`,
             name: feature.name,
-            description: `Deepgram feature: ${feature.name}`,
             multiple: feature.multiple ?? false,
             parse: feature.parse ?? null,
             required: false,
+            helpGroup: "DEEPGRAM FEATURES",
           }),
         ];
       })
