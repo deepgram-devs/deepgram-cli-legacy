@@ -37,13 +37,13 @@ const Hero = () => {
   return (
     <>
       <Section>
-        <Margin>
-          <div className="mx-auto max-w-2xl pt-32 pb-20 sm:pt-48 lg:pt-56">
+        <Margin className="flex-col p-6">
+          <div className="mx-auto max-w-2xl pt-24 pb-20 sm:pt-40 lg:pt-44">
             <div className="text-center">
-              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight dark:text-white sm:text-6xl">
                 You can now use Deepgram from the command line.
               </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-300">
+              <p className="mt-6 text-lg leading-8 dark:text-gray-300 text-gray-700">
                 The{" "}
                 <abbr title="Deepgram command line interface">
                   Deepgram CLI
@@ -55,6 +55,17 @@ const Hero = () => {
                   {installer}
                 </div>
               )}
+              <p className="pt-4">
+                Read more or contribute on{" "}
+                <a
+                  href="https://deepgram.com/contact-us?utm_source=cli&utm_campaign=cli&utm_medium=cli"
+                  target="_blank"
+                  className="dark:text-white underline"
+                >
+                  the GitHub Repository
+                </a>
+                .
+              </p>
             </div>
           </div>
         </Margin>

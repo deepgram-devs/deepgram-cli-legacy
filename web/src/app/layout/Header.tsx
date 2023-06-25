@@ -22,27 +22,29 @@ const Header = ({ className = "", children }: Props) => {
 
   const classMap = (percent: number) => {
     switch (true) {
+      case percent > 400:
+        return "dark:to-black/60 dark:from-black/60 to-white/60 from-white/60";
+      case percent > 300:
+        return "dark:to-black/50 dark:from-black/60 to-white/50 from-white/60";
       case percent > 200:
-        return "dark:to-black/80 dark:from-black/80 to-white/80 from-white/80";
-      case percent > 150:
-        return "dark:to-black/70 dark:from-black/80 to-white/70 from-white/80";
+        return "dark:to-black/40 dark:from-black/60 to-white/40 from-white/60";
       case percent > 100:
-        return "dark:to-black/60 dark:from-black/80 to-white/60 from-white/80";
-      case percent > 50:
-        return "dark:to-black/50 dark:from-black/80 to-white/50 from-white/80";
+        return "dark:to-black/30 dark:from-black/60 to-white/30 from-white/60";
       default:
-        return "dark:to-black/40 dark:from-black/80 to-white/40 from-white/80";
+        return "dark:to-black/20 dark:from-black/60 to-white/20 from-white/60";
     }
   };
 
   return (
     <>
       <nav
-        className={`fixed inset-x-0 bg-gradient-to-b glass-blur ${className} ${classMap(
+        className={`z-20 fixed inset-x-0 bg-gradient-to-b glass-blur border-b border-black/90 ${className} ${classMap(
           scrollTop
         )}`}
       >
-        <Margin>{children}</Margin>
+        <Margin className="justify-between flex-row px-10 py-7">
+          {children}
+        </Margin>
       </nav>
     </>
   );

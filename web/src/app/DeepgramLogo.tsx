@@ -1,11 +1,11 @@
-const DeepgramLogo = ({ color = "fill-white" }: { color?: string }) => {
+const DeepgramLogo = () => {
   return (
     <svg
       role="img"
       viewBox="0 0 800 155"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-10`}
+      className="h-[25px]"
     >
       <path
         fillRule="evenodd"

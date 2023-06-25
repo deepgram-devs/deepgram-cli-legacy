@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ThemeProvider } from "next-themes";
 import Brand from "./Brand";
-import {
-  DefaultInstructions,
-  LinuxInstructions,
-  MacInstructions,
-  WindowsInstructions,
-} from "./instructions/index";
 import Section from "./layout/Section";
 import Margin from "./layout/Margin";
 import TerminalWindow from "./layout/TerminalWindow";
@@ -17,7 +11,128 @@ import Examples from "./Examples";
 import Hero from "./Hero";
 import CommandLine from "./CommandLine";
 import Badge from "./Badge";
-import Glass from "./Glass";
+import LightModeToggle from "./LightModeToggle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faPepperHot } from "@fortawesome/free-solid-svg-icons";
+
+const features: {
+  [x: string]: { name: string; type: string; multiple?: boolean }[];
+} = {
+  setup: [
+    {
+      name: "key",
+      type: "string",
+    },
+    {
+      name: "scopes",
+      type: "string",
+    },
+    {
+      name: "ttl",
+      type: "string",
+    },
+  ],
+  transcribe: [
+    {
+      name: "model",
+      type: "string",
+    },
+    {
+      name: "version",
+      type: "string",
+    },
+    {
+      name: "tier",
+      type: "string",
+    },
+    {
+      name: "replace",
+      type: "string",
+      multiple: true,
+    },
+    {
+      name: "language",
+      type: "string",
+    },
+    {
+      name: "punctuate",
+      type: "boolean",
+    },
+    {
+      name: "profanity_filter",
+      type: "boolean",
+    },
+    {
+      name: "redact",
+      type: "string",
+      multiple: true,
+    },
+    {
+      name: "diarize",
+      type: "boolean",
+    },
+    {
+      name: "multichannel",
+      type: "boolean",
+    },
+    {
+      name: "search",
+      type: "string",
+      multiple: true,
+    },
+    {
+      name: "callback",
+      type: "string",
+    },
+    {
+      name: "keywords",
+      type: "string",
+      multiple: true,
+    },
+    {
+      name: "keyword_boost",
+      type: "boolean",
+    },
+    {
+      name: "utterances",
+      type: "boolean",
+    },
+    {
+      name: "utt_split",
+      type: "integer",
+    },
+    {
+      name: "detect_language",
+      type: "boolean",
+    },
+    {
+      name: "paragraphs",
+      type: "boolean",
+    },
+    {
+      name: "detect_entities",
+      type: "boolean",
+    },
+    {
+      name: "summarize",
+      type: "boolean",
+    },
+    {
+      name: "detect_topics",
+      type: "boolean",
+    },
+    {
+      name: "smart_format",
+      type: "boolean",
+    },
+    {
+      name: "tag",
+      type: "string",
+      multiple: true,
+    },
+  ],
+};
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -28,85 +143,70 @@ export default function Home() {
       <main className="flex min-h-screen w-full flex-col gradient dark:gradient-dark">
         <Header>
           <Brand />
+          <div className="flex justify-end gap-x-4 items-center">
+            <a
+              className="button button--secondary"
+              href="https://deepgram.com/contact-us?utm_source=cli&utm_campaign=cli&utm_medium=cli"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faGithub} className="mr-2" />
+              See the code
+            </a>
+            <a
+              className="button"
+              href="https://dpgr.am/api-key"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faPepperHot} className="mr-2" />
+              Free API Key
+            </a>
+            <LightModeToggle />
+          </div>
         </Header>
         <Hero />
         <Section>
-          <Margin>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl text-gray-400">
-                  Use our command line tool to...
-                </h3>
-                <h2 className="text-2xl block h-[1.5em] min-h-[1.5em] my-2">
-                  {title}
-                </h2>
-                <TerminalWindow>
-                  <Examples setTitle={setTitle} />
-                </TerminalWindow>
-              </div>
-              <div>
-                <h3 className="text-xl text-gray-400">&nbsp;</h3>
-                <h2 className="text-2xl block h-[1.5em] min-h-[1.5em] my-2">
-                  Example commands
-                </h2>
-                <Glass className="mb-8 glass-round glass-border glass-blur glass-shadow">
-                  <CommandLine>deepgram {command}</CommandLine>
-                </Glass>
-                <div className="flex gap-2 flex-wrap">
-                  <Badge
-                    onClick={() =>
-                      setCommand(
-                        "transcribe --data-url=https://dpgr.am/spacewalk.wav --summarize --no-transcript"
-                      )
-                    }
-                  >
-                    <CommandLine prefix={false}>
-                      transcribe --summarize --no-transcript
-                    </CommandLine>
-                  </Badge>
-                  <Badge
-                    onClick={() =>
-                      setCommand(
-                        "transcribe --data-url=https://dpgr.am/spacewalk.wav --utterances --srt"
-                      )
-                    }
-                  >
-                    <CommandLine prefix={false}>
-                      transcribe --utterances --srt
-                    </CommandLine>
-                  </Badge>
-                  <Badge
-                    onClick={() =>
-                      setCommand(
-                        "transcribe --data-url=https://dpgr.am/spacewalk.wav --smart_format"
-                      )
-                    }
-                  >
-                    <CommandLine prefix={false}>
-                      transcribe --smart_format
-                    </CommandLine>
-                  </Badge>
-                  <Badge
-                    onClick={() =>
-                      setCommand(
-                        "transcribe --data-url=https://dpgr.am/spacewalk.wav --replace='search:replace' --json"
-                      )
-                    }
-                  >
-                    <CommandLine prefix={false}>
-                      transcribe --replace='search:replace' --json
-                    </CommandLine>
-                  </Badge>
-                </div>
-              </div>
+          <Margin className="flex-col p-6">
+            <div className="max-w-screen-lg w-full mx-auto">
+              <h3 className="text-xl text-gray-400">
+                Use our command line tool to...
+              </h3>
+              <h2 className="text-2xl block h-[1.5em] min-h-[1.5em] my-2">
+                {title}
+              </h2>
+              <TerminalWindow>
+                <Examples setTitle={setTitle} />
+              </TerminalWindow>
             </div>
           </Margin>
         </Section>
         <Section>
-          <Margin>
-            <h2 className="text-2xl block h-[1.5em] min-h-[1.5em] my-2">
-              Transcription
-            </h2>
+          <Margin className="flex-col p-6 gap-6">
+            {Object.keys(features).map((feature: string) => (
+              <div>
+                <h2 className="dark:text-white text-3xl block h-[1.5em] min-h-[1.5em] my-2 capitalize ">
+                  {feature}{" "}
+                  <small className="text-sm uppercase underline">
+                    <a
+                      href={`https://github.com/deepgram-devs/deepgram-cli#deepgram-${feature}`}
+                      target="_blank"
+                    >
+                      Read more
+                    </a>
+                  </small>
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                  {features[feature].map((flag) => (
+                    <Badge>
+                      <CommandLine prefix={false}>
+                        --{flag.name}
+                        {flag.type === "string" ? "=<string>" : ""}
+                        {flag.multiple ? "..." : ""}
+                      </CommandLine>
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            ))}
           </Margin>
         </Section>
       </main>

@@ -18,16 +18,31 @@
   }
 
   .cta {
-    @apply p-4 leading-5 m-0 inline-block rounded border border-gray-500 bg-white text-black dark:bg-black dark:text-white;
+    @apply px-4 py-[0.75rem] leading-5 m-0 inline-block rounded border border-gray-500 bg-white text-black dark:bg-black dark:text-white;
   }
 
   .code {
-    @apply font-mono px-8;
+    @apply font-mono px-4 py-[0.75rem];
   }
 
   .button {
-    @apply dark:bg-green-300 dark:text-black dark:border-green-600 font-semibold;
+    @apply px-4 py-[0.75rem] font-semibold rounded text-black bg-white border border-white;
+    /* @apply dark:bg-green-300 dark:text-black dark:border-green-600 font-semibold; */
   }
+
+  .button--secondary {
+    background: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)) padding-box
+        padding-box,
+      linear-gradient(90deg, rgb(32, 28, 255) -91.5%, rgb(19, 239, 149) 80.05%)
+        border-box border-box;
+    @apply text-white border border-transparent;
+    filter: drop-shadow(rgba(56, 237, 172, 0.2) 10px 0px 15px)
+      drop-shadow(rgba(150, 162, 255, 0.2) -10px 0px 15px);
+  }
+
+  /* .button--secondary span {
+    background: black;
+  } */
 
   .glass {
     background: linear-gradient(

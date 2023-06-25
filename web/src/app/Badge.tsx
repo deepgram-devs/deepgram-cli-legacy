@@ -15,7 +15,7 @@ const Badge = ({
     <>
       <span
         onClick={onClick}
-        className={`bg-black/20 border border-black inline-block whitespace-nowrap rounded-full px-4 py-2 ${className}`}
+        className={`dark:bg-black/20 bg-black/10 border border-black/30 dark:border-black inline-block whitespace-nowrap rounded-full px-4 py-2 ${className}`}
       >
         {children}
       </span>
