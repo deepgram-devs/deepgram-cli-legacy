@@ -34,7 +34,6 @@ This is the Deepgram CLI. It is used to interact with [Deepgram](https://develop
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @deepgram/cli
 $ deepgram COMMAND
@@ -46,16 +45,14 @@ USAGE
   $ deepgram COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-- [`deepgram setup`](#deepgram-setup)
-- [`deepgram transcribe`](#deepgram-transcribe)
+* [`deepgram help [COMMANDS]`](#deepgram-help-commands)
+* [`deepgram setup`](#deepgram-setup)
+* [`deepgram transcribe`](#deepgram-transcribe)
 
 ## `deepgram help [COMMANDS]`
 
@@ -213,7 +210,6 @@ FLAG DESCRIPTIONS
 ```
 
 _See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.2.0/dist/commands/transcribe/index.js)_
-
 <!-- commandsstop -->
 
 # Developing
