@@ -9,7 +9,7 @@ type Props = {
 const Header = ({ className = "", children }: Props) => {
   const [scrollTop, setScrollTop] = useState(0);
 
-  const scroller = (e) => {
+  const scroller = (e: any) => {
     const scrollTop = e?.target.documentElement.scrollTop ?? 0;
     setScrollTop(scrollTop);
   };

@@ -193,7 +193,7 @@ export default function Home() {
         <Section>
           <Margin className="flex-col p-6 gap-6">
             {Object.keys(features).map((feature: string) => (
-              <div>
+              <div key={feature}>
                 <h2 className="dark:text-white text-3xl block h-[1.5em] min-h-[1.5em] my-2 capitalize ">
                   {feature}{" "}
                   <small className="text-sm uppercase underline">
@@ -207,7 +207,7 @@ export default function Home() {
                 </h2>
                 <div className="flex flex-wrap gap-3">
                   {features[feature].map((flag) => (
-                    <Badge>
+                    <Badge key={flag.name}>
                       <CommandLine prefix={false}>
                         --{flag.name}
                         {flag.type === "string" ? "=<string>" : ""}
