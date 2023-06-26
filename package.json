@@ -4,7 +4,8 @@
   "description": "The Deepgram CLI",
   "author": "Luke Oliff @lukeocodes",
   "bin": {
-    "deepgram": "./bin/run"
+    "deepgram": "./bin/run",
+    "dgl": "./bin/run"
   },
   "homepage": "https://github.com/lukeocodes/deepgram-cli",
   "license": "ISC",

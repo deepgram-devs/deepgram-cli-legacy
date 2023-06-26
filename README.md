@@ -52,6 +52,7 @@ USAGE
 <!-- commands -->
 * [`deepgram help [COMMANDS]`](#deepgram-help-commands)
 * [`deepgram setup`](#deepgram-setup)
+* [`deepgram summary`](#deepgram-summary)
 * [`deepgram transcribe`](#deepgram-transcribe)
 
 ## `deepgram help [COMMANDS]`
@@ -80,16 +81,12 @@ Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli
 
 ```
 USAGE
-  $ deepgram setup [--log-level 0|1|2|3|debug|info|warn|error] [-k <value>] [-s <value>] [-t <value>]
+  $ deepgram setup [-k <value>] [-s <value>] [-t <value>]
 
 FLAGS
   -k, --key=<value>     Deepgram API key
   -s, --scopes=<value>  Deepgram auth scopes
   -t, --ttl=<value>     [default: 86400] Seconds to remain logged in
-
-GLOBAL FLAGS
-  --log-level=<option>  [default: 1] Specify level for logging.
-                        <options: 0|1|2|3|debug|info|warn|error>
 
 DESCRIPTION
   Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli
@@ -110,18 +107,36 @@ FLAG DESCRIPTIONS
 
 _See code: [dist/commands/setup/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.2.0/dist/commands/setup/index.js)_
 
+## `deepgram summary`
+
+Summarize any audio or video using just one command.
+
+```
+USAGE
+  $ deepgram summary [--data-url <value> | --mimetype <value>] [--data-binary <value> ]
+
+MEDIA SOURCE FLAGS
+  --data-binary=<value>  Filepath of local audio or video file. e.g. @~/Projects/nasa.mp4
+  --data-url=<value>     URL of an audio or video file. e.g. https://dpgr.am/spacewalk.wav
+  --mimetype=<value>     Mimetype of local audio or video file.
+
+DESCRIPTION
+  Summarize any audio or video using just one command.
+```
+
+_See code: [dist/commands/summary/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.2.0/dist/commands/summary/index.js)_
+
 ## `deepgram transcribe`
 
 Transcribe audio/video straight from the command line.
 
 ```
 USAGE
-  $ deepgram transcribe [--log-level 0|1|2|3|debug|info|warn|error] [--data-url <value> | --mimetype <value>]
-    [--data-binary <value> ] [--no-transcript | --paragraphs |  | --smart_format | [--json | [--vtt --utterances] |
-    [--srt ]]] [--model <value>] [--version <value>] [--tier <value>] [--replace <value>] [--language <value>]
-    [--punctuate] [--profanity_filter] [--redact <value>] [--diarize] [--multichannel] [--search <value>] [--callback
-    <value>] [--keywords <value>] [--keyword_boost] [--utt_split <value>] [--detect_language] [--detect_entities]
-    [--summarize] [--detect_topics] [--tag <value>]
+  $ deepgram transcribe [--data-url <value> | --mimetype <value>] [--data-binary <value> ] [--no-transcript |
+    --paragraphs |  | --smart_format | [--json | [--vtt --utterances] | [--srt ]]] [--model <value>] [--version <value>]
+    [--tier <value>] [--replace <value>] [--language <value>] [--punctuate] [--profanity_filter] [--redact <value>]
+    [--diarize] [--multichannel] [--search <value>] [--callback <value>] [--keywords <value>] [--keyword_boost]
+    [--utt_split <value>] [--detect_language] [--detect_entities] [--summarize] [--detect_topics] [--tag <value>]
 
 DEEPGRAM FEATURES FLAGS
   --callback=<value>     Read more: https://dpgr.am/callback
@@ -158,10 +173,6 @@ FORMATTING FLAGS
   --no-transcript  Output no transcript so you can output understanding features alone.
   --srt            Output SRT formatted captions. This requires utterances.
   --vtt            Output WebVTT formatted captions. This requires utterances.
-
-GLOBAL FLAGS
-  --log-level=<option>  [default: 1] Specify level for logging.
-                        <options: 0|1|2|3|debug|info|warn|error>
 
 DESCRIPTION
   Transcribe audio/video straight from the command line.

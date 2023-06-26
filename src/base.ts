@@ -11,13 +11,6 @@ import type {
   CompletableFlag,
 } from "@oclif/core/lib/interfaces/parser";
 
-export enum LogLevel {
-  debug = 3,
-  info = 2,
-  warn = 1,
-  error = 0,
-}
-
 type PromptableFlag<T> = CompletableFlag<T> & {
   prompt?: boolean;
   inquirer?: string;
@@ -35,16 +28,6 @@ const promptMap = (type: string, message: string) => {
 };
 
 export abstract class BaseCommand<T extends typeof Command> extends Command {
-  static baseFlags = {
-    "log-level": Flags.custom<LogLevel>({
-      summary: "Specify level for logging.",
-      default: LogLevel.warn,
-      options: Object.keys(LogLevel),
-      helpGroup: "GLOBAL",
-      parse: async (input: string) => LogLevel[input as keyof typeof LogLevel],
-    })(),
-  };
-
   protected parsedFlags: {
     [flag: string]: any;
   };
@@ -125,21 +108,15 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
     return wrap(string);
   }
 
-  public title(string: string, logLevel = LogLevel.warn) {
-    if (this.parsedFlags["log-level"] >= logLevel) {
-      this.log(this.wrapLine(string));
-    }
+  public title(string: string) {
+    this.log(this.wrapLine(string));
   }
 
-  public subtitle(string: string, logLevel = LogLevel.warn) {
-    if (this.parsedFlags["log-level"] >= logLevel) {
-      this.log(this.wrapLine(string, 2));
-    }
+  public subtitle(string: string) {
+    this.log(this.wrapLine(string, 2));
   }
 
-  public output(string: string, logLevel = LogLevel.warn, indent = 2) {
-    if (this.parsedFlags["log-level"] >= logLevel) {
-      this.log(this.wrapLine(string, indent));
-    }
+  public output(string: string, indent = 2) {
+    this.log(this.wrapLine(string, indent));
   }
 }

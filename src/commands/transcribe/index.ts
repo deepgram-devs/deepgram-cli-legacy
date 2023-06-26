@@ -1,7 +1,6 @@
 import { Flags } from "@oclif/core";
 import SecureCommand from "../../secure";
 import { createReadStream } from "fs";
-import { LogLevel } from "../../base";
 
 /* Used in dynamic mappings from features to flags */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -248,21 +247,21 @@ export default class Transcribe extends SecureCommand {
      * Verbatim response from the API via the @deepgram/node
      */
     if (json) {
-      return this.output(JSON.stringify(response), LogLevel.error);
+      return this.output(JSON.stringify(response));
     }
 
     /**
      * Utterances response formatted with WebVTT
      */
     if (vtt) {
-      return this.output(response.toWebVTT(), LogLevel.error);
+      return this.output(response.toWebVTT());
     }
 
     /**
      * Utterances response formatted with SRT
      */
     if (srt) {
-      return this.output(response.toSRT(), LogLevel.error);
+      return this.output(response.toSRT());
     }
 
     /**
@@ -275,10 +274,7 @@ export default class Transcribe extends SecureCommand {
     if (features.summarize) {
       this.title("TRANSCRIPTION SUMMARY");
       this.output("");
-      this.output(
-        result?.summary?.short ?? "No summary returned.",
-        LogLevel.error
-      );
+      this.output(result?.summary?.short ?? "No summary returned.");
       this.output("");
     }
 
@@ -298,10 +294,10 @@ export default class Transcribe extends SecureCommand {
           const { topic, confidence } = t;
           const string = `${topic}, ${round(confidence) * 100}%`;
 
-          this.output(string, LogLevel.error);
+          this.output(string);
         });
       } else {
-        this.output("No topics returned.", LogLevel.error);
+        this.output("No topics returned.");
       }
 
       this.output("");
@@ -341,12 +337,12 @@ export default class Transcribe extends SecureCommand {
             const { value, confidence } = entity;
             const string = `${value}, ${round(confidence) * 100}%`;
 
-            this.output(string, LogLevel.error, 4);
+            this.output(string);
           });
           this.output("");
         });
       } else {
-        this.output("No entities returned.", LogLevel.error);
+        this.output("No entities returned.");
         this.output("");
       }
     }
@@ -358,9 +354,9 @@ export default class Transcribe extends SecureCommand {
       const language = channel?.detected_language;
 
       if (language) {
-        this.output(`Language: ${language}`, LogLevel.error);
+        this.output(`Language: ${language}`);
       } else {
-        this.output("No language returned.", LogLevel.error);
+        this.output("No language returned.");
       }
 
       this.output("");
@@ -378,10 +374,10 @@ export default class Transcribe extends SecureCommand {
           section.sentences.map((sentence) => {
             paragraph += ` ${sentence.text}`;
           });
-          this.output(paragraph.trim(), LogLevel.error);
+          this.output(paragraph.trim());
         });
       } else {
-        this.output("No paragraphs returned.", LogLevel.error);
+        this.output("No paragraphs returned.");
       }
 
       this.output("");
@@ -395,11 +391,11 @@ export default class Transcribe extends SecureCommand {
 
       if (utterances) {
         utterances.map((utterance) => {
-          this.output(utterance.transcript, LogLevel.error);
+          this.output(utterance.transcript);
           this.output("");
         });
       } else {
-        this.output("No utterances returned.", LogLevel.error);
+        this.output("No utterances returned.");
       }
 
       this.output("");
@@ -418,16 +414,16 @@ export default class Transcribe extends SecureCommand {
         section.sentences.map((sentence) => {
           paragraph += ` ${sentence.text}`;
         });
-        this.output(paragraph.trim(), LogLevel.error);
+        this.output(paragraph.trim());
         this.output("");
       });
     } else {
       const transcript = alternative?.transcript;
 
       if (transcript) {
-        this.output(transcript, LogLevel.error);
+        this.output(transcript);
       } else {
-        this.output("No transcript returned.", LogLevel.error);
+        this.output("No transcript returned.");
       }
     }
   }
