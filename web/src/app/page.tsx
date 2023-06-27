@@ -2,159 +2,42 @@
 
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "next-themes";
-import Brand from "./Brand";
-import Section from "./layout/Section";
-import Margin from "./layout/Margin";
-import TerminalWindow from "./layout/TerminalWindow";
-import Header from "./layout/Header";
-import Examples from "./Examples";
-import Hero from "./Hero";
-import CommandLine from "./CommandLine";
-import Badge from "./Badge";
-import LightModeToggle from "./LightModeToggle";
+import Brand from "@/app/components/Brand";
+import Section from "@/app/components/layout/Section";
+import Margin from "@/app/components/layout/Margin";
+import TerminalWindow from "@/app/components/layout/TerminalWindow";
+import Header from "@/app/components/layout/Header";
+import Examples from "@/app/components/Examples";
+import Hero from "@/app/components/Hero";
+import CommandLine from "@/app/components/CommandLine";
+import LightModeToggle from "@/app/components/LightModeToggle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faPepperHot } from "@fortawesome/free-solid-svg-icons";
-import Module from "module";
+
+import type { Data } from "@/app/types/Manifest";
+import Grid from "./components/commands/Grid";
 
 async function getData() {
-  const res = await import("../../oclif.manifest.json");
+  const res = await import("@/../oclif.manifest.json");
 
   return res;
 }
 
-const features: {
-  [x: string]: { name: string; type: string; multiple?: boolean }[];
-} = {
-  setup: [
-    {
-      name: "key",
-      type: "string",
-    },
-    {
-      name: "scopes",
-      type: "string",
-    },
-    {
-      name: "ttl",
-      type: "string",
-    },
-  ],
-  transcribe: [
-    {
-      name: "model",
-      type: "string",
-    },
-    {
-      name: "version",
-      type: "string",
-    },
-    {
-      name: "tier",
-      type: "string",
-    },
-    {
-      name: "replace",
-      type: "string",
-      multiple: true,
-    },
-    {
-      name: "language",
-      type: "string",
-    },
-    {
-      name: "punctuate",
-      type: "boolean",
-    },
-    {
-      name: "profanity_filter",
-      type: "boolean",
-    },
-    {
-      name: "redact",
-      type: "string",
-      multiple: true,
-    },
-    {
-      name: "diarize",
-      type: "boolean",
-    },
-    {
-      name: "multichannel",
-      type: "boolean",
-    },
-    {
-      name: "search",
-      type: "string",
-      multiple: true,
-    },
-    {
-      name: "callback",
-      type: "string",
-    },
-    {
-      name: "keywords",
-      type: "string",
-      multiple: true,
-    },
-    {
-      name: "keyword_boost",
-      type: "boolean",
-    },
-    {
-      name: "utterances",
-      type: "boolean",
-    },
-    {
-      name: "utt_split",
-      type: "integer",
-    },
-    {
-      name: "detect_language",
-      type: "boolean",
-    },
-    {
-      name: "paragraphs",
-      type: "boolean",
-    },
-    {
-      name: "detect_entities",
-      type: "boolean",
-    },
-    {
-      name: "summarize",
-      type: "boolean",
-    },
-    {
-      name: "detect_topics",
-      type: "boolean",
-    },
-    {
-      name: "smart_format",
-      type: "boolean",
-    },
-    {
-      name: "tag",
-      type: "string",
-      multiple: true,
-    },
-  ],
-};
-
 export default function Home() {
   const [title, setTitle] = useState("");
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<Data>({ version: "0.0.x", commands: {} });
 
   useEffect(() => {
     getData().then((result) => {
-      setData({ ...result.default });
+      let defaultData: Data = { ...result.default };
+      setData(defaultData);
     });
   }, []);
 
   return (
     <ThemeProvider attribute="class">
-      <main className="flex min-h-screen w-full flex-col gradient dark:gradient-dark">
-        {/* {JSON.stringify(getData())} */}
+      <main className="flex min-h-screen w-full flex-col">
         <Header>
           <Brand />
           <div className="flex justify-end gap-x-4 items-center">
@@ -189,7 +72,7 @@ export default function Home() {
           </div>
         </Header>
         <Hero />
-        <Section>
+        <Section className="gradient-bg bg-cover bg-no-repeat py-20 bg-[top_right_200%] pb-[30%] -mb-[30%]">
           <Margin className="flex-col p-6">
             <div className="max-w-screen-lg w-full mx-auto">
               <h3 className="text-xl text-gray-400">
@@ -198,45 +81,30 @@ export default function Home() {
               <h2 className="text-2xl block h-[1.5em] min-h-[1.5em] my-2">
                 {title}
               </h2>
-              <TerminalWindow>
+              <TerminalWindow className="min-h-[25em]">
                 <Examples setTitle={setTitle} />
               </TerminalWindow>
             </div>
           </Margin>
         </Section>
-        <Section>
-          <Margin>{JSON.stringify(data)}</Margin>
-        </Section>
-        <Section>
-          <Margin className="flex-col p-6 gap-6">
-            {Object.keys(features).map((feature: string) => (
-              <div key={feature}>
-                <h2 className="dark:text-white text-3xl block h-[1.5em] min-h-[1.5em] my-2 capitalize ">
-                  {feature}{" "}
-                  <small className="text-sm uppercase underline">
-                    <a
-                      href={`https://github.com/deepgram-devs/deepgram-cli#deepgram-${feature}`}
-                      target="_blank"
-                    >
-                      Read more
-                    </a>
+        {data.commands && (
+          <Section>
+            <Margin className="flex-col p-6 gap-6">
+              <div className="max-w-screen-lg w-full mx-auto">
+                <h2 className="text-2xl block h-[1.5em] min-h-[1.5em] my-2">
+                  Deepgram CLI Commands{" "}
+                  <small className="text-sm">
+                    <code>@deepgram/cli{data ? `@${data.version}` : null}</code>
                   </small>
                 </h2>
-                <div className="flex flex-wrap gap-3">
-                  {features[feature].map((flag) => (
-                    <Badge key={flag.name}>
-                      <CommandLine prefix={false}>
-                        --{flag.name}
-                        {flag.type === "string" ? "=<string>" : ""}
-                        {flag.multiple ? "..." : ""}
-                      </CommandLine>
-                    </Badge>
-                  ))}
-                </div>
+                <h3 className="text-xl text-gray-400 mb-4">
+                  All the commands available in the latest version of our CLI.
+                </h3>
+                <Grid commands={data.commands} />
               </div>
-            ))}
-          </Margin>
-        </Section>
+            </Margin>
+          </Section>
+        )}
         <Section>
           <Margin className="flex-col p-6">
             <div className="max-w-screen-lg w-full mx-auto">

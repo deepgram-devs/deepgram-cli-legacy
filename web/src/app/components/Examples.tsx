@@ -1,5 +1,5 @@
 import { useState, Dispatch, SetStateAction } from "react";
-import CommandLine from "./CommandLine";
+import CommandLine from "@/app/components/CommandLine";
 import Typewriter from "typewriter-effect";
 
 type Props = {
@@ -9,8 +9,9 @@ type Props = {
 
 const examples = [
   {
-    command: "setup --key your-key",
-    output: `Config file created at '/Users/lukeoliff/.deepgramrc'`,
+    command: "setup --key=your-key",
+    output: `Config file created at '/Users/lukeoliff/.deepgramrc'
+`,
     title: "Setup from the command line",
   },
   {
@@ -21,7 +22,7 @@ const examples = [
     title: "Transcribe local files or remote URLs",
   },
   {
-    command: "transcribe --data-url=https://dpgr.am/spacewalk.wav --summarize",
+    command: "summary --data-url=https://dpgr.am/spacewalk.wav",
     output: `A speaker discusses the upcoming launch of an all-female Space walking team, which is aimed at honoring skilled and qualified women who missed the same opportunities as the first Space walk. They express excitement for the upcoming launch and hope it will be a normal occurrence.
 ...`,
     title: "Summarise any video or audio",
@@ -41,34 +42,6 @@ yeah
 
 00:00:00.997 --> 00:00:03.413
 as as it's worth celebrating
-
-00:00:04.509 --> 00:00:07.382
-the first space walk with an all female
-
-00:00:07.382 --> 00:00:07.621
-team
-
-00:00:08.594 --> 00:00:10.825
-i think many of us are looking forward
-
-00:00:10.825 --> 00:00:13.237
-to it just being normal and
-
-00:00:14.012 --> 00:00:16.597
-i think if it signifies anything it is
-
-00:00:16.892 --> 00:00:19.221
-to honor the women who came before us
-
-00:00:19.517 --> 00:00:21.686
-who were skilled and qualified
-
-00:00:22.379 --> 00:00:24.844
-and didn't get the same opportunities that we
-
-00:00:24.844 --> 00:00:25.242
-have today
-
 ...`,
     title: "Output standards compliant caption formats",
   },

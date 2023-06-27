@@ -1,4 +1,4 @@
-import DeepgramLogo from "./DeepgramLogo";
+import DeepgramLogo from "@/app/components/DeepgramLogo";
 
 const Brand = () => {
   return (

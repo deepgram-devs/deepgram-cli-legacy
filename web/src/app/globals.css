@@ -4,6 +4,7 @@
 
 @layer base {
   body {
+    overflow-y: scroll;
     @apply dark:bg-black bg-white dark:text-gray-300 text-black;
   }
 
@@ -80,114 +81,51 @@
   }
 
   .gradient {
-    background-attachment: scroll, scroll, scroll, scroll, scroll, scroll,
-      scroll, scroll, scroll, scroll;
-    background-clip: border-box, border-box, border-box, border-box, border-box,
-      border-box, border-box, border-box, border-box, border-box;
-    background-color: rgb(255, 255, 255);
-    background-image: linear-gradient(
-        rgb(255, 255, 255) 0%,
-        rgba(255, 255, 255, 0) 22.44%
-      ),
-      linear-gradient(
-        0deg,
-        rgb(255, 255, 255) 0%,
-        rgba(255, 255, 255, 0) 24.55%
-      ),
-      radial-gradient(
-        calc(37.4775%) calc(83.4559%) at calc(51.3975%) calc(62.4759%),
-        rgb(255, 255, 255) 0%,
-        rgba(255, 255, 255, 0) 100%
-      ),
-      radial-gradient(
-        calc(109.448%) calc(63.2859%) at calc(52.3375%) calc(20.9959%),
-        rgb(255, 255, 255) 0%,
-        rgba(255, 255, 255, 0) 100%
-      ),
-      radial-gradient(
-        calc(54.4875%) calc(108.434%) at calc(-7.56248%) calc(71.7259%),
-        rgba(230, 26, 50, 0.4) 0%,
-        rgba(82, 0, 255, 0) 100%
-      ),
-      radial-gradient(
-        calc(47.8475%) calc(88.7059%) at calc(30.2675%) calc(76.7059%),
-        rgba(203, 55, 255, 0.4) 0%,
-        rgba(82, 0, 255, 0) 100%
-      ),
-      radial-gradient(
-        calc(44.1675%) calc(55.6041%) at calc(82.5625%) calc(65.4559%),
-        rgba(1, 118, 58, 0.4) 0%,
-        rgba(3, 94, 61, 0) 100%
-      ),
-      radial-gradient(
-        calc(56.4675%) 123.66% at calc(98.6025%) calc(78.1975%),
-        rgba(56, 237, 172, 0.4) 0%,
-        rgba(66, 148, 203, 0.4) 37.65%,
-        rgba(82, 0, 255, 0) 100%
-      ),
-      radial-gradient(
-        39.06% 39.06% at 66.15% 10.94%,
-        rgba(82, 0, 255, 0.4) 0%,
-        rgba(82, 0, 255, 0) 100%
-      ),
-      none;
-    background-origin: padding-box, padding-box, padding-box, padding-box,
-      padding-box, padding-box, padding-box, padding-box, padding-box,
-      padding-box;
-    background-position-x: 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%;
-    background-position-y: -50%, -50%, -50%, -50%, -50%, -50%, -50%, -50%, -50%,
-      -50%;
+  }
+
+  .gradient-bg {
+    background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgd2lkdGg9IjE4NDAiCiAgIGhlaWdodD0iODQyIgogICB2aWV3Qm94PSIwIDAgMTg0MCA4NDIiCiAgIGZpbGw9Im5vbmUiCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzQzIgogICBzb2RpcG9kaTpkb2NuYW1lPSJjb252ZXJzaW9uLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMS4yLjIgKGIwYTg0ODY1LCAyMDIyLTEyLTAxKSIKICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAgIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29kaXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8c29kaXBvZGk6bmFtZWR2aWV3CiAgICAgaWQ9Im5hbWVkdmlldzQ1IgogICAgIHBhZ2Vjb2xvcj0iIzAwMDAwMCIKICAgICBib3JkZXJjb2xvcj0iIzAwMDAwMCIKICAgICBib3JkZXJvcGFjaXR5PSIwLjI1IgogICAgIGlua3NjYXBlOnNob3dwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5rc2NhcGU6cGFnZWNoZWNrZXJib2FyZD0iMCIKICAgICBpbmtzY2FwZTpkZXNrY29sb3I9IiNkMWQxZDEiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIGlua3NjYXBlOnpvb209IjAuNjExODQzNzgiCiAgICAgaW5rc2NhcGU6Y3g9IjY5MS4zNTI5NCIKICAgICBpbmtzY2FwZTpjeT0iNDQzLjc0MDcyIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTM5MCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDI3IgogICAgIGlua3NjYXBlOndpbmRvdy14PSI4MSIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iMjUiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMCIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJzdmc0MyIgLz4KICA8ZwogICAgIG9wYWNpdHk9IjAuOCIKICAgICBmaWx0ZXI9InVybCgjZmlsdGVyMF9mXzIwNzVfMjU2MCkiCiAgICAgaWQ9ImcyNSIKICAgICB0cmFuc2Zvcm09Im1hdHJpeCgwLjg4MjU2NDE4LDAsMCwwLjk1Nzc1MjcsMjMwLjI5OTc3LDczLjU4MjQ5NSkiPgogICAgPG1hc2sKICAgICAgIGlkPSJtYXNrMF8yMDc1XzI1NjAiCiAgICAgICBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIgogICAgICAgeD0iNjkiCiAgICAgICB5PSIxNTkiCiAgICAgICB3aWR0aD0iMTI3OSIKICAgICAgIGhlaWdodD0iMjIwIj4KICAgICAgPHJlY3QKICAgICAgICAgd2lkdGg9IjEyNzcuMSIKICAgICAgICAgaGVpZ2h0PSIyMTguNDk2OTkiCiAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDEsLTguNzQyMjhlLTgsLTguNzQyMjhlLTgsLTEsNjkuOTUxMiwzNzguNDg0KSIKICAgICAgICAgZmlsbD0iI2Q5ZDlkOSIKICAgICAgICAgaWQ9InJlY3QyIgogICAgICAgICB4PSIwIgogICAgICAgICB5PSIwIiAvPgogICAgPC9tYXNrPgogICAgPGcKICAgICAgIG1hc2s9InVybCgjbWFzazBfMjA3NV8yNTYwKSIKICAgICAgIGlkPSJnMjMiPgogICAgICA8ZwogICAgICAgICBmaWx0ZXI9InVybCgjZmlsdGVyMV9mXzIwNzVfMjU2MCkiCiAgICAgICAgIGlkPSJnMjEiPgogICAgICAgIDxlbGxpcHNlCiAgICAgICAgICAgY3g9IjE3MC44NjciCiAgICAgICAgICAgY3k9Ijc5LjgzMzYwMyIKICAgICAgICAgICByeD0iMTcwLjg2NyIKICAgICAgICAgICByeT0iNzkuODMzNjAzIgogICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDEsLTguNzQyMjhlLTgsLTguNzQyMjhlLTgsLTEsMTY3Ljg4OSw0NDMuMDEzKSIKICAgICAgICAgICBmaWxsPSIjYjgwMDQyIgogICAgICAgICAgIGlkPSJlbGxpcHNlNSIgLz4KICAgICAgICA8ZWxsaXBzZQogICAgICAgICAgIGN4PSIxNzAuODY3IgogICAgICAgICAgIGN5PSI3OS44MzM2MDMiCiAgICAgICAgICAgcng9IjE3MC44NjciCiAgICAgICAgICAgcnk9Ijc5LjgzMzYwMyIKICAgICAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxLC04Ljc0MjI4ZS04LC04Ljc0MjI4ZS04LC0xLC0xMzYuMDQ3LDQ0MC40NzkpIgogICAgICAgICAgIGZpbGw9IiNlNjFhMzIiCiAgICAgICAgICAgaWQ9ImVsbGlwc2U3IiAvPgogICAgICAgIDxlbGxpcHNlCiAgICAgICAgICAgY3g9IjE3MC44NjciCiAgICAgICAgICAgY3k9Ijc5LjgzMzYwMyIKICAgICAgICAgICByeD0iMTcwLjg2NyIKICAgICAgICAgICByeT0iNzkuODMzNjAzIgogICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDEsLTguNzQyMjhlLTgsLTguNzQyMjhlLTgsLTEsMzQwLjY4Niw0NDEuNDkzKSIKICAgICAgICAgICBmaWxsPSIjY2IzN2ZmIgogICAgICAgICAgIGlkPSJlbGxpcHNlOSIgLz4KICAgICAgICA8ZWxsaXBzZQogICAgICAgICAgIGN4PSIxNzAuODY3IgogICAgICAgICAgIGN5PSI3OS44MzM2MDMiCiAgICAgICAgICAgcng9IjE3MC44NjciCiAgICAgICAgICAgcnk9Ijc5LjgzMzYwMyIKICAgICAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxLC04Ljc0MjI4ZS04LC04Ljc0MjI4ZS04LC0xLDU2Mi4yMjksNDQxLjQ5MikiCiAgICAgICAgICAgZmlsbD0iIzc2MjJmZiIKICAgICAgICAgICBpZD0iZWxsaXBzZTExIiAvPgogICAgICAgIDxlbGxpcHNlCiAgICAgICAgICAgY3g9IjE3MC44NjciCiAgICAgICAgICAgY3k9Ijc5LjgzMzYwMyIKICAgICAgICAgICByeD0iMTcwLjg2NyIKICAgICAgICAgICByeT0iNzkuODMzNjAzIgogICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDEsLTguNzQyMjhlLTgsLTguNzQyMjhlLTgsLTEsNzgzLjc3Myw0NDEuNDkyKSIKICAgICAgICAgICBmaWxsPSIjNDEzMWZmIgogICAgICAgICAgIGlkPSJlbGxpcHNlMTMiIC8+CiAgICAgICAgPGVsbGlwc2UKICAgICAgICAgICBjeD0iMTcwLjg2NyIKICAgICAgICAgICBjeT0iNzkuODMzNjAzIgogICAgICAgICAgIHJ4PSIxNzAuODY3IgogICAgICAgICAgIHJ5PSI3OS44MzM2MDMiCiAgICAgICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMSwtOC43NDIyOGUtOCwtOC43NDIyOGUtOCwtMSw4OTYuNTU1LDQ0NC4wMjYpIgogICAgICAgICAgIGZpbGw9IiM1M2UwZmYiCiAgICAgICAgICAgaWQ9ImVsbGlwc2UxNSIgLz4KICAgICAgICA8ZWxsaXBzZQogICAgICAgICAgIGN4PSIxNzAuODY3IgogICAgICAgICAgIGN5PSI3OS44MzM2MDMiCiAgICAgICAgICAgcng9IjE3MC44NjciCiAgICAgICAgICAgcnk9Ijc5LjgzMzYwMyIKICAgICAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxLC04Ljc0MjI4ZS04LC04Ljc0MjI4ZS04LC0xLDEwMDUuMzEsNDQxLjQ5MikiCiAgICAgICAgICAgZmlsbD0iIzM4ZWRhYyIKICAgICAgICAgICBpZD0iZWxsaXBzZTE3IiAvPgogICAgICAgIDxlbGxpcHNlCiAgICAgICAgICAgY3g9IjE3MC44NjciCiAgICAgICAgICAgY3k9Ijc5LjgzMzYwMyIKICAgICAgICAgICByeD0iMTcwLjg2NyIKICAgICAgICAgICByeT0iNzkuODMzNjAzIgogICAgICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDEsLTguNzQyMjhlLTgsLTguNzQyMjhlLTgsLTEsMTE3Ni4xOCw0NDEuNDkyKSIKICAgICAgICAgICBmaWxsPSIjMDRlODk2IgogICAgICAgICAgIGlkPSJlbGxpcHNlMTkiIC8+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+CiAgPGRlZnMKICAgICBpZD0iZGVmczQxIj4KICAgIDxmaWx0ZXIKICAgICAgIGlkPSJmaWx0ZXIwX2ZfMjA3NV8yNTYwIgogICAgICAgeD0iLTIxMC4wNDkiCiAgICAgICB5PSIwLjgxMjAxMiIKICAgICAgIHdpZHRoPSIxODM3LjEiCiAgICAgICBoZWlnaHQ9IjY1Ny42NzIiCiAgICAgICBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiCiAgICAgICBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPgogICAgICA8ZmVGbG9vZAogICAgICAgICBmbG9vZC1vcGFjaXR5PSIwIgogICAgICAgICByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIKICAgICAgICAgaWQ9ImZlRmxvb2QyNyIgLz4KICAgICAgPGZlQmxlbmQKICAgICAgICAgbW9kZT0ibm9ybWFsIgogICAgICAgICBpbj0iU291cmNlR3JhcGhpYyIKICAgICAgICAgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiCiAgICAgICAgIHJlc3VsdD0ic2hhcGUiCiAgICAgICAgIGlkPSJmZUJsZW5kMjkiIC8+CiAgICAgIDxmZUdhdXNzaWFuQmx1cgogICAgICAgICBzdGREZXZpYXRpb249IjE0MCIKICAgICAgICAgcmVzdWx0PSJlZmZlY3QxX2ZvcmVncm91bmRCbHVyXzIwNzVfMjU2MCIKICAgICAgICAgaWQ9ImZlR2F1c3NpYW5CbHVyMzEiIC8+CiAgICA8L2ZpbHRlcj4KICAgIDxmaWx0ZXIKICAgICAgIGlkPSJmaWx0ZXIxX2ZfMjA3NV8yNTYwIgogICAgICAgeD0iLTIzNi4wNDciCiAgICAgICB5PSIxODAuODEyIgogICAgICAgd2lkdGg9IjE4NTMuOTYiCiAgICAgICBoZWlnaHQ9IjM2My4yMTQiCiAgICAgICBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiCiAgICAgICBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPgogICAgICA8ZmVGbG9vZAogICAgICAgICBmbG9vZC1vcGFjaXR5PSIwIgogICAgICAgICByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIKICAgICAgICAgaWQ9ImZlRmxvb2QzNCIgLz4KICAgICAgPGZlQmxlbmQKICAgICAgICAgbW9kZT0ibm9ybWFsIgogICAgICAgICBpbj0iU291cmNlR3JhcGhpYyIKICAgICAgICAgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiCiAgICAgICAgIHJlc3VsdD0ic2hhcGUiCiAgICAgICAgIGlkPSJmZUJsZW5kMzYiIC8+CiAgICAgIDxmZUdhdXNzaWFuQmx1cgogICAgICAgICBzdGREZXZpYXRpb249IjUwIgogICAgICAgICByZXN1bHQ9ImVmZmVjdDFfZm9yZWdyb3VuZEJsdXJfMjA3NV8yNTYwIgogICAgICAgICBpZD0iZmVHYXVzc2lhbkJsdXIzOCIgLz4KICAgIDwvZmlsdGVyPgogIDwvZGVmcz4KPC9zdmc+Cg==");
   }
 
   .gradient-dark {
-    background-attachment: scroll, scroll, scroll, scroll, scroll, scroll,
-      scroll, scroll, scroll, scroll;
-    background-clip: border-box, border-box, border-box, border-box, border-box,
-      border-box, border-box, border-box, border-box, border-box;
-    background-color: rgb(0, 0, 0);
     background-image: linear-gradient(rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 22.44%),
       linear-gradient(0deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 24.55%),
       radial-gradient(
-        calc(37.4775%) calc(83.4559%) at calc(51.3975%) calc(62.4759%),
+        calc(39.0995%) calc(83.7722%) at calc(53.0195%) calc(62.7922%),
         rgb(0, 0, 0) 0%,
         rgba(0, 0, 0, 0) 100%
       ),
       radial-gradient(
-        calc(109.448%) calc(63.2859%) at calc(52.3375%) calc(20.9959%),
+        calc(111.07%) calc(63.6022%) at calc(53.9595%) calc(21.3122%),
         rgb(0, 0, 0) 0%,
         rgba(0, 0, 0, 0) 100%
       ),
       radial-gradient(
-        calc(54.4875%) calc(108.434%) at calc(-7.56248%) calc(71.7259%),
-        rgba(230, 26, 50, 0.8) 0%,
+        calc(56.1095%) calc(108.118%) at calc(-5.94047%) calc(72.0422%),
+        rgb(230, 26, 50) 0%,
         rgba(82, 0, 255, 0) 100%
       ),
       radial-gradient(
-        calc(47.8475%) calc(88.7059%) at calc(30.8675%) calc(76.7059%),
-        rgba(203, 55, 255, 0.8) 0%,
+        calc(49.4695%) calc(89.0222%) at calc(32.1895%) calc(77.0222%),
+        rgb(203, 55, 255) 0%,
         rgba(82, 0, 255, 0) 100%
       ),
       radial-gradient(
-        calc(44.1675%) calc(55.6041%) at calc(82.5625%) calc(65.4559%),
-        rgba(1, 118, 58, 0.8) 0%,
+        calc(45.7895%) calc(55.2878%) at calc(80.9405%) calc(65.7722%),
+        rgba(1, 118, 58, 0.3) 0%,
         rgba(3, 94, 61, 0) 100%
       ),
       radial-gradient(
-        calc(56.4675%) 123.66% at calc(98.6025%) calc(78.1975%),
-        rgba(56, 237, 172, 0.8) 0%,
-        rgba(66, 148, 203, 0.8) 37.65%,
+        calc(58.0895%) 123.66% at calc(96.9805%) calc(79.8195%),
+        rgba(56, 237, 172, 0.7) 0%,
+        rgba(66, 148, 203, 0.7) 37.65%,
         rgba(82, 0, 255, 0) 100%
       ),
       radial-gradient(
         39.06% 39.06% at 66.15% 10.94%,
-        rgba(82, 0, 255, 0.8) 0%,
+        rgba(82, 0, 255, 0.7) 0%,
         rgba(82, 0, 255, 0) 100%
       ),
       none;
-    background-origin: padding-box, padding-box, padding-box, padding-box,
-      padding-box, padding-box, padding-box, padding-box, padding-box,
-      padding-box;
-    background-position-x: 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%;
-    background-position-y: 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%, 0%;
   }
 }

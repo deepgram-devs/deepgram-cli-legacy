@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "npm run manifest && next dev",
-    "premanifest": "cd ../ && npm i",
+    "premanifest": "cd ../ && npm i && npm run build",
     "manifest": "cd ../ && oclif manifest",
-    "postmanifest": "cp ../oclif.manifest.json ./oclif.manifest.json",
+    "postmanifest": "mv ../oclif.manifest.json ./",
     "build": "npm run manifest && next build",
     "start": "next start",
     "lint": "next lint"
@@ -24,6 +24,7 @@
     "autoprefixer": "10.4.14",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
+    "group-items": "^3.0.0",
     "next": "13.4.7",
     "next-themes": "^0.2.1",
     "postcss": "8.4.24",

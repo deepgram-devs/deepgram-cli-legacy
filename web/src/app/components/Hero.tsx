@@ -4,9 +4,9 @@ import {
   LinuxInstructions,
   MacInstructions,
   WindowsInstructions,
-} from "./instructions/index";
-import Margin from "./layout/Margin";
-import Section from "./layout/Section";
+} from "@/app/components/instructions/index";
+import Margin from "@/app/components/layout/Margin";
+import Section from "@/app/components/layout/Section";
 
 const Hero = () => {
   const [os, setOs] = useState<null | string>(null);
@@ -36,7 +36,7 @@ const Hero = () => {
 
   return (
     <>
-      <Section>
+      <Section className=" gradient dark:gradient-dark">
         <Margin className="flex-col p-6">
           <div className="mx-auto max-w-2xl pt-24 pb-20 sm:pt-40 lg:pt-44">
             <div className="text-center">
