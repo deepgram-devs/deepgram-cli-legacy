@@ -19,9 +19,8 @@ import { group } from "group-items";
 
 import type { Command, Data } from "@/app/types/Manifest";
 import Link from "next/link";
-import Heading from "@/app/components/commands/Heading";
-import Groups from "@/app/components/commands/Groups";
 import Table from "../components/commands/Table";
+import { Metadata } from "next";
 
 async function getData() {
   const res = await import("@/../oclif.manifest.json");
@@ -123,7 +122,7 @@ export default function Home({ params: { slug } }: Props) {
             <h2 className="text-xl text-gray-400 mb-4 capitalize">
               {data?.description}
             </h2>
-            <div className="max-w-screen-lg w-full mx-auto">
+            <div className="max-w-screen-lg w-full mx-auto my-16">
               <TerminalWindow className="max-h-[5em]">
                 <CommandLine>deepgram {command}</CommandLine>
               </TerminalWindow>
@@ -132,7 +131,7 @@ export default function Home({ params: { slug } }: Props) {
         </Section>
         {data && command && (
           <Section>
-            <Margin className="flex-col p-6 gap-6">
+            <Margin className="flex-col px-6 gap-6">
               <h3 className="text-xl text-gray-400">
                 Full list of commands for the command command.
               </h3>
