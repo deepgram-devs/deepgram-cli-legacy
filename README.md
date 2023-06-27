@@ -77,30 +77,30 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9
 
 ## `deepgram setup`
 
-Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli
+Setup the CLI using a Deepgram API key.
 
 ```
 USAGE
   $ deepgram setup [-k <value>] [-s <value>] [-t <value>]
 
 FLAGS
-  -k, --key=<value>     Deepgram API key
-  -s, --scopes=<value>  Deepgram auth scopes
-  -t, --ttl=<value>     [default: 86400] Seconds to remain logged in
+  -k, --key=<value>     https://dpgr.am/api-key
+  -s, --scopes=<value>  [default: member] https://dpgr.am/scopes
+  -t, --ttl=<value>     [default: 86400] https://dpgr.am/ttl
 
 DESCRIPTION
-  Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli
+  Setup the CLI using a Deepgram API key.
 
 FLAG DESCRIPTIONS
-  -k, --key=<value>  Deepgram API key
+  -k, --key=<value>  https://dpgr.am/api-key
 
-    An API key provided by Deepgram. Get one now: https://dpgr.am/api-key
+    An API key provided by Deepgram.
 
-  -s, --scopes=<value>  Deepgram auth scopes
+  -s, --scopes=<value>  https://dpgr.am/scopes
 
-    Comma separated string of Deepgram API scopes. Read more: https://dpgr.am/scopes
+    Comma separated string of Deepgram API scopes.
 
-  -t, --ttl=<value>  Seconds to remain logged in
+  -t, --ttl=<value>  https://dpgr.am/ttl
 
     How many seconds you should remain logged in with the Deepgram CLI. Default: 86400
 ```
@@ -116,19 +116,28 @@ USAGE
   $ deepgram summary [--data-url <value> | --mimetype <value>] [--data-binary <value> ]
 
 MEDIA SOURCE FLAGS
-  --data-binary=<value>  Filepath of local audio or video file. e.g. @~/Projects/nasa.mp4
-  --data-url=<value>     URL of an audio or video file. e.g. https://dpgr.am/spacewalk.wav
-  --mimetype=<value>     Mimetype of local audio or video file.
+  --data-binary=<value>  [default: @~/Projects/nasa.mp4] https://dpgr.am/data-binary
+  --data-url=<value>     [default: https://dpgr.am/spacewalk.wav] https://dpgr.am/data-url
+  --mimetype=<value>     Mimetype of local audio or video file
 
 DESCRIPTION
   Summarize any audio or video using just one command.
+
+FLAG DESCRIPTIONS
+  --data-binary=<value>  https://dpgr.am/data-binary
+
+    Filepath of local audio or video file
+
+  --data-url=<value>  https://dpgr.am/data-url
+
+    URL of an audio or video file
 ```
 
 _See code: [dist/commands/summary/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.2.0/dist/commands/summary/index.js)_
 
 ## `deepgram transcribe`
 
-Transcribe audio/video straight from the command line.
+Transcribe audio/video straight from the command line
 
 ```
 USAGE
@@ -139,43 +148,144 @@ USAGE
     [--utt_split <value>] [--detect_language] [--detect_entities] [--summarize] [--detect_topics] [--tag <value>]
 
 DEEPGRAM FEATURES FLAGS
-  --callback=<value>     Read more: https://dpgr.am/callback
-  --detect_entities      Read more: https://dpgr.am/detect_entities
-  --detect_language      Read more: https://dpgr.am/detect_language
-  --detect_topics        Read more: https://dpgr.am/detect_topics
-  --diarize              Read more: https://dpgr.am/diarize
-  --keyword_boost        Read more: https://dpgr.am/keyword_boost
-  --keywords=<value>...  Read more: https://dpgr.am/keywords
-  --language=<value>     Read more: https://dpgr.am/language
-  --model=<value>        Read more: https://dpgr.am/model
-  --multichannel         Read more: https://dpgr.am/multichannel
-  --paragraphs           Read more: https://dpgr.am/paragraphs
-  --profanity_filter     Read more: https://dpgr.am/profanity_filter
-  --punctuate            Read more: https://dpgr.am/punctuate
-  --redact=<value>...    Read more: https://dpgr.am/redact
-  --replace=<value>...   Read more: https://dpgr.am/replace
-  --search=<value>...    Read more: https://dpgr.am/search
-  --smart_format         Read more: https://dpgr.am/smart_format
-  --summarize            Read more: https://dpgr.am/summarize
-  --tag=<value>...       Read more: https://dpgr.am/tag
-  --tier=<value>         Read more: https://dpgr.am/tier
-  --utt_split=<value>    Read more: https://dpgr.am/utt_split
-  --utterances           Read more: https://dpgr.am/utterances
-  --version=<value>      Read more: https://dpgr.am/version
+  --callback=<value>     https://dpgr.am/callback
+  --detect_entities      https://dpgr.am/detect_entities
+  --detect_language      https://dpgr.am/detect_language
+  --detect_topics        https://dpgr.am/detect_topics
+  --diarize              https://dpgr.am/diarize
+  --keyword_boost        https://dpgr.am/keyword_boost
+  --keywords=<value>...  https://dpgr.am/keywords
+  --language=<value>     https://dpgr.am/language
+  --model=<value>        https://dpgr.am/model
+  --multichannel         https://dpgr.am/multichannel
+  --paragraphs           https://dpgr.am/paragraphs
+  --profanity_filter     https://dpgr.am/profanity_filter
+  --punctuate            https://dpgr.am/punctuate
+  --redact=<value>...    https://dpgr.am/redact
+  --replace=<value>...   https://dpgr.am/replace
+  --search=<value>...    https://dpgr.am/search
+  --smart_format         https://dpgr.am/smart_format
+  --summarize            https://dpgr.am/summarize
+  --tag=<value>...       https://dpgr.am/tag
+  --tier=<value>         https://dpgr.am/tier
+  --utt_split=<value>    https://dpgr.am/utt_split
+  --utterances           https://dpgr.am/utterances
+  --version=<value>      https://dpgr.am/version
 
 MEDIA SOURCE FLAGS
-  --data-binary=<value>  Filepath of local audio or video file. e.g. @~/Projects/nasa.mp4
-  --data-url=<value>     URL of an audio or video file. e.g. https://dpgr.am/spacewalk.wav
-  --mimetype=<value>     Mimetype of local audio or video file.
+  --data-binary=<value>  [default: @~/Projects/nasa.mp4] https://dpgr.am/data-binary
+  --data-url=<value>     [default: https://dpgr.am/spacewalk.wav] https://dpgr.am/data-url
+  --mimetype=<value>     Mimetype of local audio or video file
 
 FORMATTING FLAGS
-  --json           Output JSON format of the response. This comes verbatim from the API.
-  --no-transcript  Output no transcript so you can output understanding features alone.
-  --srt            Output SRT formatted captions. This requires utterances.
-  --vtt            Output WebVTT formatted captions. This requires utterances.
+  --json           Output JSON format of the response. This comes verbatim from the API
+  --no-transcript  Disable transcript so you can output understanding features
+  --srt            Output SRT formatted captions. This requires utterances
+  --vtt            Output WebVTT formatted captions. This requires utterances
 
 DESCRIPTION
-  Transcribe audio/video straight from the command line.
+  Transcribe audio/video straight from the command line
+
+FLAG DESCRIPTIONS
+  --callback=<value>  https://dpgr.am/callback
+
+    Deepgram feature: callback
+
+  --data-binary=<value>  https://dpgr.am/data-binary
+
+    Filepath of local audio or video file
+
+  --data-url=<value>  https://dpgr.am/data-url
+
+    URL of an audio or video file
+
+  --detect_entities  https://dpgr.am/detect_entities
+
+    Deepgram feature: detect_entities
+
+  --detect_language  https://dpgr.am/detect_language
+
+    Deepgram feature: detect_language
+
+  --detect_topics  https://dpgr.am/detect_topics
+
+    Deepgram feature: detect_topics
+
+  --diarize  https://dpgr.am/diarize
+
+    Deepgram feature: diarize
+
+  --keyword_boost  https://dpgr.am/keyword_boost
+
+    Deepgram feature: keyword_boost
+
+  --keywords=<value>...  https://dpgr.am/keywords
+
+    Deepgram feature: keywords
+
+  --language=<value>  https://dpgr.am/language
+
+    Deepgram feature: language
+
+  --model=<value>  https://dpgr.am/model
+
+    Deepgram feature: model
+
+  --multichannel  https://dpgr.am/multichannel
+
+    Deepgram feature: multichannel
+
+  --paragraphs  https://dpgr.am/paragraphs
+
+    Deepgram feature: paragraphs
+
+  --profanity_filter  https://dpgr.am/profanity_filter
+
+    Deepgram feature: profanity_filter
+
+  --punctuate  https://dpgr.am/punctuate
+
+    Deepgram feature: punctuate
+
+  --redact=<value>...  https://dpgr.am/redact
+
+    Deepgram feature: redact
+
+  --replace=<value>...  https://dpgr.am/replace
+
+    Deepgram feature: replace
+
+  --search=<value>...  https://dpgr.am/search
+
+    Deepgram feature: search
+
+  --smart_format  https://dpgr.am/smart_format
+
+    Deepgram feature: smart_format
+
+  --summarize  https://dpgr.am/summarize
+
+    Deepgram feature: summarize
+
+  --tag=<value>...  https://dpgr.am/tag
+
+    Deepgram feature: tag
+
+  --tier=<value>  https://dpgr.am/tier
+
+    Deepgram feature: tier
+
+  --utt_split=<value>  https://dpgr.am/utt_split
+
+    Deepgram feature: utt_split
+
+  --utterances  https://dpgr.am/utterances
+
+    Deepgram feature: utterances
+
+  --version=<value>  https://dpgr.am/version
+
+    Deepgram feature: version
 ```
 
 _See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.2.0/dist/commands/transcribe/index.js)_

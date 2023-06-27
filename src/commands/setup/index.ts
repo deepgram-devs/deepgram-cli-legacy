@@ -6,16 +6,14 @@ import { homedir } from "os";
 import { open } from "fs/promises";
 
 export default class Setup extends BaseCommand<typeof Setup> {
-  static description =
-    "Setup the CLI using a Deepgram API key. Read more: https://dpgr.am/cli";
+  static description = "Setup the CLI using a Deepgram API key.";
 
   static flags = {
     key: Flags.string({
       char: "k",
       env: "DEEPGRAM_API_KEY",
-      description:
-        "An API key provided by Deepgram. Get one now: https://dpgr.am/api-key",
-      summary: "Deepgram API key",
+      description: "An API key provided by Deepgram.",
+      summary: "https://dpgr.am/api-key",
       required: false,
       prompt: true,
       inquirer: "password",
@@ -23,9 +21,9 @@ export default class Setup extends BaseCommand<typeof Setup> {
     scopes: Flags.string({
       char: "s",
       env: "DEEPGRAM_API_SCOPES",
-      description:
-        "Comma separated string of Deepgram API scopes. Read more: https://dpgr.am/scopes",
-      summary: "Deepgram auth scopes",
+      description: "Comma separated string of Deepgram API scopes.",
+      default: "member",
+      summary: "https://dpgr.am/scopes",
       required: false,
     }),
     ttl: Flags.integer({
@@ -34,7 +32,7 @@ export default class Setup extends BaseCommand<typeof Setup> {
       description:
         "How many seconds you should remain logged in with the Deepgram CLI. Default: 86400",
       default: 86400,
-      summary: "Seconds to remain logged in",
+      summary: "https://dpgr.am/ttl",
       required: false,
     }),
   };

@@ -6,23 +6,25 @@ export default class Summary extends SecureCommand {
 
   static flags = {
     "data-url": Flags.string({
-      summary:
-        "URL of an audio or video file. e.g. https://dpgr.am/spacewalk.wav",
+      description: "URL of an audio or video file",
+      summary: "https://dpgr.am/data-url",
       exactlyOne: ["data-url", "data-binary"],
       exclusive: ["mimetype"],
+      default: "https://dpgr.am/spacewalk.wav",
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
     "data-binary": Flags.string({
-      summary:
-        "Filepath of local audio or video file. e.g. @~/Projects/nasa.mp4",
+      description: "Filepath of local audio or video file",
+      summary: "https://dpgr.am/data-binary",
       exactlyOne: ["data-url", "data-binary"],
       dependsOn: ["mimetype"],
+      default: "@~/Projects/nasa.mp4",
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
     mimetype: Flags.string({
-      summary: "Mimetype of local audio or video file.",
+      description: "Mimetype of local audio or video file",
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),

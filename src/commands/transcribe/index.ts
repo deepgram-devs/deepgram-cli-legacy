@@ -116,32 +116,34 @@ const availableFeatures: {
 ];
 
 export default class Transcribe extends SecureCommand {
-  static description = "Transcribe audio/video straight from the command line.";
+  static description = "Transcribe audio/video straight from the command line";
 
   static flags = {
     "data-url": Flags.string({
-      summary:
-        "URL of an audio or video file. e.g. https://dpgr.am/spacewalk.wav",
+      description: "URL of an audio or video file",
+      summary: "https://dpgr.am/data-url",
       exactlyOne: ["data-url", "data-binary"],
       exclusive: ["mimetype"],
+      default: "https://dpgr.am/spacewalk.wav",
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
     "data-binary": Flags.string({
-      summary:
-        "Filepath of local audio or video file. e.g. @~/Projects/nasa.mp4",
+      description: "Filepath of local audio or video file",
+      summary: "https://dpgr.am/data-binary",
       exactlyOne: ["data-url", "data-binary"],
       dependsOn: ["mimetype"],
+      default: "@~/Projects/nasa.mp4",
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
     mimetype: Flags.string({
-      summary: "Mimetype of local audio or video file.",
+      description: "Mimetype of local audio or video file",
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
     vtt: Flags.boolean({
-      summary: "Output WebVTT formatted captions. This requires utterances.",
+      description: "Output WebVTT formatted captions. This requires utterances",
       required: false,
       exclusive: [
         "json",
@@ -156,7 +158,7 @@ export default class Transcribe extends SecureCommand {
       helpGroup: "FORMATTING",
     }),
     srt: Flags.boolean({
-      summary: "Output SRT formatted captions. This requires utterances.",
+      description: "Output SRT formatted captions. This requires utterances",
       required: false,
       exclusive: [
         "json",
@@ -171,15 +173,15 @@ export default class Transcribe extends SecureCommand {
       helpGroup: "FORMATTING",
     }),
     json: Flags.boolean({
-      summary:
-        "Output JSON format of the response. This comes verbatim from the API.",
+      description:
+        "Output JSON format of the response. This comes verbatim from the API",
       required: false,
       exclusive: ["vtt", "srt"],
       helpGroup: "FORMATTING",
     }),
     "no-transcript": Flags.boolean({
-      summary:
-        "Output no transcript so you can output understanding features alone.",
+      description:
+        "Disable transcript so you can output understanding features",
       exclusive: ["paragraphs", "utterances", "smart_format", "json"],
       helpGroup: "FORMATTING",
     }),
@@ -190,7 +192,8 @@ export default class Transcribe extends SecureCommand {
         return [
           [feature.name],
           eval(type)({
-            summary: `Read more: https://dpgr.am/${feature.name}`,
+            description: `Deepgram feature: ${feature.name}`,
+            summary: `https://dpgr.am/${feature.name}`,
             name: feature.name,
             multiple: feature.multiple ?? false,
             parse: feature.parse ?? null,
@@ -274,7 +277,7 @@ export default class Transcribe extends SecureCommand {
     if (features.summarize) {
       this.title("TRANSCRIPTION SUMMARY");
       this.output("");
-      this.output(result?.summary?.short ?? "No summary returned.");
+      this.output(result?.summary?.short ?? "No summary returned");
       this.output("");
     }
 
@@ -297,7 +300,7 @@ export default class Transcribe extends SecureCommand {
           this.output(string);
         });
       } else {
-        this.output("No topics returned.");
+        this.output("No topics returned");
       }
 
       this.output("");
@@ -342,7 +345,7 @@ export default class Transcribe extends SecureCommand {
           this.output("");
         });
       } else {
-        this.output("No entities returned.");
+        this.output("No entities returned");
         this.output("");
       }
     }
@@ -356,7 +359,7 @@ export default class Transcribe extends SecureCommand {
       if (language) {
         this.output(`Language: ${language}`);
       } else {
-        this.output("No language returned.");
+        this.output("No language returned");
       }
 
       this.output("");
@@ -377,7 +380,7 @@ export default class Transcribe extends SecureCommand {
           this.output(paragraph.trim());
         });
       } else {
-        this.output("No paragraphs returned.");
+        this.output("No paragraphs returned");
       }
 
       this.output("");
@@ -395,7 +398,7 @@ export default class Transcribe extends SecureCommand {
           this.output("");
         });
       } else {
-        this.output("No utterances returned.");
+        this.output("No utterances returned");
       }
 
       this.output("");
@@ -423,7 +426,7 @@ export default class Transcribe extends SecureCommand {
       if (transcript) {
         this.output(transcript);
       } else {
-        this.output("No transcript returned.");
+        this.output("No transcript returned");
       }
     }
   }
