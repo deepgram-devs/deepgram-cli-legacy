@@ -23,29 +23,26 @@ This is the Deepgram CLI. It is used to interact with [Deepgram](https://develop
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @deepgram/cli
 $ deepgram COMMAND
 running command...
 $ deepgram (--version)
-@deepgram/cli/0.3.0-beta.0 darwin-x64 node-v16.13.0
+@deepgram/cli/0.4.0-beta.0 darwin-x64 node-v16.13.0
 $ deepgram --help [COMMAND]
 USAGE
   $ deepgram COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-- [`deepgram setup`](#deepgram-setup)
-- [`deepgram summary`](#deepgram-summary)
-- [`deepgram transcribe`](#deepgram-transcribe)
+* [`deepgram help [COMMANDS]`](#deepgram-help-commands)
+* [`deepgram setup`](#deepgram-setup)
+* [`deepgram summary`](#deepgram-summary)
+* [`deepgram transcribe`](#deepgram-transcribe)
 
 ## `deepgram help [COMMANDS]`
 
@@ -97,7 +94,7 @@ FLAG DESCRIPTIONS
     How many seconds you should remain logged in with the Deepgram CLI. Default: 86400
 ```
 
-_See code: [dist/commands/setup/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.3.0-beta.0/dist/commands/setup/index.js)_
+_See code: [dist/commands/setup/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/dist/commands/setup/index.js)_
 
 ## `deepgram summary`
 
@@ -125,7 +122,7 @@ FLAG DESCRIPTIONS
     URL of an audio or video file
 ```
 
-_See code: [dist/commands/summary/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.3.0-beta.0/dist/commands/summary/index.js)_
+_See code: [dist/commands/summary/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/dist/commands/summary/index.js)_
 
 ## `deepgram transcribe`
 
@@ -280,8 +277,7 @@ FLAG DESCRIPTIONS
     Deepgram feature: version
 ```
 
-_See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.3.0-beta.0/dist/commands/transcribe/index.js)_
-
+_See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/dist/commands/transcribe/index.js)_
 <!-- commandsstop -->
 
 # Developing
