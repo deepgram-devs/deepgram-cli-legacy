@@ -15,17 +15,6 @@ This is the Deepgram CLI. It is used to interact with [Deepgram](https://develop
 - For more about Deepgram see https://www.deepgram.com.
 - To get started using Deepgram [sign up](https://dpgr.am/api-key) for a free account and get 12,000 minutes free!
 
-# Table of Contents
-
-- [Issues](#issues)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-  - [`deepgram setup`](#deepgram-setup)
-  - [`deepgram transcribe`](#deepgram-transcribe)
-- [Developing](#developing)
-- [Contributors](#contributors)
-
 # Issues
 
 - For problems directly related to the CLI, [add an issue on GitHub](https://github.com/lukeocodes/deepgram-cli/issues/new).
@@ -34,6 +23,7 @@ This is the Deepgram CLI. It is used to interact with [Deepgram](https://develop
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @deepgram/cli
 $ deepgram COMMAND
@@ -45,15 +35,17 @@ USAGE
   $ deepgram COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-* [`deepgram setup`](#deepgram-setup)
-* [`deepgram summary`](#deepgram-summary)
-* [`deepgram transcribe`](#deepgram-transcribe)
+
+- [`deepgram help [COMMANDS]`](#deepgram-help-commands)
+- [`deepgram setup`](#deepgram-setup)
+- [`deepgram summary`](#deepgram-summary)
+- [`deepgram transcribe`](#deepgram-transcribe)
 
 ## `deepgram help [COMMANDS]`
 
@@ -116,8 +108,8 @@ USAGE
   $ deepgram summary [--data-url <value> | --mimetype <value>] [--data-binary <value> ]
 
 MEDIA SOURCE FLAGS
-  --data-binary=<value>  [default: @~/Projects/nasa.mp4] https://dpgr.am/data-binary
-  --data-url=<value>     [default: https://dpgr.am/spacewalk.wav] https://dpgr.am/data-url
+  --data-binary=<value>  https://dpgr.am/data-binary
+  --data-url=<value>     https://dpgr.am/data-url
   --mimetype=<value>     Mimetype of local audio or video file
 
 DESCRIPTION
@@ -173,8 +165,8 @@ DEEPGRAM FEATURES FLAGS
   --version=<value>      https://dpgr.am/version
 
 MEDIA SOURCE FLAGS
-  --data-binary=<value>  [default: @~/Projects/nasa.mp4] https://dpgr.am/data-binary
-  --data-url=<value>     [default: https://dpgr.am/spacewalk.wav] https://dpgr.am/data-url
+  --data-binary=<value>  https://dpgr.am/data-binary
+  --data-url=<value>     https://dpgr.am/data-url
   --mimetype=<value>     Mimetype of local audio or video file
 
 FORMATTING FLAGS
@@ -289,6 +281,7 @@ FLAG DESCRIPTIONS
 ```
 
 _See code: [dist/commands/transcribe/index.js](https://github.com/lukeocodes/deepgram-cli/blob/v0.3.0-beta.0/dist/commands/transcribe/index.js)_
+
 <!-- commandsstop -->
 
 # Developing
