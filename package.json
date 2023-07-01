@@ -53,7 +53,7 @@
   "dependencies": {
     "@deepgram/sdk": "^2.2.0",
     "@inquirer/password": "^1.1.2",
-    "@inquirer/prompts": "^2.1.1",
+    "@inquirer/prompts": "^2.2.0",
     "@oclif/core": "^2.8.6",
     "@oclif/plugin-help": "^5.2.9",
     "@oclif/plugin-not-found": "^2.3.25",
