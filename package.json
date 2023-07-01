@@ -64,7 +64,7 @@
     "@types/rc": "^1.2.1",
     "@types/wordwrap": "^1.0.1",
     "chalk": "^5.2.0",
-    "eslint": "^8.42.0",
+    "eslint": "^8.44.0",
     "eslint-config-oclif": "^4.0.0",
     "eslint-config-oclif-typescript": "^1.0.3",
     "mocha": "^10.2.0",
