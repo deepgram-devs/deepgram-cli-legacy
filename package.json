@@ -30,6 +30,10 @@
     "hooks": {
       "init": "./src/hooks/init/log",
       "command_not_found": "./src/hooks/command_not_found/log"
+    },
+    "macos": {
+      "sign": "Developer ID Installer: Deepgram INC",
+      "identifier": "com.deepgram.cli"
     }
   },
   "scripts": {
