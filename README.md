@@ -8,7 +8,7 @@
 [![Downloads/week](https://img.shields.io/npm/dw/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
 [![License](https://img.shields.io/npm/l/@deepgram/cli.svg)](https://github.com/lukeocodes/deepgram-cli/blob/main/package.json)
 
-> This project is currently ALPHA and is in active development. Commands are likely to change without warning or deprecation.
+> This project is currently BETA and is in active development. Commands are likely to change without warning or deprecation.
 
 This is the Deepgram CLI. It is used to interact with [Deepgram](https://developers.deepgram.com/api-reference/) from the command line. It is built using [oclif](https://oclif.io/).
 
