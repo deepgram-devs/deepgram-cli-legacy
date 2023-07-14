@@ -1,6 +1,6 @@
 # Deepgram CLI
 
-![Deepgram CLI](deepgram.png)
+![Deepgram CLI](deepgram-wordmark-white.svg)
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
@@ -12,13 +12,20 @@
 
 This is the Deepgram CLI. It is used to interact with [Deepgram](https://developers.deepgram.com/api-reference/) from the command line. It is built using [oclif](https://oclif.io/).
 
-- For more about Deepgram see https://www.deepgram.com.
-- To get started using Deepgram [sign up](https://dpgr.am/api-key) for a free account and get 12,000 minutes free!
+## Getting an API Key
 
-# Issues
+🔑 To access the Deepgram API you will need a [free Deepgram API Key](https://console.deepgram.com/signup?jump=keys).
+## Documentation
 
-- For problems directly related to the CLI, [add an issue on GitHub](https://github.com/lukeocodes/deepgram-cli/issues/new).
-- For other questions using the Deepgram, post a question in our [Community Forum](https://github.com/orgs/deepgram/discussions/categories/q-a).
+You can learn more about the Deepgram API at [developers.deepgram.com](https://developers.deepgram.com/docs).
+
+## Getting Help
+
+We love to hear from you so if you have questions, comments or find a bug in the project, let us know! You can either:
+
+- [Open an issue in this repository](https://github.com/deepgram-devs/deepgram-cli/issues/new)
+- [Join the Deepgram Github Discussions Community](https://github.com/orgs/deepgram/discussions)
+- [Join the Deepgram Discord Community](https://discord.gg/xWRaCDBtW4)
 
 # Usage
 
@@ -39,10 +46,18 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-* [`deepgram setup`](#deepgram-setup)
-* [`deepgram summary`](#deepgram-summary)
-* [`deepgram transcribe`](#deepgram-transcribe)
+* [Deepgram CLI](#deepgram-cli)
+  * [Getting an API Key](#getting-an-api-key)
+  * [Documentation](#documentation)
+  * [Getting Help](#getting-help)
+* [Usage](#usage)
+* [Commands](#commands)
+  * [`deepgram help [COMMANDS]`](#deepgram-help-commands)
+  * [`deepgram setup`](#deepgram-setup)
+  * [`deepgram summary`](#deepgram-summary)
+  * [`deepgram transcribe`](#deepgram-transcribe)
+* [Developing](#developing)
+* [Contributors](#contributors)
 
 ## `deepgram help [COMMANDS]`
 
