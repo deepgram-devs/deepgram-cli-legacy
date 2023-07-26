@@ -46,19 +46,6 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [Deepgram CLI](#deepgram-cli)
-  * [Getting an API Key](#getting-an-api-key)
-  * [Documentation](#documentation)
-  * [Getting Help](#getting-help)
-* [Usage](#usage)
-* [Commands](#commands)
-  * [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-  * [`deepgram setup`](#deepgram-setup)
-  * [`deepgram summary`](#deepgram-summary)
-  * [`deepgram transcribe`](#deepgram-transcribe)
-* [Developing](#developing)
-* [Contributors](#contributors)
-
 ## `deepgram help [COMMANDS]`
 
 Display help for deepgram.
