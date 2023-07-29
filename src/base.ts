@@ -7,6 +7,7 @@ import tty from "tty";
 import wordwrap from "wordwrap";
 
 import type {
+  ArgInput,
   FlagInput,
   CompletableFlag,
 } from "@oclif/core/lib/interfaces/parser";
@@ -28,10 +29,14 @@ const promptMap = (type: string, message: string) => {
 };
 
 export abstract class BaseCommand<T extends typeof Command> extends Command {
+  protected parsedArgs: {
+    [arg: string]: any;
+  };
   protected parsedFlags: {
     [flag: string]: any;
   };
   protected flags!: FlagInput;
+  protected args!: ArgInput;
 
   constructor(argv: string[], config: Config) {
     super(argv, config);
@@ -45,7 +50,10 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
       process.env.DEEPGRAM_CLI_NON_INTERACTIVE === "1" ||
       process.env.CI === "1"
     ) {
-      const flagArray = Object.entries(this.ctor.flags);
+      let flagArray: [string, any][] = [];
+
+      if (this.ctor.flags) flagArray = Object.entries(this.ctor.flags);
+
       flagArray.forEach(
         ([, flag]: [string, PromptableFlag<T>], index: number) => {
           if (flag.prompt) {
@@ -53,6 +61,7 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
           }
         }
       );
+
       this.ctor.flags = Object.fromEntries(flagArray);
     }
   }
@@ -60,12 +69,16 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
   public async init(): Promise<void> {
     await super.init();
 
-    const { flags: parsedFlags } = await this.parse({
+    const { args: parsedArgs, flags: parsedFlags } = await this.parse({
       flags: this.ctor.flags,
+      args: this.ctor.args,
     });
 
     this.flags = this.ctor.flags;
     this.parsedFlags = parsedFlags;
+
+    this.args = this.ctor.args;
+    this.parsedArgs = parsedArgs;
 
     if (
       tty.isatty(process.stdin.fd) &&
@@ -77,7 +90,9 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
   }
 
   protected async promptFlags() {
-    const flagArray = Object.entries(this.flags);
+    let flagArray: [string, any][] = [];
+
+    if (this.flags) flagArray = Object.entries(this.flags);
 
     const filtered = flagArray.filter(
       ([key, flag]: [string, PromptableFlag<T>]) => {
