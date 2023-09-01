@@ -52,7 +52,7 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@deepgram/sdk": "^2.2.0",
-    "@inquirer/password": "^1.1.2",
+    "@inquirer/password": "^1.1.9",
     "@inquirer/prompts": "^2.1.1",
     "@oclif/core": "^2.8.6",
     "@oclif/plugin-help": "^5.2.9",
