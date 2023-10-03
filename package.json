@@ -26,11 +26,7 @@
       "@oclif/plugin-help",
       "@oclif/plugin-not-found"
     ],
-    "topicSeparator": " ",
-    "hooks": {
-      "init": "./src/hooks/init/log",
-      "command_not_found": "./src/hooks/command_not_found/log"
-    }
+    "topicSeparator": " "
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
