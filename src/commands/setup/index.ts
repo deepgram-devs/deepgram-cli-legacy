@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { BaseCommand } from "../../base";
-import { Deepgram } from "@deepgram/sdk";
+import { createClient } from "@deepgram/sdk";
 import { select, confirm } from "@inquirer/prompts";
 import { homedir } from "os";
 import { open } from "fs/promises";
@@ -39,7 +39,9 @@ export default class Setup extends BaseCommand<typeof Setup> {
 
   public async run(): Promise<void> {
     let { key: auth, scopes, ttl } = this.parsedFlags;
-    const dg = new Deepgram(auth);
+    const dg = createClient(auth, {
+      global: { url: "api.beta.deepgram.com" },
+    });
 
     const {
       projects: [project],
