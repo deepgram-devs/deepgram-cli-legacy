@@ -39,13 +39,25 @@ export default class Setup extends BaseCommand<typeof Setup> {
 
   public async run(): Promise<void> {
     let { key: auth, scopes, ttl } = this.parsedFlags;
-    const dg = createClient(auth, {
-      global: { url: "api.beta.deepgram.com" },
+
+    const deepgramClient = createClient(auth, {
+      global: { url: "api.mock.deepgram.com" },
     });
 
-    const {
-      projects: [project],
-    } = await dg.projects.list().catch((err) => this.error(err));
+    let { result: projectsResult, error: projectsError } =
+      await deepgramClient.manage.getProjects();
+
+    if (projectsError) {
+      this.error(projectsError.message);
+    }
+
+    const project = projectsResult?.projects[0];
+
+    if (!project) {
+      this.error(
+        "Cannot find a Deepgram project. Please create a project first."
+      );
+    }
 
     if (!scopes) {
       scopes = ["member"];
@@ -55,15 +67,25 @@ export default class Setup extends BaseCommand<typeof Setup> {
       scopes = this.parsedFlags["scopes"].split(",");
     }
 
-    const { key } = await dg.keys.create(
-      project.project_id,
-      "Deepgram CLI",
-      scopes,
-      {
-        timeToLive: ttl,
+    let { result: newKeyResult, error: newKeyError } =
+      await deepgramClient.manage.createProjectKey(project.project_id, {
+        comment: "Deepgram CLI API key",
+        scopes,
         tags: ["cli"],
-      }
-    );
+        time_to_live_in_seconds: ttl,
+      });
+
+    if (newKeyError) {
+      this.error(newKeyError.message);
+    }
+
+    const key = newKeyResult?.api_key_id;
+
+    if (!key) {
+      this.error("Could not create an API key.");
+    }
+
+    console.log(key);
 
     const filePath = `${homedir()}/.deepgramrc`;
     let file;
