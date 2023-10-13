@@ -18,7 +18,7 @@ export default abstract class SecureCommand extends BaseCommand<
       this.appConfig.key.match(/([a-f0-9]{40})/g)
     ) {
       this.deepgram = createClient(this.appConfig.key, {
-        global: { url: "api.mock.deepgram.com" },
+        global: { url: "api.deepgram.com" },
       });
     } else {
       this.log("You've not yet configured the CLI with your API key.");

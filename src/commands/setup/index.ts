@@ -41,7 +41,7 @@ export default class Setup extends BaseCommand<typeof Setup> {
     let { key: auth, scopes, ttl } = this.parsedFlags;
 
     const deepgramClient = createClient(auth, {
-      global: { url: "api.mock.deepgram.com" },
+      global: { url: "api.deepgram.com" },
     });
 
     let { result: projectsResult, error: projectsError } =
