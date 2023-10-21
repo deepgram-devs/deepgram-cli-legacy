@@ -1,4 +1,5 @@
-import { Deepgram } from "@deepgram/sdk";
+import { createClient } from "@deepgram/sdk";
+import DeepgramClient from "@deepgram/sdk/dist/module/DeepgramClient"; // todo:
 import rc from "rc";
 
 import { BaseCommand } from "./base";
@@ -6,7 +7,7 @@ import { BaseCommand } from "./base";
 export default abstract class SecureCommand extends BaseCommand<
   typeof SecureCommand
 > {
-  deepgram: Deepgram;
+  deepgram: DeepgramClient;
   appConfig: {
     [key: string]: string;
   } = {};
@@ -16,7 +17,9 @@ export default abstract class SecureCommand extends BaseCommand<
       "key" in this.appConfig &&
       this.appConfig.key.match(/([a-f0-9]{40})/g)
     ) {
-      this.deepgram = new Deepgram(this.appConfig.key, "api.beta.deepgram.com");
+      this.deepgram = createClient(this.appConfig.key, {
+        global: { url: "api.deepgram.com" },
+      });
     } else {
       this.log("You've not yet configured the CLI with your API key.");
       this.log(

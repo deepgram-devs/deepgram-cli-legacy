@@ -1,6 +1,13 @@
 import { Flags } from "@oclif/core";
 import SecureCommand from "../../secure";
 import { createReadStream } from "fs";
+import {
+  DeepgramResponse,
+  FileSource,
+  PrerecordedSchema,
+  SyncPrerecordedResponse,
+  UrlSource,
+} from "@deepgram/sdk";
 
 /* Used in dynamic mappings from features to flags */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -123,7 +130,6 @@ export default class Transcribe extends SecureCommand {
       description: "URL of an audio or video file",
       summary: "https://dpgr.am/data-url",
       exactlyOne: ["data-url", "data-binary"],
-      exclusive: ["mimetype"],
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
@@ -131,45 +137,39 @@ export default class Transcribe extends SecureCommand {
       description: "Filepath of local audio or video file",
       summary: "https://dpgr.am/data-binary",
       exactlyOne: ["data-url", "data-binary"],
-      dependsOn: ["mimetype"],
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
-    mimetype: Flags.string({
-      description: "Mimetype of local audio or video file",
-      required: false,
-      helpGroup: "MEDIA SOURCE",
-    }),
-    vtt: Flags.boolean({
-      description: "Output WebVTT formatted captions. This requires utterances",
-      required: false,
-      exclusive: [
-        "json",
-        "srt",
-        "detect_language",
-        "paragraphs",
-        "detect_entities",
-        "summarize",
-        "detect_topics",
-      ],
-      dependsOn: ["utterances"],
-      helpGroup: "FORMATTING",
-    }),
-    srt: Flags.boolean({
-      description: "Output SRT formatted captions. This requires utterances",
-      required: false,
-      exclusive: [
-        "json",
-        "vtt",
-        "detect_language",
-        "paragraphs",
-        "detect_entities",
-        "summarize",
-        "detect_topics",
-      ],
-      dependsOn: ["utterances"],
-      helpGroup: "FORMATTING",
-    }),
+    // vtt: Flags.boolean({
+    //   description: "Output WebVTT formatted captions. This requires utterances",
+    //   required: false,
+    //   exclusive: [
+    //     "json",
+    //     "srt",
+    //     "detect_language",
+    //     "paragraphs",
+    //     "detect_entities",
+    //     "summarize",
+    //     "detect_topics",
+    //   ],
+    //   dependsOn: ["utterances"],
+    //   helpGroup: "FORMATTING",
+    // }),
+    // srt: Flags.boolean({
+    //   description: "Output SRT formatted captions. This requires utterances",
+    //   required: false,
+    //   exclusive: [
+    //     "json",
+    //     "vtt",
+    //     "detect_language",
+    //     "paragraphs",
+    //     "detect_entities",
+    //     "summarize",
+    //     "detect_topics",
+    //   ],
+    //   dependsOn: ["utterances"],
+    //   helpGroup: "FORMATTING",
+    // }),
     json: Flags.boolean({
       description:
         "Output JSON format of the response. This comes verbatim from the API",
@@ -203,31 +203,44 @@ export default class Transcribe extends SecureCommand {
     ),
   };
 
+  private async transcribeFile(
+    source: FileSource,
+    options: PrerecordedSchema
+  ): Promise<DeepgramResponse<SyncPrerecordedResponse>> {
+    return await this.deepgram.listen.prerecorded.transcribeFile(
+      source,
+      options
+    );
+  }
+
+  private async transcribeUrl(
+    source: UrlSource,
+    options: PrerecordedSchema
+  ): Promise<DeepgramResponse<SyncPrerecordedResponse>> {
+    return await this.deepgram.listen.prerecorded.transcribeUrl(
+      source,
+      options
+    );
+  }
+
   public async run(): Promise<void> {
-    let source;
-    const {
-      "data-url": url,
-      "data-binary": dataBinary,
-      mimetype,
-    } = this.parsedFlags;
+    let urlSource, fileSource;
+    const { "data-url": url, "data-binary": dataBinary } = this.parsedFlags;
 
     if (url) {
-      source = {
+      urlSource = {
         url,
       };
     }
 
-    if (dataBinary && mimetype) {
+    if (dataBinary) {
       if (dataBinary.startsWith("@")) {
-        source = {
-          stream: createReadStream(dataBinary.replace("@", "")),
-          mimetype,
-        };
+        fileSource = createReadStream(dataBinary.replace("@", ""));
       }
     }
 
-    if (!source) {
-      this.error("You must provide a URL, or a filepath AND mimetype");
+    if (!urlSource && !fileSource) {
+      this.error("You must provide a URL, or a filepath.");
     }
 
     const featureKeys = availableFeatures.map((feat: any) => feat.name);
@@ -237,10 +250,29 @@ export default class Transcribe extends SecureCommand {
       })
     );
 
-    const response = await this.deepgram.transcription.preRecorded(
-      source,
-      Object.assign({}, { tag: ["cli"] }, features)
-    );
+    let result;
+
+    if (urlSource) {
+      const { result: transcriptionResult, error: transcriptionError } =
+        await this.transcribeUrl(urlSource, features);
+
+      if (transcriptionError) {
+        this.error(transcriptionError.message);
+      }
+
+      result = transcriptionResult;
+    }
+
+    if (fileSource) {
+      const { result: transcriptionResult, error: transcriptionError } =
+        await this.transcribeFile(fileSource, features);
+
+      if (transcriptionError) {
+        this.error(transcriptionError.message);
+      }
+
+      result = transcriptionResult;
+    }
 
     const { vtt, srt, json, "no-transcript": noTranscript } = this.parsedFlags;
 
@@ -248,34 +280,33 @@ export default class Transcribe extends SecureCommand {
      * Verbatim response from the API via the @deepgram/node
      */
     if (json) {
-      return this.output(JSON.stringify(response));
+      return this.output(JSON.stringify(result));
     }
 
-    /**
-     * Utterances response formatted with WebVTT
-     */
-    if (vtt) {
-      return this.output(response.toWebVTT());
-    }
+    // /**
+    //  * Utterances response formatted with WebVTT
+    //  */
+    // if (vtt) {
+    //   return this.output(response.toWebVTT());
+    // }
 
-    /**
-     * Utterances response formatted with SRT
-     */
-    if (srt) {
-      return this.output(response.toSRT());
-    }
+    // /**
+    //  * Utterances response formatted with SRT
+    //  */
+    // if (srt) {
+    //   return this.output(response.toSRT());
+    // }
 
     /**
      * Do the rest of the outputs.
      */
-    const result = response?.results;
-    const channel = result?.channels[0];
+    const channel = result?.results.channels[0];
     const alternative = channel?.alternatives[0];
 
     if (features.summarize) {
       this.title("TRANSCRIPTION SUMMARY");
       this.output("");
-      this.output(result?.summary?.short ?? "No summary returned");
+      this.output(result?.results.summary?.short ?? "No summary returned");
       this.output("");
     }
 
@@ -385,7 +416,7 @@ export default class Transcribe extends SecureCommand {
     }
 
     if (features.utterances) {
-      const utterances = result?.utterances;
+      const utterances = result?.results.utterances;
 
       this.title("UTTERANCE FORMATTED");
       this.output("");

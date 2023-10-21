@@ -47,7 +47,7 @@
   ],
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@deepgram/sdk": "^2.2.0",
+    "@deepgram/sdk": "^3.0.0-alpha.10",
     "@inquirer/password": "^1.1.2",
     "@inquirer/prompts": "^2.1.1",
     "@oclif/core": "^2.8.6",
