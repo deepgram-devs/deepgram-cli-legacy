@@ -130,7 +130,6 @@ export default class Transcribe extends SecureCommand {
       description: "URL of an audio or video file",
       summary: "https://dpgr.am/data-url",
       exactlyOne: ["data-url", "data-binary"],
-      exclusive: ["mimetype"],
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
@@ -138,12 +137,6 @@ export default class Transcribe extends SecureCommand {
       description: "Filepath of local audio or video file",
       summary: "https://dpgr.am/data-binary",
       exactlyOne: ["data-url", "data-binary"],
-      dependsOn: ["mimetype"],
-      required: false,
-      helpGroup: "MEDIA SOURCE",
-    }),
-    mimetype: Flags.string({
-      description: "Mimetype of local audio or video file",
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
@@ -232,11 +225,7 @@ export default class Transcribe extends SecureCommand {
 
   public async run(): Promise<void> {
     let urlSource, fileSource;
-    const {
-      "data-url": url,
-      "data-binary": dataBinary,
-      mimetype,
-    } = this.parsedFlags;
+    const { "data-url": url, "data-binary": dataBinary } = this.parsedFlags;
 
     if (url) {
       urlSource = {
@@ -244,17 +233,14 @@ export default class Transcribe extends SecureCommand {
       };
     }
 
-    if (dataBinary && mimetype) {
+    if (dataBinary) {
       if (dataBinary.startsWith("@")) {
-        fileSource = {
-          stream: createReadStream(dataBinary.replace("@", "")),
-          mimetype,
-        };
+        fileSource = createReadStream(dataBinary.replace("@", ""));
       }
     }
 
     if (!urlSource && !fileSource) {
-      this.error("You must provide a URL, or a filepath AND mimetype");
+      this.error("You must provide a URL, or a filepath.");
     }
 
     const featureKeys = availableFeatures.map((feat: any) => feat.name);

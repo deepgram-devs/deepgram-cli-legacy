@@ -15,8 +15,7 @@ const examples = [
     title: "Setup from the command line",
   },
   {
-    command:
-      "transcribe --data-binary=@~/nasa.wav --mimetype=audio/wav --smart_format",
+    command: "transcribe --data-binary=@~/nasa.wav --smart_format",
     output: `Yeah, as as it's worth celebrating the first Space walk with an all female team. I think many of us are looking forward to it just being normal. And I think if it signifies anything, it is to honor the women who came before us who were skilled and qualified and didn't get the same opportunities that we have today.
 ...`,
     title: "Transcribe local files or remote URLs",
