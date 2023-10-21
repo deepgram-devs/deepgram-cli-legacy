@@ -1,17 +1,17 @@
-import {expect, test} from '@oclif/test'
+import { expect, test } from "@oclif/test";
 
-describe('keys', () => {
+describe("keys", () => {
   test
-  .stdout()
-  .command(['keys'])
-  .it('runs hello', ctx => {
-    expect(ctx.stdout).to.contain('hello world')
-  })
+    .stdout()
+    .command(["keys"])
+    .it("runs hello", (ctx) => {
+      expect(ctx.stdout).to.contain("hello world");
+    });
 
   test
-  .stdout()
-  .command(['keys', '--name', 'jeff'])
-  .it('runs hello --name jeff', ctx => {
-    expect(ctx.stdout).to.contain('hello jeff')
-  })
-})
+    .stdout()
+    .command(["keys", "--name", "jeff"])
+    .it("runs hello --name jeff", (ctx) => {
+      expect(ctx.stdout).to.contain("hello jeff");
+    });
+});
