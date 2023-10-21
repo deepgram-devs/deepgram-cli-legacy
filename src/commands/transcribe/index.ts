@@ -4,7 +4,7 @@ import { createReadStream } from "fs";
 import {
   DeepgramResponse,
   FileSource,
-  PrerecordedOptions,
+  PrerecordedSchema,
   SyncPrerecordedResponse,
   UrlSource,
 } from "@deepgram/sdk";
@@ -205,7 +205,7 @@ export default class Transcribe extends SecureCommand {
 
   private async transcribeFile(
     source: FileSource,
-    options: PrerecordedOptions
+    options: PrerecordedSchema
   ): Promise<DeepgramResponse<SyncPrerecordedResponse>> {
     return await this.deepgram.listen.prerecorded.transcribeFile(
       source,
@@ -215,7 +215,7 @@ export default class Transcribe extends SecureCommand {
 
   private async transcribeUrl(
     source: UrlSource,
-    options: PrerecordedOptions
+    options: PrerecordedSchema
   ): Promise<DeepgramResponse<SyncPrerecordedResponse>> {
     return await this.deepgram.listen.prerecorded.transcribeUrl(
       source,
