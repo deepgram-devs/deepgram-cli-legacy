@@ -11,12 +11,24 @@ const toTitleCase = (name: string) => {
   });
 };
 
+const useCases = ["prerecorded", "microphone", "stream", "live", "partner"];
+
+const languages = ["javascript", "cpp", "csharp", "java", "php", "rust", "go", "python", "ruby"];
+
+const starterNameFrameworkExpr = new RegExp(
+  `^(${useCases.join("|")})-(${languages.join("|")})-([a-zA-Z0-9_]*)-starter`,
+  "g"
+);
+const starterNameExpr = new RegExp(
+  `^(${useCases.join("|")})-(${languages.join("|")})-([a-zA-Z0-9_]*)-starter`,
+  "g"
+);
+
+const isStarterNameFramework = (name: string) => starterNameFrameworkExpr.test(name);
+const isStarterName = (name: string) => starterNameExpr.test(name);
+
 const parseStarterName = (name: string) => {
-  if (
-    /^((prerecorded)|(live))-([a-zA-Z0-9_]*)-([a-zA-Z0-9_]*)-starter$/g.test(
-      name
-    )
-  ) {
+  if (isStarterNameFramework(name)) {
     const [type, language, framework] = name.split("-", 3);
 
     return {
@@ -28,7 +40,7 @@ const parseStarterName = (name: string) => {
     };
   }
 
-  if (/^((prerecorded)|(live))-([a-zA-Z0-9_]*)-starter$/g.test(name)) {
+  if (isStarterName(name)) {
     const [type, language] = name.split("-", 2);
 
     return {
@@ -43,10 +55,8 @@ const parseStarterName = (name: string) => {
   throw new Error("enable to parse starter name");
 };
 
-const isStarterName = (name: string) => {
-  return /^((prerecorded)|(live))-([a-zA-Z0-9_]*)-(([a-zA-Z0-9_]*)-)?starter$/g.test(
-    name
-  );
+const isStarter = (name: string) => {
+  return isStarterName(name) || isStarterNameFramework(name);
 };
 
 const isGitHubUrl = (url: string) => {
@@ -56,9 +66,7 @@ const isGitHubUrl = (url: string) => {
 };
 
 const urlToAtom = (url: string) => {
-  return url
-    .replace(/^(http(s)?):\/\/(www\.)?github\.[a-z]{2,6}\//gi, "")
-    .replace(/\/$/gi, "");
+  return url.replace(/^(http(s)?):\/\/(www\.)?github\.[a-z]{2,6}\//gi, "").replace(/\/$/gi, "");
 };
 
 const isGitHubAtom = (url: string) => {
@@ -137,9 +145,7 @@ export default class Starter extends SecureCommand {
       org: DEEPGRAM_STARTER_ORG,
     });
 
-    const allStarters = data
-      .filter((r) => isStarterName(r.name))
-      .map((r) => parseStarterName(r.name));
+    const allStarters = data.filter((r) => isStarter(r.name)).map((r) => parseStarterName(r.name));
 
     const types = allStarters.map((s) => s.type);
 
@@ -150,9 +156,7 @@ export default class Starter extends SecureCommand {
       })),
     });
 
-    const languages = allStarters
-      .filter((s) => s.type === type)
-      .map((s) => s.language);
+    const languages = allStarters.filter((s) => s.type === type).map((s) => s.language);
 
     const language = await select({
       message: "What language would you prefer?",
@@ -161,9 +165,7 @@ export default class Starter extends SecureCommand {
       })),
     });
 
-    const starters = allStarters.filter(
-      (s) => s.type === type && s.language === language
-    );
+    const starters = allStarters.filter((s) => s.type === type && s.language === language);
 
     const starter = await select({
       message: "Please choose one of the following starters to set up.",
@@ -186,9 +188,7 @@ export default class Starter extends SecureCommand {
     if (select && repository) {
       return console.error("A starter can't be used with --select");
     } else if (!select && !repository) {
-      return console.error(
-        "A starter must be provided unless --select is used"
-      );
+      return console.error("A starter must be provided unless --select is used");
     }
 
     let starter;
