@@ -120,9 +120,11 @@ ARGUMENTS
   REPOSITORY  Repository to create a starter from
 
 FLAGS
+  --select  Select from the Starter library
+
+GLOBAL FLAGS
   -k, --key=<value>  The `DEEPGRAM_API_KEY` environment variable (or --key flag) can be supplied instead of running
                      `deepgram setup` to configure the CLI.
-  --select           Select from the Starter library
 
 DESCRIPTION
   Generate a Deepgram starter app.
@@ -138,7 +140,7 @@ Summarize any audio or video using just one command.
 USAGE
   $ deepgram summary [-k <value>] [--data-url <value>] [--data-binary <value>]
 
-FLAGS
+GLOBAL FLAGS
   -k, --key=<value>  The `DEEPGRAM_API_KEY` environment variable (or --key flag) can be supplied instead of running
                      `deepgram setup` to configure the CLI.
 
@@ -173,7 +175,7 @@ USAGE
     [--multichannel] [--search <value>] [--callback <value>] [--keywords <value>] [--keyword_boost] [--utt_split
     <value>] [--detect_language] [--detect_entities] [--summarize] [--detect_topics] [--tag <value>]
 
-FLAGS
+GLOBAL FLAGS
   -k, --key=<value>  The `DEEPGRAM_API_KEY` environment variable (or --key flag) can be supplied instead of running
                      `deepgram setup` to configure the CLI.
 
@@ -212,6 +214,15 @@ FORMATTING FLAGS
 
 DESCRIPTION
   Transcribe audio/video straight from the command line
+
+EXAMPLES
+  $ deepgram transcribe --data-url=https://dpgr.am/spacewalk.wav
+
+  $ deepgram transcribe --data-url=https://dpgr.am/spacewalk.wav --smart_format
+
+  $ deepgram transcribe --data-url=https://dpgr.am/spacewalk.wav
+
+  $ deepgram transcribe --data-url=https://dpgr.am/spacewalk.wav
 
 FLAG DESCRIPTIONS
   --callback=<value>  https://dpgr.am/callback

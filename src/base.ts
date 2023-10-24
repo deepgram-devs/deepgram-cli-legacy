@@ -8,6 +8,7 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
       name: "apiKey",
       env: "DEEPGRAM_API_KEY",
       required: false,
+      helpGroup: "GLOBAL",
       description:
         "The `DEEPGRAM_API_KEY` environment variable (or --key flag) can be supplied instead of running `deepgram setup` to configure the CLI.",
     }),
