@@ -8,9 +8,8 @@ const buildStartersList = async () => {
 
   const DEEPGRAM_STARTER_ORG = "deepgram-starters";
 
-  const { data } = await octokit.rest.repos.listForOrg({
+  let { data } = await octokit.rest.repos.listForOrg({
     org: DEEPGRAM_STARTER_ORG,
-    per_page: 2,
   });
 
   for await (let [i, repo] of data.entries()) {
@@ -22,15 +21,16 @@ const buildStartersList = async () => {
       });
       const content = atob(config.content);
       const toml = tomlParser(content);
+
       data[i].deepgram = toml;
     } catch (error) {
       if (error instanceof RequestError && error.status === 404) {
         delete data[i];
-      } else throw error;
+      }
     }
   }
 
-  fs.writeFile("./src/starters.json", JSON.stringify(data), (error) => {
+  fs.writeFile("./src/starters.json", JSON.stringify(data.filter((v) => v !== null)), (error) => {
     if (error) throw error;
   });
 };
