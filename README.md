@@ -31,27 +31,30 @@ We love to hear from you so if you have questions, comments or find a bug in the
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @deepgram/cli
 $ deepgram COMMAND
 running command...
 $ deepgram (--version)
-@deepgram/cli/0.4.0-beta.0 win32-x64 node-v20.5.0
+@deepgram/cli/0.4.0-beta.0 darwin-x64 node-v21.0.0
 $ deepgram --help [COMMAND]
 USAGE
   $ deepgram COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`deepgram help [COMMANDS]`](#deepgram-help-commands)
-* [`deepgram setup`](#deepgram-setup)
-* [`deepgram starter [REPOSITORY]`](#deepgram-starter-repository)
-* [`deepgram summary`](#deepgram-summary)
-* [`deepgram transcribe`](#deepgram-transcribe)
+
+- [`deepgram help [COMMANDS]`](#deepgram-help-commands)
+- [`deepgram setup`](#deepgram-setup)
+- [`deepgram starter [REPOSITORY]`](#deepgram-starter-repository)
+- [`deepgram summary`](#deepgram-summary)
+- [`deepgram transcribe`](#deepgram-transcribe)
 
 ## `deepgram help [COMMANDS]`
 
@@ -71,11 +74,11 @@ DESCRIPTION
   Display help for deepgram.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/lib/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/src/commands/help.ts)_
 
 ## `deepgram setup`
 
-Setup the CLI using a Deepgram API key.
+Setup the CLI using your Deepgram API key. This will create a new limited key for you on your account.
 
 ```
 USAGE
@@ -87,7 +90,7 @@ FLAGS
   -t, --ttl=<value>     [default: 86400] https://dpgr.am/ttl
 
 DESCRIPTION
-  Setup the CLI using a Deepgram API key.
+  Setup the CLI using your Deepgram API key. This will create a new limited key for you on your account.
 
 FLAG DESCRIPTIONS
   -k, --key=<value>  https://dpgr.am/api-key
@@ -103,7 +106,7 @@ FLAG DESCRIPTIONS
     How many seconds you should remain logged in with the Deepgram CLI. Default: 86400
 ```
 
-_See code: [dist/commands/setup/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/dist/commands/setup/index.ts)_
+_See code: [src/commands/setup/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/src/commands/setup/index.ts)_
 
 ## `deepgram starter [REPOSITORY]`
 
@@ -111,19 +114,21 @@ Generate a Deepgram starter app.
 
 ```
 USAGE
-  $ deepgram starter [REPOSITORY] [--select]
+  $ deepgram starter [REPOSITORY] [-k <value>] [--select]
 
 ARGUMENTS
   REPOSITORY  Repository to create a starter from
 
 FLAGS
-  --select  Select from the Starter library
+  -k, --key=<value>  The `DEEPGRAM_API_KEY` environment variable (or --key flag) can be supplied instead of running
+                     `deepgram setup` to configure the CLI.
+  --select           Select from the Starter library
 
 DESCRIPTION
   Generate a Deepgram starter app.
 ```
 
-_See code: [dist/commands/starter/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/dist/commands/starter/index.ts)_
+_See code: [src/commands/starter/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/src/commands/starter/index.ts)_
 
 ## `deepgram summary`
 
@@ -131,7 +136,11 @@ Summarize any audio or video using just one command.
 
 ```
 USAGE
-  $ deepgram summary [--data-url <value>] [--data-binary <value>]
+  $ deepgram summary [-k <value>] [--data-url <value>] [--data-binary <value>]
+
+FLAGS
+  -k, --key=<value>  The `DEEPGRAM_API_KEY` environment variable (or --key flag) can be supplied instead of running
+                     `deepgram setup` to configure the CLI.
 
 MEDIA SOURCE FLAGS
   --data-binary=<value>  https://dpgr.am/data-binary
@@ -150,7 +159,7 @@ FLAG DESCRIPTIONS
     URL of an audio or video file
 ```
 
-_See code: [dist/commands/summary/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/dist/commands/summary/index.ts)_
+_See code: [src/commands/summary/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/src/commands/summary/index.ts)_
 
 ## `deepgram transcribe`
 
@@ -158,11 +167,15 @@ Transcribe audio/video straight from the command line
 
 ```
 USAGE
-  $ deepgram transcribe [--data-url <value>] [--data-binary <value>] [--no-transcript | --paragraphs |
-    --utterances | --smart_format | [--json |  | ]] [--model <value>] [--version <value>] [--tier <value>] [--replace
-    <value>] [--language <value>] [--punctuate] [--profanity_filter] [--redact <value>] [--diarize] [--multichannel]
-    [--search <value>] [--callback <value>] [--keywords <value>] [--keyword_boost] [--utt_split <value>]
-    [--detect_language] [--detect_entities] [--summarize] [--detect_topics] [--tag <value>]
+  $ deepgram transcribe [-k <value>] [--data-url <value>] [--data-binary <value>] [--no-transcript |
+    --paragraphs | --utterances | --smart_format | [--json |  | ]] [--model <value>] [--version <value>] [--tier
+    <value>] [--replace <value>] [--language <value>] [--punctuate] [--profanity_filter] [--redact <value>] [--diarize]
+    [--multichannel] [--search <value>] [--callback <value>] [--keywords <value>] [--keyword_boost] [--utt_split
+    <value>] [--detect_language] [--detect_entities] [--summarize] [--detect_topics] [--tag <value>]
+
+FLAGS
+  -k, --key=<value>  The `DEEPGRAM_API_KEY` environment variable (or --key flag) can be supplied instead of running
+                     `deepgram setup` to configure the CLI.
 
 DEEPGRAM FEATURES FLAGS
   --callback=<value>     https://dpgr.am/callback
@@ -302,7 +315,8 @@ FLAG DESCRIPTIONS
     Deepgram feature: version
 ```
 
-_See code: [dist/commands/transcribe/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/dist/commands/transcribe/index.ts)_
+_See code: [src/commands/transcribe/index.ts](https://github.com/lukeocodes/deepgram-cli/blob/v0.4.0-beta.0/src/commands/transcribe/index.ts)_
+
 <!-- commandsstop -->
 
 # Developing

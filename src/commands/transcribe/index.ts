@@ -1,6 +1,8 @@
 import { Flags } from "@oclif/core";
 import SecureCommand from "../../secure";
 import { createReadStream } from "fs";
+import { homedir } from "os";
+import path from "path";
 import {
   DeepgramResponse,
   FileSource,
@@ -14,6 +16,8 @@ import {
 const { string, boolean, integer } = Flags;
 /* eslint-enable @typescript-eslint/no-unused-vars */
 const { round } = Math;
+
+const homeDir = homedir();
 
 const availableFeatures: {
   name: string;
@@ -125,6 +129,13 @@ const availableFeatures: {
 export default class Transcribe extends SecureCommand {
   static description = "Transcribe audio/video straight from the command line";
 
+  static examples = [
+    "<%= config.bin %> <%= command.id %> --data-url=https://dpgr.am/spacewalk.wav",
+    "<%= config.bin %> <%= command.id %> --data-url=https://dpgr.am/spacewalk.wav --smart_format",
+    "<%= config.bin %> <%= command.id %> --data-url=https://dpgr.am/spacewalk.wav",
+    "<%= config.bin %> <%= command.id %> --data-url=https://dpgr.am/spacewalk.wav",
+  ];
+
   static flags = {
     "data-url": Flags.string({
       description: "URL of an audio or video file",
@@ -140,46 +151,14 @@ export default class Transcribe extends SecureCommand {
       required: false,
       helpGroup: "MEDIA SOURCE",
     }),
-    // vtt: Flags.boolean({
-    //   description: "Output WebVTT formatted captions. This requires utterances",
-    //   required: false,
-    //   exclusive: [
-    //     "json",
-    //     "srt",
-    //     "detect_language",
-    //     "paragraphs",
-    //     "detect_entities",
-    //     "summarize",
-    //     "detect_topics",
-    //   ],
-    //   dependsOn: ["utterances"],
-    //   helpGroup: "FORMATTING",
-    // }),
-    // srt: Flags.boolean({
-    //   description: "Output SRT formatted captions. This requires utterances",
-    //   required: false,
-    //   exclusive: [
-    //     "json",
-    //     "vtt",
-    //     "detect_language",
-    //     "paragraphs",
-    //     "detect_entities",
-    //     "summarize",
-    //     "detect_topics",
-    //   ],
-    //   dependsOn: ["utterances"],
-    //   helpGroup: "FORMATTING",
-    // }),
     json: Flags.boolean({
-      description:
-        "Output JSON format of the response. This comes verbatim from the API",
+      description: "Output JSON format of the response. This comes verbatim from the API",
       required: false,
       exclusive: ["vtt", "srt"],
       helpGroup: "FORMATTING",
     }),
     "no-transcript": Flags.boolean({
-      description:
-        "Disable transcript so you can output understanding features",
+      description: "Disable transcript so you can output understanding features",
       exclusive: ["paragraphs", "utterances", "smart_format", "json"],
       helpGroup: "FORMATTING",
     }),
@@ -207,25 +186,20 @@ export default class Transcribe extends SecureCommand {
     source: FileSource,
     options: PrerecordedSchema
   ): Promise<DeepgramResponse<SyncPrerecordedResponse>> {
-    return await this.deepgram.listen.prerecorded.transcribeFile(
-      source,
-      options
-    );
+    return await this.deepgram.listen.prerecorded.transcribeFile(source, options);
   }
 
   private async transcribeUrl(
     source: UrlSource,
     options: PrerecordedSchema
   ): Promise<DeepgramResponse<SyncPrerecordedResponse>> {
-    return await this.deepgram.listen.prerecorded.transcribeUrl(
-      source,
-      options
-    );
+    return await this.deepgram.listen.prerecorded.transcribeUrl(source, options);
   }
 
   public async run(): Promise<void> {
     let urlSource, fileSource;
-    const { "data-url": url, "data-binary": dataBinary } = this.parsedFlags;
+    const { flags } = await this.parse(Transcribe);
+    let { "data-url": url, "data-binary": dataBinary } = flags;
 
     if (url) {
       urlSource = {
@@ -235,7 +209,13 @@ export default class Transcribe extends SecureCommand {
 
     if (dataBinary) {
       if (dataBinary.startsWith("@")) {
-        fileSource = createReadStream(dataBinary.replace("@", ""));
+        dataBinary = dataBinary.replace("@", "");
+
+        if (dataBinary.startsWith("~")) {
+          dataBinary = path.join(homeDir, dataBinary.slice(1));
+        }
+
+        fileSource = createReadStream(dataBinary);
       }
     }
 
@@ -245,7 +225,7 @@ export default class Transcribe extends SecureCommand {
 
     const featureKeys = availableFeatures.map((feat: any) => feat.name);
     const features = Object.fromEntries(
-      Object.entries(this.parsedFlags).filter(([name]) => {
+      Object.entries(flags).filter(([name]) => {
         return featureKeys.includes(name);
       })
     );
@@ -253,8 +233,10 @@ export default class Transcribe extends SecureCommand {
     let result;
 
     if (urlSource) {
-      const { result: transcriptionResult, error: transcriptionError } =
-        await this.transcribeUrl(urlSource, features);
+      const { result: transcriptionResult, error: transcriptionError } = await this.transcribeUrl(
+        urlSource,
+        features
+      );
 
       if (transcriptionError) {
         this.error(transcriptionError.message);
@@ -264,8 +246,10 @@ export default class Transcribe extends SecureCommand {
     }
 
     if (fileSource) {
-      const { result: transcriptionResult, error: transcriptionError } =
-        await this.transcribeFile(fileSource, features);
+      const { result: transcriptionResult, error: transcriptionError } = await this.transcribeFile(
+        fileSource,
+        features
+      );
 
       if (transcriptionError) {
         this.error(transcriptionError.message);
@@ -274,7 +258,7 @@ export default class Transcribe extends SecureCommand {
       result = transcriptionResult;
     }
 
-    const { vtt, srt, json, "no-transcript": noTranscript } = this.parsedFlags;
+    const { vtt, srt, json, "no-transcript": noTranscript } = flags;
 
     /**
      * Verbatim response from the API via the @deepgram/node
@@ -304,14 +288,14 @@ export default class Transcribe extends SecureCommand {
     const alternative = channel?.alternatives[0];
 
     if (features.summarize) {
-      this.title("TRANSCRIPTION SUMMARY");
+      this.output("TRANSCRIPTION SUMMARY");
       this.output("");
       this.output(result?.results.summary?.short ?? "No summary returned");
       this.output("");
     }
 
     if (features.detect_topics) {
-      this.title("TOPIC DETECTION");
+      this.output("TOPIC DETECTION");
       this.output("");
       let topics: { confidence: number; topic: string }[] = [];
 
@@ -336,7 +320,7 @@ export default class Transcribe extends SecureCommand {
     }
 
     if (features.detect_entities) {
-      this.title("ENTITY DETECTION");
+      this.output("ENTITY DETECTION");
       this.output("");
 
       const entities = alternative?.entities;
@@ -352,18 +336,15 @@ export default class Transcribe extends SecureCommand {
           value: string;
         }
 
-        const entitiesByLabel: EntityGroup = entities.reduce(
-          (group: EntityGroup, entity) => {
-            const { label }: { label: string } = entity;
-            group[label] = group[label] ?? [];
-            group[label].push(entity);
-            return group;
-          },
-          {}
-        );
+        const entitiesByLabel: EntityGroup = entities.reduce((group: EntityGroup, entity) => {
+          const { label }: { label: string } = entity;
+          group[label] = group[label] ?? [];
+          group[label].push(entity);
+          return group;
+        }, {});
 
         Object.keys(entitiesByLabel).forEach((label: string) => {
-          this.subtitle(`TYPE ${label}`);
+          this.output(`TYPE ${label}`);
           this.output("");
           entitiesByLabel[label].map((entity) => {
             const { value, confidence } = entity;
@@ -380,7 +361,7 @@ export default class Transcribe extends SecureCommand {
     }
 
     if (features.detect_language) {
-      this.title("LANGUAGE DETECTION");
+      this.output("LANGUAGE DETECTION");
       this.output("");
 
       const language = channel?.detected_language;
@@ -397,7 +378,7 @@ export default class Transcribe extends SecureCommand {
     if (features.paragraphs) {
       const paragraphs = alternative?.paragraphs;
 
-      this.title("PARAGRAPH FORMATTED");
+      this.output("PARAGRAPH FORMATTED");
       this.output("");
 
       if (paragraphs) {
@@ -418,7 +399,7 @@ export default class Transcribe extends SecureCommand {
     if (features.utterances) {
       const utterances = result?.results.utterances;
 
-      this.title("UTTERANCE FORMATTED");
+      this.output("UTTERANCE FORMATTED");
       this.output("");
 
       if (utterances) {
@@ -435,7 +416,7 @@ export default class Transcribe extends SecureCommand {
 
     if (noTranscript) this.exit();
 
-    this.title(`${features.smart_format ? "SMART " : "UN"}FORMATTED`);
+    this.output(`${features.smart_format ? "SMART " : "UN"}FORMATTED`);
     this.output("");
 
     const paragraphs = alternative?.paragraphs;

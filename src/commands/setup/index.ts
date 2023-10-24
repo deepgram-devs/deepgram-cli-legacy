@@ -6,21 +6,19 @@ import { homedir } from "os";
 import { open } from "fs/promises";
 
 export default class Setup extends BaseCommand<typeof Setup> {
-  static description = "Setup the CLI using a Deepgram API key.";
+  static description =
+    "Setup the CLI using your Deepgram API key. This will create a new limited key for you on your account.";
 
   static flags = {
     key: Flags.string({
       char: "k",
-      env: "DEEPGRAM_API_KEY",
       description: "An API key provided by Deepgram.",
       summary: "https://dpgr.am/api-key",
       required: false,
-      prompt: true,
       inquirer: "password",
     }),
     scopes: Flags.string({
       char: "s",
-      env: "DEEPGRAM_API_SCOPES",
       description: "Comma separated string of Deepgram API scopes.",
       default: "member",
       summary: "https://dpgr.am/scopes",
@@ -28,7 +26,6 @@ export default class Setup extends BaseCommand<typeof Setup> {
     }),
     ttl: Flags.integer({
       char: "t",
-      env: "DEEPGRAM_API_TTL",
       description:
         "How many seconds you should remain logged in with the Deepgram CLI. Default: 86400",
       default: 86400,
@@ -38,7 +35,12 @@ export default class Setup extends BaseCommand<typeof Setup> {
   };
 
   public async run(): Promise<void> {
-    let { key: auth, scopes, ttl } = this.parsedFlags;
+    const { flags } = await this.parse(Setup);
+    let { key: auth, scopes, ttl } = flags;
+
+    if (!auth) {
+      this.error(new Error("key required"));
+    }
 
     const deepgramClient = createClient(auth, {
       global: { url: "api.deepgram.com" },
@@ -54,26 +56,24 @@ export default class Setup extends BaseCommand<typeof Setup> {
     const project = projectsResult?.projects[0];
 
     if (!project) {
-      this.error(
-        "Cannot find a Deepgram project. Please create a project first."
-      );
+      this.error("Cannot find a Deepgram project. Please create a project first.");
     }
 
     if (!scopes) {
-      scopes = ["member"];
+      scopes = "member";
     }
 
-    if (typeof scopes === "string") {
-      scopes = this.parsedFlags["scopes"].split(",");
-    }
+    const scopesArray = scopes.split(",");
 
-    let { result: newKeyResult, error: newKeyError } =
-      await deepgramClient.manage.createProjectKey(project.project_id, {
+    let { result: newKeyResult, error: newKeyError } = await deepgramClient.manage.createProjectKey(
+      project.project_id,
+      {
         comment: "Deepgram CLI API key",
-        scopes,
+        scopes: scopesArray,
         tags: ["cli"],
         time_to_live_in_seconds: ttl,
-      });
+      }
+    );
 
     if (newKeyError) {
       this.error(newKeyError.message);
@@ -111,9 +111,7 @@ export default class Setup extends BaseCommand<typeof Setup> {
       });
 
       if (!overwritePrompt) {
-        this.error(
-          `Config file '${filePath}' already existed. Use cancelled overwrite.`
-        );
+        this.error(`Config file '${filePath}' already existed. Use cancelled overwrite.`);
       }
 
       this.log(`Overwriting the existing config file '${filePath}'`);

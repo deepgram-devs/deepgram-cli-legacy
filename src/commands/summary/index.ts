@@ -22,12 +22,11 @@ export default class Summary extends SecureCommand {
   };
 
   public async run(): Promise<void> {
+    const { flags } = await this.parse(Summary);
     const result = await this.config.runCommand("transcribe", [
       "--summarize",
       "--no-transcript",
-      ...Object.entries(this.parsedFlags).map(
-        ([flag, value]) => `--${flag}=${value}`
-      ),
+      ...Object.entries(flags).map(([flag, value]) => `--${flag}=${value}`),
     ]);
   }
 }
