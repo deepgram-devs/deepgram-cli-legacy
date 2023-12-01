@@ -65,7 +65,7 @@
     "@types/rc": "^1.2.1",
     "@types/wordwrap": "^1.0.1",
     "chalk": "^5.2.0",
-    "commitlint": "^18.0.0",
+    "commitlint": "^18.4.3",
     "husky": "^4.3.8",
     "mocha": "^10.2.0",
     "oclif": "^3.17.2",
