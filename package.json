@@ -52,7 +52,7 @@
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-conventional": "^17.6.7",
     "@deepgram/sdk": "^3.0.0-alpha.10",
-    "@inquirer/password": "^1.1.2",
+    "@inquirer/password": "^1.1.14",
     "@inquirer/prompts": "^2.1.1",
     "@oclif/core": "^2.15.0",
     "@oclif/plugin-help": "^5.2.20",
