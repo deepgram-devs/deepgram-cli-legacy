@@ -1,6 +1,7 @@
 # Deepgram CLI
 
-![Deepgram CLI](deepgram-wordmark-white.svg)
+> This project is currently DEPRECATED. Please see this [Repo](https://github.com/deepgram-devs/deepgram-cli) for our new CLI.
+
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
@@ -8,7 +9,7 @@
 [![Downloads/week](https://img.shields.io/npm/dw/@deepgram/cli.svg)](https://npmjs.org/package/@deepgram/cli)
 [![License](https://img.shields.io/npm/l/@deepgram/cli.svg)](https://github.com/lukeocodes/deepgram-cli/blob/main/package.json)
 
-> This project is currently BETA and is in active development. Commands are likely to change without warning or deprecation.
+
 
 This is the Deepgram CLI. It is used to interact with [Deepgram](https://developers.deepgram.com/api-reference/) from the command line. It is built using [oclif](https://oclif.io/).
 
